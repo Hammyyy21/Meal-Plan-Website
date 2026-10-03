@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MealPlan | Nutrition</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="app-body">
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item">
+                <span class="nav-icon">⌕</span>
+                Recipes
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+            <a href="nutrition.html" class="nav-item active">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar" id="nutritionAvatar">
+                    U
+                </div>
+
+                <div class="user-info">
+                    <strong id="nutritionUserName">User</strong>
+                    <span>User</span>
+                </div>
+
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main-content nutrition-page">
+
+        <!-- HEADER -->
+        <header class="nutrition-header">
+
+            <div>
+                <p class="page-label">
+                    HEALTH DASHBOARD
+                </p>
+
+                <h1>Nutrition</h1>
+
+                <p class="nutrition-subtitle">
+                    Track your daily nutrition and stay on top
+                    of your personal goals.
+                </p>
+            </div>
+
+            <div class="nutrition-date">
+
+                <div>
+                    <span>TODAY</span>
+
+                    <strong id="nutritionDate">
+                        Today
+                    </strong>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- TOP CARDS -->
+        <section class="nutrition-summary">
+
+            <!-- CALORIES -->
+            <div class="nutrition-main-card">
+
+                <div class="nutrition-card-top">
+
+                    <div>
+                        <p>DAILY CALORIES</p>
+
+                        <h2 id="nutritionCalories">
+                            0
+                        </h2>
+
+                        <span>
+                            of
+                            <span id="nutritionCalorieGoal">
+                                2,000
+                            </span>
+                            kcal
+                        </span>
+                    </div>
+
+                    <div class="calorie-ring">
+
+                        <div>
+                            <strong id="nutritionCaloriesPercent">
+                                0%
+                            </strong>
+
+                            <span>Daily goal</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="nutrition-progress">
+
+                    <div class="nutrition-progress-bar">
+                        <span
+                            id="nutritionProgressBar"
+                            style="width: 0%;">
+                        </span>
+                    </div>
+
+                    <div class="nutrition-progress-labels">
+
+                        <span id="nutritionConsumed">
+                            0 consumed
+                        </span>
+
+                        <strong id="nutritionRemaining">
+                            2,000 remaining
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROTEIN -->
+            <div class="macro-card">
+
+                <div class="macro-icon protein-macro">
+                    P
+                </div>
+
+                <div class="macro-card-heading">
+
+                    <div>
+                        <p>Protein</p>
+                        <h3>82g</h3>
+                    </div>
+
+                    <span>73%</span>
+
+                </div>
+
+                <div class="macro-progress">
+                    <span style="width: 73%;"></span>
+                </div>
+
+                <small>Goal: 112g</small>
+
+            </div>
+
+
+            <!-- CARBS -->
+            <div class="macro-card">
+
+                <div class="macro-icon carbs-macro">
+                    C
+                </div>
+
+                <div class="macro-card-heading">
+
+                    <div>
+                        <p>Carbs</p>
+                        <h3>165g</h3>
+                    </div>
+
+                    <span>66%</span>
+
+                </div>
+
+                <div class="macro-progress">
+                    <span style="width: 66%;"></span>
+                </div>
+
+                <small>Goal: 250g</small>
+
+            </div>
+
+
+            <!-- FAT -->
+            <div class="macro-card">
+
+                <div class="macro-icon fat-macro">
+                    F
+                </div>
+
+                <div class="macro-card-heading">
+
+                    <div>
+                        <p>Fat</p>
+                        <h3>48g</h3>
+                    </div>
+
+                    <span>72%</span>
+
+                </div>
+
+                <div class="macro-progress">
+                    <span style="width: 72%;"></span>
+                </div>
+
+                <small>Goal: 67g</small>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAIN GRID -->
+        <section class="nutrition-grid">
+
+            <!-- MEALS -->
+            <div class="nutrition-panel meals-nutrition-panel">
+
+                <div class="nutrition-panel-header">
+
+                    <div>
+                        <h2>Today's meals</h2>
+                        <p>Nutrition by meal</p>
+                    </div>
+
+                    <a href="calendar.html">
+                        View calendar →
+                    </a>
+
+                </div>
+
+                <div id="nutritionMealsList">
+
+                    <div class="nutrition-meal-row">
+
+                        <div class="nutrition-meal-icon breakfast-icon">
+                            🍽️
+                        </div>
+
+                        <div class="nutrition-meal-info">
+                            <span>MEALS</span>
+
+                            <strong>
+                                No meals planned yet
+                            </strong>
+                        </div>
+
+                        <div class="nutrition-meal-macros">
+
+                            <div>
+                                <strong>0</strong>
+                                <span>kcal</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="nutrition-add-food"
+                    onclick="window.location.href='calendar.html'">
+                    + Log food
+                </button>
+
+            </div>
+
+
+            <!-- HYDRATION -->
+            <div class="nutrition-panel hydration-panel">
+
+                <div class="nutrition-panel-header">
+
+                    <div>
+                        <h2>Hydration</h2>
+                        <p>Daily water goal</p>
+                    </div>
+
+                    <span class="water-icon">
+                        💧
+                    </span>
+
+                </div>
+
+                <div class="water-total">
+
+                    <strong id="waterCount">
+                        0
+                    </strong>
+
+                    <div>
+                        <span>/ 8 glasses</span>
+
+                        <small id="waterPercentage">
+                            Daily water goal
+                        </small>
+                    </div>
+
+                </div>
+
+                <div class="water-glasses">
+
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+                    <button class="water-glass">💧</button>
+
+                </div>
+
+                <button
+                    class="water-add-btn"
+                    id="addWaterBtn">
+                    + Add glass
+                </button>
+
+                <button
+                    class="water-reset-btn"
+                    id="resetWaterBtn">
+                    Reset
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTTOM GRID -->
+        <section class="nutrition-bottom-grid">
+
+            <!-- WEEKLY CALORIES -->
+            <div class="nutrition-panel">
+
+                <div class="nutrition-panel-header">
+
+                    <div>
+                        <h2>Weekly calories</h2>
+                        <p>
+                            Your intake over the last 7 days
+                        </p>
+                    </div>
+
+                    <span class="goal-badge">
+                        Goal:
+                        <span id="weeklyCalorieGoal">
+                            2,000
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="weekly-chart">
+
+                    <div class="chart-column">
+                        <div class="chart-track">
+                            <span style="height: 76%;"></span>
+                        </div>
+                        <small>Mon</small>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-track">
+                            <span style="height: 91%;"></span>
+                        </div>
+                        <small>Tue</small>
+                    </div>
+
+                    <div class="chart-column today-chart">
+                        <div class="chart-track">
+                            <span
+                                id="todayNutritionChart"
+                                style="height: 0%;">
+                            </span>
+                        </div>
+                        <small>Wed</small>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-track">
+                            <span style="height: 0%;"></span>
+                        </div>
+                        <small>Thu</small>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-track">
+                            <span style="height: 0%;"></span>
+                        </div>
+                        <small>Fri</small>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-track">
+                            <span style="height: 0%;"></span>
+                        </div>
+                        <small>Sat</small>
+                    </div>
+
+                    <div class="chart-column">
+                        <div class="chart-track">
+                            <span style="height: 0%;"></span>
+                        </div>
+                        <small>Sun</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NUTRIENTS -->
+            <div class="nutrition-panel">
+
+                <div class="nutrition-panel-header">
+
+                    <div>
+                        <h2>Nutrients</h2>
+                        <p>Today's nutrient targets</p>
+                    </div>
+
+                </div>
+
+                <div class="nutrient-list">
+
+                    <div class="nutrient-item">
+
+                        <div class="nutrient-name">
+                            <span>Fiber</span>
+                            <strong>18 / 28g</strong>
+                        </div>
+
+                        <div class="nutrient-bar">
+                            <span style="width: 64%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="nutrient-item">
+
+                        <div class="nutrient-name">
+                            <span>Sugar</span>
+                            <strong>32 / 50g</strong>
+                        </div>
+
+                        <div class="nutrient-bar">
+                            <span style="width: 64%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="nutrient-item">
+
+                        <div class="nutrient-name">
+                            <span>Sodium</span>
+                            <strong>
+                                1,240 / 2,300mg
+                            </strong>
+                        </div>
+
+                        <div class="nutrient-bar">
+                            <span style="width: 54%;"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="nutrient-item">
+
+                        <div class="nutrient-name">
+                            <span>Calcium</span>
+                            <strong>
+                                720 / 1,000mg
+                            </strong>
+                        </div>
+
+                        <div class="nutrient-bar">
+                            <span style="width: 72%;"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INSIGHT -->
+        <section class="nutrition-insight">
+
+            <div class="nutrition-insight-icon">
+                ✦
+            </div>
+
+            <div>
+
+                <span>DAILY INSIGHT</span>
+
+                <strong>
+                    Keep building a balanced meal plan.
+                </strong>
+
+                <p>
+                    Use your meal calendar to plan your meals
+                    and keep track of your daily calorie goal.
+                </p>
+
+            </div>
+
+            <a href="recipes.html">
+                Find recipes →
+            </a>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

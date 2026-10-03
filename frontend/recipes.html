@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MealPlan | Recipes</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="app-body">
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item active">
+                <span class="nav-icon">⌕</span>
+                Recipes
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+            <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+    <div class="user-avatar">U</div>
+
+    <div class="user-info">
+        <strong>User</strong>
+        <span>User</span>
+    </div>
+
+</div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content recipes-page">
+
+        <!-- HEADER -->
+        <header class="recipes-header">
+
+            <div>
+
+                <p class="page-label">
+                    DISCOVER
+                </p>
+
+                <h1>Recipes</h1>
+
+                <p class="recipes-subtitle">
+                    Find meals that match your goals,
+                    preferences, and ingredients.
+                </p>
+
+            </div>
+
+
+            <button class="add-meal-btn" id="createRecipeBtn">
+                + Create recipe
+            </button>
+
+        </header>
+
+
+        <!-- FEATURED RECIPE -->
+        <section class="featured-recipe">
+
+            <div class="featured-content">
+
+                <span class="featured-label">
+                    ✦ RECOMMENDED FOR YOU
+                </span>
+
+                <h2>
+                    Honey Garlic<br>
+                    Chicken Bowl
+                </h2>
+
+                <p>
+                    A balanced high-protein meal with chicken,
+                    brown rice, fresh vegetables, and a sweet
+                    garlic glaze.
+                </p>
+
+
+                <div class="featured-stats">
+
+                    <div>
+                        <strong>520</strong>
+                        <span>Calories</span>
+                    </div>
+
+                    <div>
+                        <strong>42g</strong>
+                        <span>Protein</span>
+                    </div>
+
+                    <div>
+                        <strong>30 min</strong>
+                        <span>Time</span>
+                    </div>
+
+                </div>
+
+
+                <button class="featured-button">
+                    View recipe →
+                </button>
+
+            </div>
+
+
+            <div class="featured-visual">
+
+                <div class="featured-food-circle">
+                    🍲
+                </div>
+
+                <div class="featured-badge">
+                    <span>92%</span>
+                    Match
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH -->
+        <section class="recipe-toolbar">
+
+            <div class="recipe-search">
+
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="recipeSearch"
+                    placeholder="Search recipes, ingredients, or meals..."
+                >
+
+            </div>
+
+
+            <button class="recipe-filter-button">
+                Filters
+                <span>⌄</span>
+            </button>
+
+        </section>
+
+
+        <!-- CATEGORIES -->
+        <section class="recipe-categories">
+
+            <button class="recipe-category active">
+                All recipes
+            </button>
+            <button class="recipe-category" data-category="favorites">
+    ♥ Favorites
+</button>
+
+            <button class="recipe-category">
+                Breakfast
+            </button>
+
+            <button class="recipe-category">
+                Lunch
+            </button>
+
+            <button class="recipe-category">
+                Dinner
+            </button>
+
+            <button class="recipe-category">
+                High Protein
+            </button>
+
+            <button class="recipe-category">
+                Vegetarian
+            </button>
+
+            <button class="recipe-category">
+                Quick Meals
+            </button>
+
+        </section>
+
+
+        <!-- SECTION TITLE -->
+        <div class="recipe-section-heading">
+
+            <div>
+
+                <h2>Explore recipes</h2>
+
+                <p>
+                    Meals selected around your preferences.
+                </p>
+
+            </div>
+
+            <span>6 recipes</span>
+
+        </div>
+
+
+        <!-- RECIPE GRID -->
+        <section class="recipe-grid">
+
+
+            <!-- RECIPE 1 -->
+            <article class="recipe-card"
+    data-category="breakfast high-protein"
+    data-name="Greek Yogurt Berry Bowl"
+    data-calories="380">
+
+                <div class="recipe-image berry-recipe">
+
+                    <span class="recipe-emoji">
+                        🫐
+                    </span>
+
+                    <button class="favorite-button">
+                        ♡
+                    </button>
+
+                    <span class="recipe-time">
+                        10 min
+                    </span>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <div class="recipe-type">
+                        BREAKFAST
+                    </div>
+
+                    <h3>
+                        Greek Yogurt Berry Bowl
+                    </h3>
+
+                    <p>
+                        Greek yogurt, fresh berries,
+                        granola, honey, and chia seeds.
+                    </p>
+
+
+                    <div class="recipe-macros">
+
+                        <span>
+                            <strong>380</strong>
+                            kcal
+                        </span>
+
+                        <span>
+                            <strong>28g</strong>
+                            protein
+                        </span>
+
+                    </div>
+
+
+                    <button class="add-plan-button">
+                        + Add to meal plan
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- RECIPE 2 -->
+            <article
+    class="recipe-card"
+    data-category="lunch high-protein"
+    data-name="Grilled Chicken Power Bowl"
+    data-calories="540">
+
+                <div class="recipe-image chicken-recipe">
+
+                    <span class="recipe-emoji">
+                        🥗
+                    </span>
+
+                    <button class="favorite-button">
+                        ♡
+                    </button>
+
+                    <span class="recipe-time">
+                        25 min
+                    </span>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <div class="recipe-type">
+                        LUNCH
+                    </div>
+
+                    <h3>
+                        Grilled Chicken Power Bowl
+                    </h3>
+
+                    <p>
+                        Chicken, brown rice, avocado,
+                        greens, corn, and fresh salsa.
+                    </p>
+
+
+                    <div class="recipe-macros">
+
+                        <span>
+                            <strong>540</strong>
+                            kcal
+                        </span>
+
+                        <span>
+                            <strong>46g</strong>
+                            protein
+                        </span>
+
+                    </div>
+
+
+                    <button class="add-plan-button">
+                        + Add to meal plan
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- RECIPE 3 -->
+            <article
+    class="recipe-card"
+    data-category="dinner vegetarian"
+    data-name="Creamy Garlic Pasta"
+    data-calories="610">
+
+                <div class="recipe-image pasta-recipe">
+
+                    <span class="recipe-emoji">
+                        🍝
+                    </span>
+
+                    <button class="favorite-button">
+                        ♡
+                    </button>
+
+                    <span class="recipe-time">
+                        20 min
+                    </span>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <div class="recipe-type">
+                        DINNER
+                    </div>
+
+                    <h3>
+                        Creamy Garlic Pasta
+                    </h3>
+
+                    <p>
+                        Pasta tossed with garlic,
+                        spinach, parmesan, and herbs.
+                    </p>
+
+
+                    <div class="recipe-macros">
+
+                        <span>
+                            <strong>610</strong>
+                            kcal
+                        </span>
+
+                        <span>
+                            <strong>22g</strong>
+                            protein
+                        </span>
+
+                    </div>
+
+
+                    <button class="add-plan-button">
+                        + Add to meal plan
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- RECIPE 4 -->
+            <article
+    class="recipe-card"
+    data-category="breakfast quick"
+    data-name="Avocado Egg Toast"
+    data-calories="420">
+
+                <div class="recipe-image avocado-recipe">
+
+                    <span class="recipe-emoji">
+                        🥑
+                    </span>
+
+                    <button class="favorite-button">
+                        ♡
+                    </button>
+
+                    <span class="recipe-time">
+                        12 min
+                    </span>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <div class="recipe-type">
+                        BREAKFAST
+                    </div>
+
+                    <h3>
+                        Avocado Egg Toast
+                    </h3>
+
+                    <p>
+                        Whole grain toast topped with
+                        avocado, egg, and chili flakes.
+                    </p>
+
+
+                    <div class="recipe-macros">
+
+                        <span>
+                            <strong>420</strong>
+                            kcal
+                        </span>
+
+                        <span>
+                            <strong>21g</strong>
+                            protein
+                        </span>
+
+                    </div>
+
+
+                    <button class="add-plan-button">
+                        + Add to meal plan
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- RECIPE 5 -->
+            <article
+    class="recipe-card"
+    data-category="dinner high-protein"
+    data-name="Salmon Rice Bowl"
+    data-calories="590">
+                <div class="recipe-image salmon-recipe">
+
+                    <span class="recipe-emoji">
+                        🐟
+                    </span>
+
+                    <button class="favorite-button">
+                        ♡
+                    </button>
+
+                    <span class="recipe-time">
+                        30 min
+                    </span>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <div class="recipe-type">
+                        DINNER
+                    </div>
+
+                    <h3>
+                        Salmon Rice Bowl
+                    </h3>
+
+                    <p>
+                        Salmon, jasmine rice,
+                        cucumber, avocado, and sesame.
+                    </p>
+
+
+                    <div class="recipe-macros">
+
+                        <span>
+                            <strong>590</strong>
+                            kcal
+                        </span>
+
+                        <span>
+                            <strong>40g</strong>
+                            protein
+                        </span>
+
+                    </div>
+
+
+                    <button class="add-plan-button">
+                        + Add to meal plan
+                    </button>
+
+                </div>
+
+            </article>
+
+
+            <!-- RECIPE 6 -->
+            <article
+    class="recipe-card"
+    data-category="lunch vegetarian quick"
+    data-name="Mediterranean Wrap"
+    data-calories="450">
+
+                <div class="recipe-image wrap-recipe">
+
+                    <span class="recipe-emoji">
+                        🌯
+                    </span>
+
+                    <button class="favorite-button">
+                        ♡
+                    </button>
+
+                    <span class="recipe-time">
+                        15 min
+                    </span>
+
+                </div>
+
+
+                <div class="recipe-card-content">
+
+                    <div class="recipe-type">
+                        LUNCH
+                    </div>
+
+                    <h3>
+                        Mediterranean Wrap
+                    </h3>
+
+                    <p>
+                        Hummus, spinach, tomato,
+                        cucumber, feta, and herbs.
+                    </p>
+
+
+                    <div class="recipe-macros">
+
+                        <span>
+                            <strong>450</strong>
+                            kcal
+                        </span>
+
+                        <span>
+                            <strong>19g</strong>
+                            protein
+                        </span>
+
+                    </div>
+
+
+                    <button class="add-plan-button">
+                        + Add to meal plan
+                    </button>
+
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- EMPTY SEARCH STATE -->
+        <div class="recipe-empty-state" id="recipeEmptyState">
+
+            <span>⌕</span>
+
+            <h3>No recipes found</h3>
+
+            <p>
+                Try searching for another meal or ingredient.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

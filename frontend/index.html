@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MealPlan | Login</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <!-- LEFT SIDE -->
+    <section class="login-hero">
+
+        <div class="brand">
+            <div class="brand-icon">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <div class="hero-content">
+
+            <span class="hero-tag">SMARTER MEAL PLANNING</span>
+
+            <h1>
+                Plan smarter.<br>
+                Eat better.<br>
+                <span>Live healthier.</span>
+            </h1>
+
+            <p>
+                Plan your meals, organize your groceries, track your
+                nutrition, and reach your goals — all in one place.
+            </p>
+
+            <div class="feature-list">
+
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <span>Plan meals for your entire week</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <span>Keep track of food and pantry items</span>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">✓</div>
+                    <span>Stay on top of your nutrition goals</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="hero-footer">
+            Your meals. Your goals. Your plan.
+        </p>
+
+    </section>
+
+
+    <!-- RIGHT SIDE -->
+    <section class="login-section">
+
+        <div class="login-container">
+
+            <div class="mobile-brand">
+                <div class="brand-icon">M</div>
+                <span>MealPlan</span>
+            </div>
+
+            <div class="welcome-text">
+                <p class="small-heading">WELCOME BACK</p>
+                <h2>Sign in to your account</h2>
+                <p>
+                    Continue planning your meals and tracking your progress.
+                </p>
+            </div>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="email">Email address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="name@example.com"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="password-heading">
+                        <label for="password">Password</label>
+                        <a href="#" class="forgot-password">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+                <p id="loginError" class="error-message"></p>
+
+
+                <div class="remember-row">
+
+                    <label class="remember-me">
+                        <input type="checkbox">
+                        <span>Remember me</span>
+                    </label>
+
+                </div>
+
+
+                <button type="submit" class="login-btn">
+                    <span>Sign in</span>
+                    <span class="arrow">→</span>
+                </button>
+
+            </form>
+
+
+            <div class="divider">
+                <span></span>
+                <p>NEW TO MEALPLAN?</p>
+                <span></span>
+            </div>
+
+
+            <a href="register.html" class="create-account-btn">
+                Create an account
+            </a>
+
+
+            <p class="terms">
+                By continuing, you agree to our
+                <a href="#">Terms of Service</a>
+                and
+                <a href="#">Privacy Policy</a>.
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

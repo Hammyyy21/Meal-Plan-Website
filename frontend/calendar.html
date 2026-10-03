@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MealPlan | Meal Calendar</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="app-body">
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item active">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item">
+                <span class="nav-icon">⌕</span>
+                Recipes
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+            <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+          <div class="sidebar-user">
+
+    <div class="user-avatar">
+        U
+    </div>
+
+    <div class="user-info">
+        <strong>User</strong>
+        <span>User</span>
+    </div>
+
+</div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- PAGE HEADER -->
+        <header class="calendar-header">
+
+            <div>
+                <p class="page-label">MEAL PLANNER</p>
+
+                <h1>Meal Calendar</h1>
+
+                <p>
+                    Organize your meals and stay prepared for the week.
+                </p>
+            </div>
+
+            <button class="add-meal-btn" id="topAddMealBtn">
+    + Add meal
+</button>
+
+        </header>
+
+
+        <!-- WEEK CONTROLS -->
+        <section class="week-toolbar">
+
+            <div class="week-navigation">
+
+                <button class="week-arrow">
+                    ←
+                </button>
+
+                <div>
+                    <span class="week-label">THIS WEEK</span>
+                    <h2>October 5 – 11, 2026</h2>
+                </div>
+
+                <button class="week-arrow">
+                    →
+                </button>
+
+            </div>
+
+            <button class="today-btn">
+                Today
+            </button>
+
+        </section>
+
+
+        <!-- WEEK DAYS -->
+        <section class="calendar-grid">
+
+            <!-- MONDAY -->
+<div class="day-column" data-day="monday">
+                <div class="day-heading">
+                    <span>MON</span>
+                    <strong>5</strong>
+                </div>
+
+                <div class="calendar-meal breakfast-meal">
+                    <span class="meal-type">BREAKFAST</span>
+                    <h3>Greek Yogurt Bowl</h3>
+                    <p>420 kcal</p>
+                </div>
+
+                <div class="calendar-meal lunch-meal">
+                    <span class="meal-type">LUNCH</span>
+                    <h3>Chicken Power Bowl</h3>
+                    <p>580 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+
+            <!-- TUESDAY -->
+            <div class="day-column" data-day="tuesday">
+
+                <div class="day-heading">
+                    <span>TUE</span>
+                    <strong>6</strong>
+                </div>
+
+                <div class="calendar-meal breakfast-meal">
+                    <span class="meal-type">BREAKFAST</span>
+                    <h3>Avocado Toast</h3>
+                    <p>390 kcal</p>
+                </div>
+
+                <div class="calendar-meal dinner-meal">
+                    <span class="meal-type">DINNER</span>
+                    <h3>Garlic Pasta</h3>
+                    <p>620 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+
+            <!-- WEDNESDAY -->
+<div class="day-column today-column" data-day="wednesday">
+
+                <div class="day-heading">
+                    <span>WED</span>
+                    <strong>7</strong>
+                    <small>Today</small>
+                </div>
+
+                <div class="calendar-meal breakfast-meal">
+                    <span class="meal-type">BREAKFAST</span>
+                    <h3>Oatmeal & Berries</h3>
+                    <p>350 kcal</p>
+                </div>
+
+                <div class="calendar-meal lunch-meal">
+                    <span class="meal-type">LUNCH</span>
+                    <h3>Turkey Wrap</h3>
+                    <p>510 kcal</p>
+                </div>
+
+                <div class="calendar-meal dinner-meal">
+                    <span class="meal-type">DINNER</span>
+                    <h3>Salmon & Rice</h3>
+                    <p>680 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+
+            <!-- THURSDAY -->
+<div class="day-column" data-day="thursday">
+
+                <div class="day-heading">
+                    <span>THU</span>
+                    <strong>8</strong>
+                </div>
+
+                <div class="calendar-meal lunch-meal">
+                    <span class="meal-type">LUNCH</span>
+                    <h3>Caesar Salad</h3>
+                    <p>450 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+
+            <!-- FRIDAY -->
+<div class="day-column" data-day="friday">
+
+                <div class="day-heading">
+                    <span>FRI</span>
+                    <strong>9</strong>
+                </div>
+
+                <div class="calendar-meal breakfast-meal">
+                    <span class="meal-type">BREAKFAST</span>
+                    <h3>Egg & Toast</h3>
+                    <p>410 kcal</p>
+                </div>
+
+                <div class="calendar-meal dinner-meal">
+                    <span class="meal-type">DINNER</span>
+                    <h3>Chicken Tacos</h3>
+                    <p>650 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+
+            <!-- SATURDAY -->
+<div class="day-column" data-day="saturday">
+
+                <div class="day-heading">
+                    <span>SAT</span>
+                    <strong>10</strong>
+                </div>
+
+                <div class="calendar-meal lunch-meal">
+                    <span class="meal-type">LUNCH</span>
+                    <h3>Veggie Bowl</h3>
+                    <p>470 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+
+            <!-- SUNDAY -->
+<div class="day-column" data-day="sunday">
+                <div class="day-heading">
+                    <span>SUN</span>
+                    <strong>11</strong>
+                </div>
+
+                <div class="calendar-meal dinner-meal">
+                    <span class="meal-type">DINNER</span>
+                    <h3>Grilled Chicken</h3>
+                    <p>590 kcal</p>
+                </div>
+
+                <button class="add-small-meal">
+                    + Add meal
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- WEEK SUMMARY -->
+        <section class="week-summary">
+
+            <div>
+                <span>MEALS PLANNED</span>
+<strong id="mealsPlannedCount">13</strong>            </div>
+
+            <div>
+                <span>AVG. DAILY CALORIES</span>
+                <strong>1,840</strong>
+            </div>
+
+            <div>
+                <span>WEEKLY BUDGET</span>
+                <strong>$72 / $100</strong>
+            </div>
+
+            <div>
+                <span>PLAN STATUS</span>
+                <strong class="plan-good">On track</strong>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+<!-- ADD MEAL MODAL -->
+<div class="meal-modal" id="mealModal">
+
+    <div class="meal-modal-box">
+
+        <div class="meal-modal-header">
+            <div>
+                <p class="page-label">MEAL PLANNER</p>
+                <h2>Add a meal</h2>
+                <span id="selectedDayText">Choose a meal for this day.</span>
+            </div>
+
+            <button id="closeMealModal" class="meal-modal-close">
+                ×
+            </button>
+        </div>
+<div class="meal-form-group" id="daySelectGroup">
+    <label for="daySelect">Day</label>
+
+    <select id="daySelect">
+        <option value="">Select a day</option>
+        <option value="monday">Monday</option>
+        <option value="tuesday">Tuesday</option>
+        <option value="wednesday">Wednesday</option>
+        <option value="thursday">Thursday</option>
+        <option value="friday">Friday</option>
+        <option value="saturday">Saturday</option>
+        <option value="sunday">Sunday</option>
+    </select>
+</div>
+        <div class="meal-form-group">
+            <label for="mealTypeSelect">Meal type</label>
+
+            <select id="mealTypeSelect">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </div>
+
+        <div class="meal-form-group">
+            <label for="savedRecipeSelect">Recipe</label>
+
+            <select id="savedRecipeSelect">
+                <option value="">Select a saved recipe</option>
+            </select>
+        </div>
+
+        <p class="meal-modal-note" id="noSavedRecipes">
+            Recipes you add from the Recipes page will appear here.
+        </p>
+
+        <button class="meal-modal-submit" id="confirmAddMeal">
+            Add to calendar
+        </button>
+
+    </div>
+
+</div>
+<script src="script.js"></script>
+
+</body>
+</html>

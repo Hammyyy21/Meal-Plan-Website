@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealPlan | Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="app-body">
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item">
+                <span class="nav-icon">⌕</span>
+                Recipes
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+            <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar" id="dashboardAvatar">
+                    U
+                </div>
+
+                <div class="user-info">
+                    <strong id="dashboardUserName">User</strong>
+                    <span>User</span>
+                </div>
+
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <p class="page-label">DASHBOARD</p>
+
+                <h1 id="dashboardGreeting">
+                    Good morning.
+                </h1>
+
+                <p class="topbar-subtitle">
+                    Here's what's happening with your meals today.
+                </p>
+            </div>
+
+            <div class="topbar-actions">
+
+    <button
+        class="add-meal-btn"
+        onclick="window.location.href='calendar.html'">
+
+        + Add meal
+
+    </button>
+
+</div>
+
+        </header>
+
+
+        <!-- SUMMARY CARDS -->
+        <section class="summary-grid">
+
+            <!-- CALORIES -->
+            <div class="summary-card">
+
+                <div class="card-top">
+                    <span class="card-title">
+                        Today's Calories
+                    </span>
+
+                    <span class="card-icon">
+                        ◒
+                    </span>
+                </div>
+
+                <h2 id="dashboardCalories">
+                    0
+                </h2>
+
+                <p>
+                    of
+                    <span id="dashboardCalorieGoal">
+                        2,000
+                    </span>
+                    kcal
+                </p>
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        id="dashboardCalorieProgress"
+                        style="width: 0%;">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- MEALS -->
+            <div class="summary-card">
+
+                <div class="card-top">
+                    <span class="card-title">
+                        Meals Planned
+                    </span>
+
+                    <span class="card-icon">
+                        ✓
+                    </span>
+                </div>
+
+                <h2 id="dashboardMealsPlanned">
+                    0
+                </h2>
+
+                <p>
+                    meals planned today
+                </p>
+
+                <span
+                    class="positive-text"
+                    id="dashboardMealStatus">
+                    No meals planned yet
+                </span>
+
+            </div>
+
+
+            <!-- PANTRY -->
+            <div class="summary-card">
+
+                <div class="card-top">
+                    <span class="card-title">
+                        Pantry
+                    </span>
+
+                    <span class="card-icon">
+                        ▦
+                    </span>
+                </div>
+
+                <h2 id="dashboardPantryCount">
+                    0
+                </h2>
+
+                <p>
+                    items in inventory
+                </p>
+
+                <span
+                    class="warning-text"
+                    id="dashboardPantryStatus">
+                    No added items
+                </span>
+
+            </div>
+
+
+            <!-- BUDGET -->
+            <div class="summary-card">
+
+                <div class="card-top">
+                    <span class="card-title">
+                        Weekly Budget
+                    </span>
+
+                    <span class="card-icon">
+                        $
+                    </span>
+                </div>
+
+                <h2 id="dashboardBudget">
+                    $0
+                </h2>
+
+                <p>
+                    of $
+                    <span id="dashboardBudgetGoal">
+                        100
+                    </span>
+                    budget
+                </p>
+
+                <div class="progress-bar">
+                    <div
+                        class="progress-fill"
+                        id="dashboardBudgetProgress"
+                        style="width: 0%;">
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOWER DASHBOARD -->
+        <section class="dashboard-grid">
+
+            <!-- TODAY'S MEALS -->
+            <div class="dashboard-card meals-card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="section-label">
+                            TODAY
+                        </p>
+
+                        <h2>
+                            Today's meals
+                        </h2>
+                    </div>
+
+                    <a href="calendar.html">
+                        View calendar →
+                    </a>
+
+                </div>
+
+
+                <div id="dashboardMealsList">
+
+                    <div class="dashboard-empty-meals">
+
+                        <div class="meal-picture breakfast">
+                            🍽️
+                        </div>
+
+                        <div class="meal-details">
+                            <h3>
+                                No meals planned yet
+                            </h3>
+
+                            <p>
+                                Add meals to your calendar
+                                to see them here.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NUTRITION -->
+            <div class="dashboard-card nutrition-card">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="section-label">
+                            DAILY GOAL
+                        </p>
+
+                        <h2>
+                            Nutrition
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="nutrition-circle">
+
+                    <div>
+                        <strong id="dashboardNutritionPercent">
+                            0%
+                        </strong>
+
+                        <span>
+                            Daily goal
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="macro-row">
+
+                    <div>
+                        <span>Protein</span>
+                        <strong>82g</strong>
+                    </div>
+
+                    <div>
+                        <span>Carbs</span>
+                        <strong>165g</strong>
+                    </div>
+
+                    <div>
+                        <span>Fat</span>
+                        <strong>48g</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

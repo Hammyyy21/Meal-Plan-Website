@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MealPlan | Inventory</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="app-body">
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item">
+    <span class="nav-icon">⌕</span>
+    Recipes
+</a>
+
+            <a href="inventory.html" class="nav-item active">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+           <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+    <div class="user-avatar">U</div>
+
+    <div class="user-info">
+        <strong>User</strong>
+        <span>User</span>
+    </div>
+
+</div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content inventory-page">
+
+        <!-- HEADER -->
+        <header class="inventory-header">
+
+            <div>
+                <p class="page-label">MY PANTRY</p>
+
+                <h1>Food Inventory</h1>
+
+                <p class="inventory-subtitle">
+                    Keep track of your ingredients, quantities,
+                    and expiration dates.
+                </p>
+            </div>
+
+ <button class="add-meal-btn" id="addInventoryBtn">
+    + Add item
+</button>
+
+        </header>
+
+
+        <!-- SUMMARY CARDS -->
+        <section class="inventory-summary">
+
+            <div class="inventory-stat">
+
+                <div class="inventory-stat-icon">
+                    ▦
+                </div>
+
+                <div>
+                    <p>Total items</p>
+                    <strong>24</strong>
+                    <small>In your pantry</small>
+                </div>
+
+            </div>
+
+
+            <div class="inventory-stat">
+
+                <div class="inventory-stat-icon warning-icon">
+                    !
+                </div>
+
+                <div>
+                    <p>Expiring soon</p>
+                    <strong>3</strong>
+                    <small>Use these first</small>
+                </div>
+
+            </div>
+
+
+            <div class="inventory-stat">
+
+                <div class="inventory-stat-icon low-icon">
+                    ↓
+                </div>
+
+                <div>
+                    <p>Low stock</p>
+                    <strong>4</strong>
+                    <small>May need restocking</small>
+                </div>
+
+            </div>
+
+
+            <div class="inventory-stat">
+
+                <div class="inventory-stat-icon">
+                    ✓
+                </div>
+
+                <div>
+                    <p>Categories</p>
+                    <strong>5</strong>
+                    <small>Food groups</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+       <!-- SEARCH AND FILTER -->
+<section class="inventory-tools">
+
+    <div class="inventory-search">
+        <input
+            type="text"
+            id="inventorySearch"
+            placeholder="Search inventory...">
+    </div>
+
+    <div class="inventory-filters">
+
+        <button class="filter-btn active" data-category="all">
+            All items
+        </button>
+
+        <button class="filter-btn" data-category="produce">
+            Produce
+        </button>
+
+        <button class="filter-btn" data-category="protein">
+            Protein
+        </button>
+
+        <button class="filter-btn" data-category="dairy">
+            Dairy
+        </button>
+
+        <button class="filter-btn" data-category="grains">
+            Grains
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- INVENTORY TABLE -->
+<section class="inventory-card inventory-list">
+
+    <div class="inventory-table-header">
+        <div>FOOD ITEM</div>
+        <div>CATEGORY</div>
+        <div>QUANTITY</div>
+        <div>EXPIRES</div>
+        <div>STATUS</div>
+        <div></div>
+    </div>
+
+
+    <!-- AVOCADOS -->
+    <div class="inventory-row">
+
+        <div class="food-name">
+            <div class="food-icon produce-bg">🥑</div>
+
+            <div>
+                <strong>Avocados</strong>
+                <span>Fresh produce</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="category-tag produce-tag">
+                Produce
+            </span>
+        </div>
+
+        <div class="quantity">
+            <strong>3</strong>
+            <span>items</span>
+        </div>
+
+        <div class="expiration">
+            <strong>Oct 6</strong>
+        </div>
+
+        <div>
+            <span class="status-tag expiring">
+                ● Expiring soon
+            </span>
+        </div>
+
+        <button class="more-btn"></button>
+
+    </div>
+
+
+    <!-- CHICKEN -->
+    <div class="inventory-row">
+
+        <div class="food-name">
+            <div class="food-icon protein-bg">🍗</div>
+
+            <div>
+                <strong>Chicken Breast</strong>
+                <span>Refrigerated</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="category-tag protein-tag">
+                Protein
+            </span>
+        </div>
+
+        <div class="quantity">
+            <strong>2</strong>
+            <span>lbs</span>
+        </div>
+
+        <div class="expiration">
+            <strong>Oct 7</strong>
+        </div>
+
+        <div>
+            <span class="status-tag expiring">
+                ● Expiring soon
+            </span>
+        </div>
+
+        <button class="more-btn"></button>
+
+    </div>
+
+
+    <!-- YOGURT -->
+    <div class="inventory-row">
+
+        <div class="food-name">
+            <div class="food-icon dairy-bg">🥛</div>
+
+            <div>
+                <strong>Greek Yogurt</strong>
+                <span>Refrigerated</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="category-tag dairy-tag">
+                Dairy
+            </span>
+        </div>
+
+        <div class="quantity">
+            <strong>1</strong>
+            <span>container</span>
+        </div>
+
+        <div class="expiration">
+            <strong>Oct 8</strong>
+        </div>
+
+        <div>
+            <span class="status-tag expiring">
+                ● Expiring soon
+            </span>
+        </div>
+
+        <button class="more-btn"></button>
+
+    </div>
+
+
+    <!-- RICE -->
+    <div class="inventory-row">
+
+        <div class="food-name">
+            <div class="food-icon grain-bg">🍚</div>
+
+            <div>
+                <strong>Brown Rice</strong>
+                <span>Pantry</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="category-tag grain-tag">
+                Grains
+            </span>
+        </div>
+
+        <div class="quantity">
+            <strong>1</strong>
+            <span>bag</span>
+        </div>
+
+        <div class="expiration">
+            <strong>Dec 18</strong>
+        </div>
+
+        <div>
+            <span class="status-tag good">
+                ● Good
+            </span>
+        </div>
+
+        <button class="more-btn"></button>
+
+    </div>
+
+
+    <!-- SPINACH -->
+    <div class="inventory-row">
+
+        <div class="food-name">
+            <div class="food-icon produce-bg">🥬</div>
+
+            <div>
+                <strong>Spinach</strong>
+                <span>Fresh produce</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="category-tag produce-tag">
+                Produce
+            </span>
+        </div>
+
+        <div class="quantity">
+            <strong>1</strong>
+            <span>bag</span>
+        </div>
+
+        <div class="expiration">
+            <strong>Oct 12</strong>
+        </div>
+
+        <div>
+            <span class="status-tag low-stock">
+                ● Low stock
+            </span>
+        </div>
+
+        <button class="more-btn"></button>
+
+    </div>
+
+
+    <!-- EGGS -->
+    <div class="inventory-row">
+
+        <div class="food-name">
+            <div class="food-icon protein-bg">🥚</div>
+
+            <div>
+                <strong>Eggs</strong>
+                <span>Refrigerated</span>
+            </div>
+        </div>
+
+        <div>
+            <span class="category-tag protein-tag">
+                Protein
+            </span>
+        </div>
+
+        <div class="quantity">
+            <strong>4</strong>
+            <span>eggs</span>
+        </div>
+
+        <div class="expiration">
+            <strong>Oct 15</strong>
+        </div>
+
+        <div>
+            <span class="status-tag low-stock">
+                ● Low stock
+            </span>
+        </div>
+
+        <button class="more-btn"></button>
+
+    </div>
+
+</section>
+
+
+<!-- SMART TIP -->
+<section class="inventory-tip">
+
+    <div class="tip-icon">
+        ✦
+    </div>
+
+    <div>
+        <strong>Smart pantry tip</strong>
+
+        <p>
+            You have 3 ingredients expiring soon.
+            Add them to this week's meal plan so they
+            don't go to waste.
+        </p>
+    </div>
+
+    <a href="calendar.html">
+        Plan meals →
+    </a>
+
+</section>
+
+</main>
+</div>
+
+
+<!-- ADD INVENTORY ITEM MODAL -->
+<div class="inventory-modal" id="inventoryModal">
+
+    <div class="inventory-modal-box">
+
+        <div class="inventory-modal-header">
+
+            <div>
+                <p class="page-label">INVENTORY</p>
+                <h2>Add inventory item</h2>
+
+                <span>
+                    Add food to your kitchen inventory.
+                </span>
+            </div>
+
+            <button
+                type="button"
+                class="inventory-modal-close"
+                id="closeInventoryModal">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="inventory-form-group">
+
+            <label for="inventoryItemName">
+                Item name
+            </label>
+
+            <input
+                type="text"
+                id="inventoryItemName"
+                placeholder="Example: Chicken Breast">
+
+        </div>
+
+
+        <div class="inventory-form-group">
+
+            <label for="inventoryCategory">
+                Category
+            </label>
+
+            <select id="inventoryCategory">
+
+                <option value="produce">
+                    Produce
+                </option>
+
+                <option value="protein">
+                    Protein
+                </option>
+
+                <option value="dairy">
+                    Dairy
+                </option>
+
+                <option value="grains">
+                    Grains
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="inventory-form-row">
+
+            <div class="inventory-form-group">
+
+                <label for="inventoryQuantity">
+                    Quantity
+                </label>
+
+                <input
+                    type="number"
+                    id="inventoryQuantity"
+                    min="1"
+                    value="1">
+
+            </div>
+
+
+            <div class="inventory-form-group">
+
+                <label for="inventoryUnit">
+                    Unit
+                </label>
+
+                <select id="inventoryUnit">
+
+                    <option value="items">items</option>
+                    <option value="lbs">lbs</option>
+                    <option value="oz">oz</option>
+                    <option value="cups">cups</option>
+                    <option value="bags">bags</option>
+                    <option value="cartons">cartons</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="inventory-form-group">
+
+            <label for="inventoryExpiration">
+                Expiration date
+            </label>
+
+            <input
+                type="date"
+                id="inventoryExpiration">
+
+        </div>
+
+
+        <button
+            type="button"
+            class="inventory-modal-submit"
+            id="saveInventoryItem">
+            Add to inventory
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

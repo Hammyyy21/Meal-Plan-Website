@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MealPlan | Preferences</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* =========================================
+           PREFERENCES PAGE LAYOUT
+        ========================================= */
+
+        .preferences-page {
+            padding-bottom: 40px;
+        }
+
+        .preferences-dashboard {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .preferences-dashboard .settings-content {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        /* Profile full width */
+        #profileSection {
+            grid-column: 1 / -1;
+        }
+
+        /* Dietary + Goals sit beside each other */
+        #dietarySection,
+        #goalsSection {
+            grid-column: span 1;
+        }
+
+        /* Appearance full width */
+        #appearanceSection {
+            grid-column: 1 / -1;
+        }
+
+        /* Save full width */
+        .preferences-dashboard .settings-save {
+            grid-column: 1 / -1;
+        }
+
+        /* Make the cards line up nicely */
+        .preferences-dashboard .settings-card {
+            margin: 0;
+            height: 100%;
+        }
+
+        /* Profile layout */
+        .preferences-profile-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .preferences-profile-content .profile-preview {
+            margin: 0;
+            height: 100%;
+            min-height: 115px;
+        }
+
+        /* Dietary spacing */
+        #dietarySection .settings-field + .settings-field {
+            margin-top: 22px;
+        }
+
+        /* Goals inputs */
+        #goalsSection .settings-form-grid {
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+        }
+
+        /* Appearance stays roomy */
+        #appearanceSection .appearance-setting {
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+
+            .preferences-dashboard .settings-content {
+                grid-template-columns: 1fr;
+            }
+
+            #profileSection,
+            #dietarySection,
+            #goalsSection,
+            #appearanceSection,
+            .preferences-dashboard .settings-save {
+                grid-column: 1;
+            }
+
+            .preferences-profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            #goalsSection .settings-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+
+<body class="app-body">
+
+<div class="app-layout">
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="sidebar-logo">
+                M
+            </div>
+
+            <span>MealPlan</span>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">
+                MENU
+            </p>
+
+
+            <a
+                href="dashboard.html"
+                class="nav-item">
+
+                <span class="nav-icon">⌂</span>
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="calendar.html"
+                class="nav-item">
+
+                <span class="nav-icon">□</span>
+                Meal Calendar
+
+            </a>
+
+
+            <a
+                href="recipes.html"
+                class="nav-item">
+
+                <span class="nav-icon">⌕</span>
+                Recipes
+
+            </a>
+
+
+            <a
+                href="inventory.html"
+                class="nav-item">
+
+                <span class="nav-icon">▦</span>
+                Inventory
+
+            </a>
+
+
+            <a
+                href="nutrition.html"
+                class="nav-item">
+
+                <span class="nav-icon">◒</span>
+                Nutrition
+
+            </a>
+
+
+            <p class="nav-label nav-section">
+                ACCOUNT
+            </p>
+
+
+            <a
+                href="preferences.html"
+                class="nav-item active">
+
+                <span class="nav-icon">⚙</span>
+                Preferences
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar">
+                    U
+                </div>
+
+                <div class="user-info">
+
+                    <strong>
+                        User
+                    </strong>
+
+                    <span>
+                        User
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="logoutBtn"
+                class="logout-btn">
+
+                Log out
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="main-content preferences-page">
+
+
+        <header class="preferences-header">
+
+            <div>
+
+                <p class="page-label">
+                    ACCOUNT SETTINGS
+                </p>
+
+                <h1>
+                    Preferences
+                </h1>
+
+                <p>
+                    Personalize your meals, goals,
+                    and MealPlan experience.
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="preferences-dashboard">
+
+            <div class="settings-content">
+
+
+                <!-- =================================
+                     01 PROFILE
+                ================================== -->
+
+                <section
+                    class="settings-card"
+                    id="profileSection">
+
+
+                    <div class="settings-heading">
+
+                        <div>
+
+                            <span class="settings-number">
+                                01
+                            </span>
+
+                            <h2>
+                                Profile
+                            </h2>
+
+                        </div>
+
+
+                        <p>
+                            Your basic account information.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="preferences-profile-content">
+
+
+                        <div class="profile-preview">
+
+                            <div
+                                class="profile-avatar"
+                                id="preferencesProfileAvatar">
+
+                                U
+
+                            </div>
+
+
+                            <div>
+
+                                <strong
+                                    id="preferencesProfileName">
+
+                                    User
+
+                                </strong>
+
+                                <span>
+                                    MealPlan Member
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="settings-form-grid">
+
+
+                            <div class="settings-field">
+
+                                <label for="firstName">
+                                    First name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="firstName">
+
+                            </div>
+
+
+
+                            <div class="settings-field">
+
+                                <label for="lastName">
+                                    Last name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="lastName">
+
+                            </div>
+
+
+
+                            <div
+                                class="settings-field full-field">
+
+                                <label for="profileEmail">
+                                    Email address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="profileEmail">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     02 DIETARY
+                ================================== -->
+
+                <section
+                    class="settings-card"
+                    id="dietarySection">
+
+
+                    <div class="settings-heading">
+
+                        <div>
+
+                            <span class="settings-number">
+                                02
+                            </span>
+
+                            <h2>
+                                Dietary Preferences
+                            </h2>
+
+                        </div>
+
+
+                        <p>
+                            Help MealPlan understand
+                            how you like to eat.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="settings-field">
+
+                        <label for="dietType">
+                            Diet type
+                        </label>
+
+
+                        <select id="dietType">
+
+                            <option>
+                                Balanced
+                            </option>
+
+                            <option>
+                                Vegetarian
+                            </option>
+
+                            <option>
+                                Vegan
+                            </option>
+
+                            <option>
+                                Pescatarian
+                            </option>
+
+                            <option>
+                                Low Carb
+                            </option>
+
+                            <option>
+                                High Protein
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="settings-field">
+
+                        <label>
+                            Foods or allergens to avoid
+                        </label>
+
+
+                        <div class="preference-chips">
+
+                            <button
+                                type="button"
+                                class="preference-chip">
+                                Peanuts
+                            </button>
+
+                            <button
+                                type="button"
+                                class="preference-chip">
+                                Dairy
+                            </button>
+
+                            <button
+                                type="button"
+                                class="preference-chip">
+                                Shellfish
+                            </button>
+
+                            <button
+                                type="button"
+                                class="preference-chip">
+                                Gluten
+                            </button>
+
+                            <button
+                                type="button"
+                                class="preference-chip">
+                                Soy
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     03 GOALS
+                ================================== -->
+
+                <section
+                    class="settings-card"
+                    id="goalsSection">
+
+
+                    <div class="settings-heading">
+
+                        <div>
+
+                            <span class="settings-number">
+                                03
+                            </span>
+
+                            <h2>
+                                Goals
+                            </h2>
+
+                        </div>
+
+
+                        <p>
+                            Set targets that fit
+                            your routine.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="settings-form-grid">
+
+
+                        <div class="settings-field">
+
+                            <label for="nutritionGoal">
+                                Primary goal
+                            </label>
+
+
+                            <select id="nutritionGoal">
+
+                                <option>
+                                    Maintain weight
+                                </option>
+
+                                <option>
+                                    Lose weight
+                                </option>
+
+                                <option>
+                                    Gain weight
+                                </option>
+
+                                <option>
+                                    Build muscle
+                                </option>
+
+                                <option>
+                                    Eat healthier
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="settings-field">
+
+                            <label for="calorieGoal">
+                                Daily calorie goal
+                            </label>
+
+
+                            <div class="input-with-unit">
+
+                                <input
+                                    type="number"
+                                    id="calorieGoal"
+                                    value="2000"
+                                    min="500"
+                                    step="50">
+
+                                <span>
+                                    kcal
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="settings-field">
+
+                            <label for="budgetGoal">
+                                Weekly grocery budget
+                            </label>
+
+
+                            <div class="input-with-unit">
+
+                                <span>
+                                    $
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="budgetGoal"
+                                    value="100"
+                                    min="0"
+                                    step="5">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="settings-field">
+
+                            <label for="mealsPerDay">
+                                Meals per day
+                            </label>
+
+
+                            <select id="mealsPerDay">
+
+                                <option>
+                                    1 meal
+                                </option>
+
+                                <option>
+                                    2 meals
+                                </option>
+
+                                <option selected>
+                                    3 meals
+                                </option>
+
+                                <option>
+                                    4 meals
+                                </option>
+
+                                <option>
+                                    5 meals
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     04 APPEARANCE
+                ================================== -->
+
+                <section
+                    class="settings-card appearance-card"
+                    id="appearanceSection">
+
+
+                    <div class="settings-heading">
+
+                        <div>
+
+                            <span class="settings-number">
+                                04
+                            </span>
+
+                            <h2>
+                                Appearance
+                            </h2>
+
+                        </div>
+
+
+                        <p>
+                            Make MealPlan feel
+                            like your own.
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- ACCENT COLOR -->
+
+                    <div class="appearance-setting">
+
+                        <div class="appearance-info">
+
+                            <strong>
+                                Accent color
+                            </strong>
+
+                            <span>
+                                Choose the main color used
+                                throughout MealPlan.
+                            </span>
+
+                        </div>
+
+
+                        <div class="theme-picker">
+
+
+                            <p class="theme-group-label">
+                                SOLID COLORS
+                            </p>
+
+
+                            <div class="theme-options">
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color green-theme selected"
+                                    data-theme="green"
+                                    aria-label="Forest green">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color blue-theme"
+                                    data-theme="blue"
+                                    aria-label="Ocean blue">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color purple-theme"
+                                    data-theme="purple"
+                                    aria-label="Purple">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color orange-theme"
+                                    data-theme="orange"
+                                    aria-label="Orange">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color red-theme"
+                                    data-theme="red"
+                                    aria-label="Red">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color pink-theme"
+                                    data-theme="pink"
+                                    aria-label="Pink">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color teal-theme"
+                                    data-theme="teal"
+                                    aria-label="Teal">
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="theme-color black-theme"
+                                    data-theme="black"
+                                    aria-label="Black">
+                                </button>
+
+                            </div>
+
+
+
+                            <p class="theme-group-label gradient-label">
+                                GRADIENTS
+                            </p>
+
+
+                            <div class="gradient-options">
+
+
+                                <button
+                                    type="button"
+                                    class="gradient-theme forest-gradient"
+                                    data-theme="forest-gradient">
+
+                                    <span></span>
+                                    Forest
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="gradient-theme ocean-gradient"
+                                    data-theme="ocean-gradient">
+
+                                    <span></span>
+                                    Ocean
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="gradient-theme sunset-gradient"
+                                    data-theme="sunset-gradient">
+
+                                    <span></span>
+                                    Sunset
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="gradient-theme berry-gradient"
+                                    data-theme="berry-gradient">
+
+                                    <span></span>
+                                    Berry
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PAGE LAYOUT -->
+
+                    <div class="appearance-setting">
+
+                        <div class="appearance-info">
+
+                            <strong>
+                                Page layout
+                            </strong>
+
+                            <span>
+                                Control how much space
+                                appears between content.
+                            </span>
+
+                        </div>
+
+
+                        <div class="layout-options">
+
+
+                            <button
+                                type="button"
+                                class="layout-option selected"
+                                data-layout="comfortable">
+
+
+                                <div
+                                    class="layout-preview comfortable-preview">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+
+                                <strong>
+                                    Comfortable
+                                </strong>
+
+                                <small>
+                                    More spacing
+                                </small>
+
+                            </button>
+
+
+
+                            <button
+                                type="button"
+                                class="layout-option"
+                                data-layout="compact">
+
+
+                                <div
+                                    class="layout-preview compact-preview">
+
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+
+                                </div>
+
+
+                                <strong>
+                                    Compact
+                                </strong>
+
+                                <small>
+                                    More content
+                                </small>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- DARK MODE -->
+
+                    <div class="appearance-setting">
+
+                        <div class="appearance-info">
+
+                            <strong>
+                                Dark mode
+                            </strong>
+
+                            <span>
+                                Use a darker interface
+                                for low-light environments.
+                            </span>
+
+                        </div>
+
+
+                        <label class="switch">
+
+                            <input
+                                type="checkbox"
+                                id="darkModeToggle">
+
+                            <span class="switch-slider">
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================
+                     SAVE
+                ================================== -->
+
+                <div class="settings-save">
+
+                    <div>
+
+                        <strong>
+                            Your preferences
+                        </strong>
+
+                        <span>
+                            Changes can be updated
+                            whenever you want.
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="savePreferences"
+                        class="add-meal-btn">
+
+                        Save changes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
+<!-- =========================================
+     LOGGED-IN USER FOR PROFILE
+========================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const loggedInUser =
+            JSON.parse(
+                localStorage.getItem(
+                    "mealPlanCurrentUser"
+                )
+            );
+
+
+        if (
+            !loggedInUser ||
+            !loggedInUser.name
+        ) {
+            return;
+        }
+
+
+        const nameParts =
+            loggedInUser.name
+                .trim()
+                .split(/\s+/);
+
+
+        const firstName =
+            nameParts[0] || "";
+
+
+        const lastName =
+            nameParts
+                .slice(1)
+                .join(" ");
+
+
+        const initials =
+            nameParts
+                .map(function (part) {
+                    return part.charAt(0);
+                })
+                .slice(0, 2)
+                .join("")
+                .toUpperCase();
+
+
+
+        /* PROFILE PREVIEW */
+
+        const profileName =
+            document.getElementById(
+                "preferencesProfileName"
+            );
+
+
+        const profileAvatar =
+            document.getElementById(
+                "preferencesProfileAvatar"
+            );
+
+
+        if (profileName) {
+
+            profileName.textContent =
+                loggedInUser.name;
+
+        }
+
+
+        if (profileAvatar) {
+
+            profileAvatar.textContent =
+                initials;
+
+        }
+
+
+
+        /*
+           Check whether the saved profile
+           belongs to this logged-in account.
+        */
+
+        const savedPreferences =
+            JSON.parse(
+                localStorage.getItem(
+                    "userPreferences"
+                )
+            );
+
+
+        const savedEmail =
+            savedPreferences &&
+            savedPreferences.email
+                ? savedPreferences.email
+                : "";
+
+
+        const currentEmail =
+            loggedInUser.email || "";
+
+
+        const differentAccount =
+            currentEmail &&
+            savedEmail &&
+            savedEmail.toLowerCase() !==
+            currentEmail.toLowerCase();
+
+
+        /*
+           New/different account:
+           populate fields from login.
+        */
+
+        if (
+            !savedPreferences ||
+            differentAccount
+        ) {
+
+            const firstNameInput =
+                document.getElementById(
+                    "firstName"
+                );
+
+
+            const lastNameInput =
+                document.getElementById(
+                    "lastName"
+                );
+
+
+            const emailInput =
+                document.getElementById(
+                    "profileEmail"
+                );
+
+
+            if (firstNameInput) {
+
+                firstNameInput.value =
+                    firstName;
+
+            }
+
+
+            if (lastNameInput) {
+
+                lastNameInput.value =
+                    lastName;
+
+            }
+
+
+            if (emailInput) {
+
+                emailInput.value =
+                    currentEmail;
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

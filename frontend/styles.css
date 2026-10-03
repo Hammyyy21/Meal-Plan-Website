@@ -1,0 +1,6408 @@
+/* ================================
+   MEALPLAN - MAIN STYLES
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #315f45;
+    --primary-dark: #244b35;
+    --primary-light: #e9f2ec;
+    --accent: #8fb89c;
+
+    --text-dark: #17201a;
+    --text-gray: #6c746f;
+    --border: #dfe5e1;
+    --background: #f7f9f7;
+    --white: #ffffff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text-dark);
+    background: var(--background);
+}
+
+
+/* ================================
+   LOGIN PAGE
+================================ */
+
+.login-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+}
+
+
+/* ================================
+   LEFT SIDE
+================================ */
+
+.login-hero {
+    min-height: 100vh;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 45px 65px;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(255, 255, 255, 0.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(143, 184, 156, 0.25),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #1d3c2b,
+            #315f45 55%,
+            #3d7252
+        );
+
+    overflow: hidden;
+}
+
+
+/* Decorative background circle */
+
+.login-hero::after {
+    content: "";
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+
+    right: -160px;
+    bottom: -170px;
+}
+
+
+/* Brand */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    position: relative;
+    z-index: 2;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.brand-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* Hero content */
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 570px;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.hero-tag {
+    display: inline-block;
+
+    margin-bottom: 24px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #cfe1d5;
+}
+
+.hero-content h1 {
+    font-size: clamp(48px, 5vw, 76px);
+    line-height: 1.03;
+    letter-spacing: -3px;
+
+    margin-bottom: 28px;
+}
+
+.hero-content h1 span {
+    color: #b9d6c2;
+}
+
+.hero-content > p {
+    max-width: 510px;
+
+    color: rgba(255, 255, 255, 0.76);
+
+    font-size: 17px;
+    line-height: 1.7;
+
+    margin-bottom: 35px;
+}
+
+
+/* Feature list */
+
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: rgba(255, 255, 255, 0.88);
+
+    font-size: 14px;
+}
+
+.feature-icon {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.13);
+
+    color: #dcece1;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+/* Bottom text */
+
+.hero-footer {
+    position: relative;
+    z-index: 2;
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+
+/* ================================
+   RIGHT LOGIN SIDE
+================================ */
+
+.login-section {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 50px;
+
+    background: #fbfcfb;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 440px;
+}
+
+
+/* Hide second logo on desktop */
+
+.mobile-brand {
+    display: none;
+}
+
+
+/* Welcome heading */
+
+.welcome-text {
+    margin-bottom: 36px;
+}
+
+.small-heading {
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+
+    margin-bottom: 12px;
+}
+
+.welcome-text h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+
+    margin-bottom: 10px;
+}
+
+.welcome-text > p:last-child {
+    color: var(--text-gray);
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+.form-group {
+    margin-bottom: 21px;
+}
+
+.form-group label {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: white;
+
+    color: var(--text-dark);
+
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #a5aca7;
+}
+
+.form-group input:focus {
+    outline: none;
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(49, 95, 69, 0.09);
+}
+
+
+/* Password row */
+
+.password-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgot-password {
+    color: var(--primary);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+
+/* Remember me */
+
+.remember-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 22px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    cursor: pointer;
+
+    color: var(--text-gray);
+
+    font-size: 13px;
+}
+
+.remember-me input {
+    accent-color: var(--primary);
+}
+
+
+/* ================================
+   BUTTONS
+================================ */
+
+.login-btn {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 15px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(49, 95, 69, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.login-btn:hover {
+    background: var(--primary-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 24px rgba(49, 95, 69, 0.24);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.arrow {
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+.login-btn:hover .arrow {
+    transform: translateX(3px);
+}
+
+
+/* Create account button */
+
+.create-account-btn {
+    width: 100%;
+
+    display: block;
+
+    padding: 14px 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: white;
+
+    color: var(--text-dark);
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    transition: 0.2s ease;
+}
+
+.create-account-btn:hover {
+    border-color: #bdc9c1;
+    background: #f8faf8;
+}
+
+
+/* ================================
+   DIVIDER
+================================ */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 27px 0 20px;
+}
+
+.divider span {
+    height: 1px;
+    flex: 1;
+
+    background: var(--border);
+}
+
+.divider p {
+    color: #9aa19c;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+
+/* ================================
+   OTHER TEXT
+================================ */
+
+.error-message {
+    color: #b73a3a;
+
+    font-size: 13px;
+
+    margin-top: -8px;
+    margin-bottom: 12px;
+}
+
+.terms {
+    margin-top: 25px;
+
+    color: #9aa19c;
+
+    font-size: 11px;
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+.terms a {
+    color: #69736c;
+}
+
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 900px) {
+
+    .login-page {
+        display: block;
+    }
+
+    .login-hero {
+        display: none;
+    }
+
+    .login-section {
+        min-height: 100vh;
+
+        padding: 35px 20px;
+    }
+
+    .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        margin-bottom: 55px;
+
+        color: var(--primary);
+
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .mobile-brand .brand-icon {
+        background: var(--primary);
+        color: white;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .login-section {
+        align-items: flex-start;
+
+        padding-top: 30px;
+    }
+
+    .mobile-brand {
+        margin-bottom: 45px;
+    }
+
+    .welcome-text h2 {
+        font-size: 29px;
+    }
+
+}
+/* ========================================
+   DASHBOARD / APP LAYOUT
+======================================== */
+
+.app-body {
+    background: #f6f8f6;
+    min-height: 100vh;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.sidebar {
+    width: 245px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 28px 18px;
+
+    background: #ffffff;
+    border-right: 1px solid #e8ece9;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 0 10px;
+    margin-bottom: 40px;
+
+    color: var(--text-dark);
+    font-size: 20px;
+    font-weight: 750;
+}
+
+.sidebar-logo {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-label {
+    padding: 0 12px;
+    margin-bottom: 7px;
+
+    color: #a0a8a2;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+.nav-section {
+    margin-top: 25px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 11px 12px;
+
+    border-radius: 9px;
+
+    color: #68716b;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 550;
+
+    transition: 0.2s ease;
+}
+
+.nav-item:hover {
+    background: #f3f6f3;
+    color: var(--text-dark);
+}
+
+.nav-item.active {
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-weight: 650;
+}
+
+.nav-icon {
+    width: 20px;
+
+    text-align: center;
+
+    font-size: 16px;
+}
+
+
+/* Sidebar user */
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0ed;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 8px;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-info strong {
+    font-size: 12px;
+}
+
+.user-info span {
+    color: #929a94;
+    font-size: 10px;
+}
+
+.logout-btn {
+    width: 100%;
+
+    margin-top: 8px;
+    padding: 9px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #8a928c;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    transition: 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #f7eeee;
+    color: #b04444;
+}
+
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.main-content {
+    width: calc(100% - 245px);
+
+    margin-left: 245px;
+
+    padding: 45px 48px 60px;
+}
+
+
+/* ========================================
+   TOP BAR
+======================================== */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 38px;
+}
+
+.page-label {
+    color: var(--primary);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+
+    margin-bottom: 7px;
+}
+
+.topbar h1 {
+    font-size: 30px;
+    letter-spacing: -1px;
+
+    margin-bottom: 7px;
+}
+
+.topbar-subtitle {
+    color: #818982;
+
+    font-size: 13px;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-btn {
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid #e1e6e2;
+    border-radius: 10px;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+.add-meal-btn {
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: var(--primary);
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.add-meal-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+
+/* ========================================
+   SUMMARY CARDS
+======================================== */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+}
+
+.summary-card {
+    min-height: 165px;
+
+    padding: 21px;
+
+    background: white;
+
+    border: 1px solid #e8ece9;
+    border-radius: 13px;
+
+    transition: 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 25px rgba(30, 50, 37, 0.06);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+.card-title {
+    color: #747d76;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.card-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 12px;
+}
+
+.summary-card h2 {
+    font-size: 27px;
+    letter-spacing: -0.5px;
+
+    margin-bottom: 4px;
+}
+
+.summary-card > p {
+    color: #9aa19c;
+
+    font-size: 10px;
+}
+
+
+/* Progress */
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+
+    margin-top: 18px;
+
+    border-radius: 10px;
+
+    background: #edf1ee;
+
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: var(--primary);
+}
+
+.positive-text {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: #4f805e;
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.warning-text {
+    display: inline-block;
+
+    margin-top: 15px;
+
+    color: #ad7935;
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+
+/* ========================================
+   LOWER DASHBOARD
+======================================== */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: 2fr 0.85fr;
+
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: white;
+
+    border: 1px solid #e8ece9;
+    border-radius: 13px;
+
+    padding: 24px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.section-label {
+    color: var(--primary);
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: 1.6px;
+
+    margin-bottom: 5px;
+}
+
+.section-heading h2 {
+    font-size: 18px;
+}
+
+.section-heading a {
+    color: var(--primary);
+
+    font-size: 10px;
+    font-weight: 650;
+
+    text-decoration: none;
+}
+
+
+/* ========================================
+   MEALS
+======================================== */
+
+.meal-item {
+    display: grid;
+
+    grid-template-columns: 80px 46px 1fr 50px;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px 0;
+
+    border-top: 1px solid #edf0ed;
+}
+
+.meal-time {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meal-time span {
+    color: #a0a7a2;
+
+    font-size: 8px;
+    font-weight: 750;
+
+    letter-spacing: 0.8px;
+}
+
+.meal-time strong {
+    font-size: 10px;
+}
+
+.meal-picture {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 21px;
+}
+
+.breakfast {
+    background: #fff6dd;
+}
+
+.lunch {
+    background: #eaf5e9;
+}
+
+.dinner {
+    background: #f5e9e6;
+}
+
+.meal-details h3 {
+    margin-bottom: 4px;
+
+    font-size: 12px;
+}
+
+.meal-details p {
+    color: #929a94;
+
+    font-size: 9px;
+}
+
+.meal-calories {
+    display: flex;
+    flex-direction: column;
+
+    text-align: right;
+}
+
+.meal-calories strong {
+    font-size: 12px;
+}
+
+.meal-calories span {
+    color: #a0a7a2;
+
+    font-size: 8px;
+}
+
+
+/* ========================================
+   NUTRITION
+======================================== */
+
+.nutrition-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.nutrition-circle {
+    width: 150px;
+    height: 150px;
+
+    margin: 13px auto 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            closest-side,
+            white 77%,
+            transparent 78% 99%
+        ),
+        conic-gradient(
+            var(--primary) 71%,
+            #e8eee9 0
+        );
+}
+
+.nutrition-circle > div {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+}
+
+.nutrition-circle strong {
+    font-size: 25px;
+}
+
+.nutrition-circle span {
+    margin-top: 3px;
+
+    color: #929a94;
+
+    font-size: 9px;
+}
+
+.macro-row {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 5px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #edf0ed;
+}
+
+.macro-row div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    text-align: center;
+}
+
+.macro-row span {
+    color: #929a94;
+
+    font-size: 9px;
+}
+
+.macro-row strong {
+    font-size: 12px;
+}
+
+
+/* ========================================
+   DASHBOARD RESPONSIVE
+======================================== */
+
+@media (max-width: 1100px) {
+
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        width: 100%;
+
+        margin-left: 0;
+
+        padding: 30px 20px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .topbar h1 {
+        font-size: 24px;
+    }
+
+    .notification-btn {
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+    }
+
+    .meal-item {
+        grid-template-columns: 55px 40px 1fr;
+    }
+
+    .meal-calories {
+        display: none;
+    }
+
+}
+/* ========================================
+   MEAL CALENDAR
+======================================== */
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.calendar-header h1 {
+    font-size: 30px;
+    letter-spacing: -1px;
+    margin-bottom: 7px;
+}
+
+.calendar-header > div > p:last-child {
+    color: #818982;
+    font-size: 13px;
+}
+
+
+/* ========================================
+   WEEK TOOLBAR
+======================================== */
+
+.week-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 18px 20px;
+    margin-bottom: 18px;
+
+    background: white;
+    border: 1px solid #e8ece9;
+    border-radius: 13px;
+}
+
+.week-navigation {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.week-navigation > div {
+    min-width: 190px;
+    text-align: center;
+}
+
+.week-label {
+    display: block;
+
+    color: var(--primary);
+
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+
+    margin-bottom: 4px;
+}
+
+.week-navigation h2 {
+    font-size: 15px;
+    font-weight: 650;
+}
+
+.week-arrow {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid #e1e6e2;
+    border-radius: 8px;
+
+    background: white;
+    color: #68716b;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.week-arrow:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.today-btn {
+    padding: 9px 16px;
+
+    border: 1px solid #dfe5e1;
+    border-radius: 8px;
+
+    background: white;
+    color: var(--text-dark);
+
+    font-size: 11px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.today-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+
+/* ========================================
+   CALENDAR GRID
+======================================== */
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(135px, 1fr));
+
+    min-height: 520px;
+
+    background: white;
+
+    border: 1px solid #e5eae6;
+    border-radius: 14px;
+
+    overflow-x: auto;
+}
+
+.day-column {
+    min-width: 135px;
+
+    padding: 15px 11px;
+
+    border-right: 1px solid #edf0ed;
+
+    background: #ffffff;
+}
+
+.day-column:last-child {
+    border-right: none;
+}
+
+.today-column {
+    background: #f8fbf8;
+}
+
+
+/* ========================================
+   DAY HEADINGS
+======================================== */
+
+.day-heading {
+    min-height: 78px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom: 13px;
+    margin-bottom: 12px;
+
+    border-bottom: 1px solid #edf0ed;
+}
+
+.day-heading span {
+    color: #929a94;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 6px;
+}
+
+.day-heading strong {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 15px;
+}
+
+.today-column .day-heading strong {
+    background: var(--primary);
+    color: white;
+}
+
+.day-heading small {
+    margin-top: 5px;
+
+    color: var(--primary);
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   CALENDAR MEALS
+======================================== */
+
+.calendar-meal {
+    padding: 13px 11px;
+    margin-bottom: 10px;
+
+    border-radius: 9px;
+
+    border-left: 3px solid transparent;
+
+    transition: 0.2s ease;
+
+    cursor: pointer;
+}
+
+.calendar-meal:hover {
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 15px rgba(30, 50, 37, 0.06);
+}
+
+.calendar-meal .meal-type {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.calendar-meal h3 {
+    margin-bottom: 6px;
+
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+.calendar-meal p {
+    color: #8d958f;
+
+    font-size: 8px;
+}
+
+
+/* Breakfast */
+
+.breakfast-meal {
+    background: #fff8e8;
+    border-left-color: #d8ad54;
+}
+
+.breakfast-meal .meal-type {
+    color: #a77925;
+}
+
+
+/* Lunch */
+
+.lunch-meal {
+    background: #edf7ee;
+    border-left-color: #6fa57a;
+}
+
+.lunch-meal .meal-type {
+    color: #4e8059;
+}
+
+
+/* Dinner */
+
+.dinner-meal {
+    background: #f5eeee;
+    border-left-color: #b57a73;
+}
+
+.dinner-meal .meal-type {
+    color: #965e58;
+}
+
+
+/* ========================================
+   ADD MEAL
+======================================== */
+
+.add-small-meal {
+    width: 100%;
+
+    padding: 10px 5px;
+
+    border: 1px dashed #d8dfda;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #929a94;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.add-small-meal:hover {
+    border-color: var(--primary);
+
+    background: var(--primary-light);
+
+    color: var(--primary);
+}
+
+
+/* ========================================
+   WEEK SUMMARY
+======================================== */
+
+.week-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    margin-top: 18px;
+
+    background: white;
+
+    border: 1px solid #e8ece9;
+    border-radius: 13px;
+
+    overflow: hidden;
+}
+
+.week-summary > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    padding: 18px 22px;
+
+    border-right: 1px solid #edf0ed;
+}
+
+.week-summary > div:last-child {
+    border-right: none;
+}
+
+.week-summary span {
+    color: #969e98;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.week-summary strong {
+    font-size: 14px;
+}
+
+.plan-good {
+    color: var(--primary);
+}
+
+
+/* ========================================
+   CALENDAR RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, 145px);
+    }
+
+    .week-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .week-summary > div:nth-child(2) {
+        border-right: none;
+    }
+
+    .week-summary > div:nth-child(-n+2) {
+        border-bottom: 1px solid #edf0ed;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .calendar-header {
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .calendar-header h1 {
+        font-size: 25px;
+    }
+
+    .week-toolbar {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .week-navigation {
+        gap: 8px;
+    }
+
+    .week-navigation > div {
+        min-width: auto;
+    }
+
+    .week-navigation h2 {
+        font-size: 12px;
+    }
+
+    .week-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .week-summary > div {
+        border-right: none;
+        border-bottom: 1px solid #edf0ed;
+    }
+
+    .week-summary > div:last-child {
+        border-bottom: none;
+    }
+}
+/* ========================================
+   INVENTORY PAGE
+======================================== */
+
+.inventory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 28px;
+}
+
+.inventory-header h1 {
+    font-size: 30px;
+    letter-spacing: -1px;
+    margin-bottom: 7px;
+}
+
+.inventory-header > div > p:last-child {
+    color: #818982;
+    font-size: 13px;
+}
+
+
+/* ========================================
+   INVENTORY SUMMARY
+======================================== */
+
+.inventory-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.inventory-stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 19px;
+
+    background: white;
+
+    border: 1px solid #e8ece9;
+    border-radius: 12px;
+}
+
+.inventory-stat-icon {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.warning-icon {
+    background: #fff5df;
+    color: #ad7935;
+}
+
+.low-icon {
+    background: #f8eaea;
+    color: #ae5d5d;
+}
+
+.inventory-stat div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.inventory-stat p {
+    color: #8c948e;
+
+    font-size: 10px;
+}
+
+.inventory-stat strong {
+    font-size: 20px;
+}
+
+
+/* ========================================
+   SEARCH AND FILTERS
+======================================== */
+
+.inventory-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 15px;
+
+    margin-bottom: 16px;
+
+    background: white;
+
+    border: 1px solid #e8ece9;
+    border-radius: 12px;
+}
+
+.inventory-search {
+    width: 310px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 13px;
+
+    border: 1px solid #e1e6e2;
+    border-radius: 9px;
+
+    background: #fafbfa;
+}
+
+.inventory-search > span {
+    color: #8f9791;
+    font-size: 16px;
+}
+
+.inventory-search input {
+    width: 100%;
+
+    padding: 11px 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--text-dark);
+
+    font-size: 11px;
+}
+
+.inventory-search input::placeholder {
+    color: #a2a9a4;
+}
+
+.inventory-filters {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.filter-btn {
+    padding: 9px 13px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #7c857e;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: #f3f6f3;
+    color: var(--primary);
+}
+
+.filter-btn.active {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+
+/* ========================================
+   INVENTORY TABLE
+======================================== */
+
+.inventory-card {
+    background: white;
+
+    border: 1px solid #e8ece9;
+    border-radius: 13px;
+
+    overflow: hidden;
+}
+
+.inventory-table-header,
+.inventory-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(210px, 1.5fr)
+        minmax(100px, 0.8fr)
+        minmax(90px, 0.7fr)
+        minmax(80px, 0.6fr)
+        minmax(120px, 0.9fr)
+        35px;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.inventory-table-header {
+    padding: 13px 20px;
+
+    background: #fafbfa;
+
+    border-bottom: 1px solid #e8ece9;
+
+    color: #929a94;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1.1px;
+}
+
+.inventory-row {
+    min-height: 72px;
+
+    padding: 12px 20px;
+
+    border-bottom: 1px solid #edf0ed;
+
+    transition: 0.2s ease;
+}
+
+.inventory-row:last-child {
+    border-bottom: none;
+}
+
+.inventory-row:hover {
+    background: #fafcfa;
+}
+
+
+/* ========================================
+   FOOD ITEM
+======================================== */
+
+.food-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.food-icon {
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    font-size: 18px;
+}
+
+.produce-bg {
+    background: #edf6e9;
+}
+
+.protein-bg {
+    background: #f8eeee;
+}
+
+.dairy-bg {
+    background: #eef3f8;
+}
+
+.grain-bg {
+    background: #fff6e5;
+}
+
+.food-name > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.food-name strong {
+    font-size: 11px;
+}
+
+.food-name span {
+    color: #9aa19c;
+
+    font-size: 8px;
+}
+
+
+/* ========================================
+   INVENTORY LABELS
+======================================== */
+
+.category-tag {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    background: #f3f5f3;
+
+    color: #69716b;
+
+    font-size: 8px;
+    font-weight: 650;
+}
+
+.quantity,
+.expiration {
+    color: #626b64;
+
+    font-size: 10px;
+}
+
+.status-tag {
+    display: inline-block;
+
+    padding: 6px 8px;
+
+    border-radius: 20px;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.status-tag.good {
+    background: #eaf5ed;
+    color: #4f805e;
+}
+
+.status-tag.expiring {
+    background: #fff4df;
+    color: #a66e22;
+}
+
+.status-tag.low-stock {
+    background: #f9eaea;
+    color: #aa5656;
+}
+
+.more-btn {
+    border: none;
+
+    background: transparent;
+
+    color: #929a94;
+
+    cursor: pointer;
+
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.more-btn:hover {
+    color: var(--primary);
+}
+
+
+/* ========================================
+   SMART PANTRY TIP
+======================================== */
+
+.inventory-tip {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-top: 17px;
+    padding: 16px 18px;
+
+    border: 1px solid #dce9df;
+    border-radius: 11px;
+
+    background: #f2f8f3;
+}
+
+.tip-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #dfeee2;
+    color: var(--primary);
+
+    font-size: 14px;
+}
+
+.inventory-tip > div:nth-child(2) {
+    flex: 1;
+}
+
+.inventory-tip strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 10px;
+}
+
+.inventory-tip p {
+    color: #788179;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+.inventory-tip a {
+    color: var(--primary);
+
+    text-decoration: none;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   INVENTORY RESPONSIVE
+======================================== */
+
+@media (max-width: 1050px) {
+
+    .inventory-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inventory-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .inventory-search {
+        width: 100%;
+    }
+
+    .inventory-card {
+        overflow-x: auto;
+    }
+
+    .inventory-table-header,
+    .inventory-row {
+        min-width: 800px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .inventory-header {
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .inventory-header h1 {
+        font-size: 25px;
+    }
+
+    .inventory-summary {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .inventory-stat {
+        padding: 14px;
+    }
+
+    .inventory-stat-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .inventory-filters {
+        width: 100%;
+
+        overflow-x: auto;
+
+        padding-bottom: 4px;
+    }
+
+    .filter-btn {
+        white-space: nowrap;
+    }
+
+    .inventory-tip a {
+        display: none;
+    }
+}
+/* ========================================
+   INVENTORY VISUAL ENHANCEMENTS
+======================================== */
+
+.inventory-page {
+    color: #17201a;
+}
+
+.inventory-subtitle {
+    color: #68736b !important;
+    font-size: 13px;
+}
+
+.inventory-stat {
+    box-shadow: 0 4px 14px rgba(30, 50, 37, 0.035);
+}
+
+.inventory-stat p {
+    color: #626d65;
+    font-weight: 600;
+}
+
+.inventory-stat strong {
+    color: #17201a;
+}
+
+.inventory-stat small {
+    color: #929b94;
+    font-size: 8px;
+}
+
+.inventory-row {
+    color: #263029;
+}
+
+.food-name strong {
+    color: #17201a;
+    font-size: 12px;
+}
+
+.food-name span {
+    color: #737d76;
+}
+
+.quantity {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+.quantity strong,
+.expiration strong {
+    color: #263029;
+    font-size: 10px;
+}
+
+.quantity span {
+    color: #7d867f;
+    font-size: 9px;
+}
+
+
+/* More colorful category labels */
+
+.produce-tag {
+    background: #e7f4e8;
+    color: #397347;
+}
+
+.protein-tag {
+    background: #f8e8e5;
+    color: #9a534a;
+}
+
+.dairy-tag {
+    background: #e7f0f8;
+    color: #4d7293;
+}
+
+.grain-tag {
+    background: #fff2d8;
+    color: #98702b;
+}
+
+
+/* Stronger status colors */
+
+.status-tag.good {
+    background: #dff1e4;
+    color: #347147;
+}
+
+.status-tag.expiring {
+    background: #fff0cf;
+    color: #9b681b;
+}
+
+.status-tag.low-stock {
+    background: #f8dddd;
+    color: #a04444;
+}
+/* ========================================
+   PREFERENCES PAGE
+======================================== */
+
+.preferences-header {
+    margin-bottom: 28px;
+}
+
+.preferences-header h1 {
+    font-size: 30px;
+    letter-spacing: -1px;
+    margin-bottom: 7px;
+}
+
+.preferences-header > div > p:last-child {
+    color: #68736b;
+    font-size: 13px;
+}
+
+.preferences-layout {
+    display: grid;
+    grid-template-columns: 185px minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+
+/* ========================================
+   SETTINGS SIDE MENU
+======================================== */
+
+.settings-menu {
+    position: sticky;
+    top: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    padding: 8px;
+
+    background: white;
+
+    border: 1px solid #e6ebe7;
+    border-radius: 12px;
+}
+
+.settings-menu-item {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 11px 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #6f7871;
+
+    text-align: left;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.settings-menu-item span {
+    color: #a0a8a2;
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.settings-menu-item:hover {
+    background: #f4f7f4;
+    color: var(--text-dark);
+}
+
+.settings-menu-item.active {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.settings-menu-item.active span {
+    color: var(--primary);
+}
+
+
+/* ========================================
+   SETTINGS CONTENT
+======================================== */
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.settings-card {
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #e6ebe7;
+    border-radius: 13px;
+
+    box-shadow: 0 4px 16px rgba(30, 50, 37, 0.025);
+}
+
+.settings-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    padding-bottom: 19px;
+    margin-bottom: 21px;
+
+    border-bottom: 1px solid #edf0ed;
+}
+
+.settings-heading > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.settings-number {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.settings-heading h2 {
+    color: #17201a;
+
+    font-size: 16px;
+}
+
+.settings-heading > p {
+    max-width: 280px;
+
+    color: #89918b;
+
+    font-size: 9px;
+    line-height: 1.5;
+
+    text-align: right;
+}
+
+
+/* ========================================
+   PROFILE
+======================================== */
+
+.profile-preview {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    background: #f7f9f7;
+}
+
+.profile-avatar {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--primary);
+    color: white;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.profile-preview > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.profile-preview strong {
+    color: #17201a;
+    font-size: 12px;
+}
+
+.profile-preview span {
+    color: #8b948d;
+    font-size: 9px;
+}
+
+
+/* ========================================
+   SETTINGS FORMS
+======================================== */
+
+.settings-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 17px;
+}
+
+.settings-field {
+    margin-bottom: 18px;
+}
+
+.settings-form-grid .settings-field {
+    margin-bottom: 0;
+}
+
+.full-field {
+    grid-column: 1 / -1;
+}
+
+.settings-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #39433c;
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.settings-field input,
+.settings-field select {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border: 1px solid #dfe5e1;
+    border-radius: 8px;
+
+    outline: none;
+
+    background: #fbfcfb;
+    color: #17201a;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    transition: 0.2s ease;
+}
+
+.settings-field input:focus,
+.settings-field select:focus {
+    border-color: var(--primary);
+
+    background: white;
+
+    box-shadow: 0 0 0 3px rgba(49, 95, 69, 0.08);
+}
+
+
+/* Input with $ / kcal */
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #dfe5e1;
+    border-radius: 8px;
+
+    background: #fbfcfb;
+
+    overflow: hidden;
+}
+
+.input-with-unit:focus-within {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(49, 95, 69, 0.08);
+}
+
+.input-with-unit input {
+    border: none;
+    box-shadow: none !important;
+}
+
+.input-with-unit span {
+    padding: 0 12px;
+
+    color: #7d867f;
+
+    font-size: 9px;
+    font-weight: 650;
+}
+
+
+/* ========================================
+   DIETARY CHIPS
+======================================== */
+
+.preference-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.preference-chip {
+    padding: 8px 12px;
+
+    border: 1px solid #dfe5e1;
+    border-radius: 20px;
+
+    background: white;
+    color: #626c64;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.preference-chip:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.preference-chip.selected {
+    border-color: var(--primary);
+
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+
+/* ========================================
+   APPEARANCE SETTINGS
+======================================== */
+
+.appearance-setting {
+    min-height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding: 18px 0;
+
+    border-bottom: 1px solid #edf0ed;
+}
+
+.appearance-setting:last-child {
+    border-bottom: none;
+}
+
+.appearance-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.appearance-info strong {
+    color: #263029;
+    font-size: 11px;
+}
+
+.appearance-info span {
+    color: #89928b;
+
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   THEME COLORS
+======================================== */
+
+.theme-options {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.theme-color {
+    width: 32px;
+    height: 32px;
+
+    position: relative;
+
+    border: 3px solid white;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 0 1px #d8ded9;
+
+    transition: 0.2s ease;
+}
+
+.theme-color:hover {
+    transform: scale(1.08);
+}
+
+.theme-color.selected {
+    box-shadow:
+        0 0 0 2px white,
+        0 0 0 4px currentColor;
+}
+
+.green-theme {
+    background: #315f45;
+    color: #315f45;
+}
+
+.blue-theme {
+    background: #35698c;
+    color: #35698c;
+}
+
+.purple-theme {
+    background: #69528c;
+    color: #69528c;
+}
+
+.orange-theme {
+    background: #b4673d;
+    color: #b4673d;
+}
+
+
+/* ========================================
+   LAYOUT OPTIONS
+======================================== */
+
+.layout-options {
+    display: flex;
+    gap: 10px;
+}
+
+.layout-option {
+    width: 105px;
+
+    padding: 10px;
+
+    border: 1px solid #dfe5e1;
+    border-radius: 9px;
+
+    background: white;
+    color: #515b53;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: 0.2s ease;
+}
+
+.layout-option:hover {
+    border-color: var(--primary);
+}
+
+.layout-option.selected {
+    border-color: var(--primary);
+
+    background: var(--primary-light);
+}
+
+.layout-option strong {
+    display: block;
+
+    margin-top: 8px;
+    margin-bottom: 2px;
+
+    color: #263029;
+
+    font-size: 9px;
+}
+
+.layout-option small {
+    color: #89918b;
+    font-size: 7px;
+}
+
+.layout-preview {
+    height: 37px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 6px;
+
+    border: 1px solid #e0e5e1;
+    border-radius: 5px;
+
+    background: white;
+}
+
+.layout-preview span {
+    display: block;
+
+    height: 3px;
+
+    border-radius: 5px;
+
+    background: #c9d2cb;
+}
+
+.comfortable-preview {
+    justify-content: space-between;
+}
+
+.compact-preview {
+    justify-content: space-around;
+}
+
+
+/* ========================================
+   DARK MODE SWITCH
+======================================== */
+
+.switch {
+    position: relative;
+
+    width: 42px;
+    height: 23px;
+
+    flex-shrink: 0;
+}
+
+.switch input {
+    width: 0;
+    height: 0;
+
+    opacity: 0;
+}
+
+.switch-slider {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 30px;
+
+    background: #dce2dd;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.switch-slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 17px;
+    height: 17px;
+
+    left: 3px;
+    top: 3px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+
+    transition: 0.25s ease;
+}
+
+.switch input:checked + .switch-slider {
+    background: var(--primary);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(19px);
+}
+
+
+/* ========================================
+   SAVE SETTINGS
+======================================== */
+
+.settings-save {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 17px 20px;
+
+    background: #17201a;
+
+    border-radius: 12px;
+
+    color: white;
+}
+
+.settings-save > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.settings-save strong {
+    font-size: 10px;
+}
+
+.settings-save span {
+    color: rgba(255, 255, 255, 0.58);
+
+    font-size: 8px;
+}
+
+.settings-save .add-meal-btn {
+    background: white;
+    color: #17201a;
+
+    box-shadow: none;
+}
+
+.settings-save .add-meal-btn:hover {
+    background: #f0f3f0;
+}
+
+
+/* ========================================
+   PREFERENCES RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+    .preferences-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-menu {
+        position: static;
+
+        flex-direction: row;
+
+        overflow-x: auto;
+    }
+
+    .settings-menu-item {
+        width: auto;
+        min-width: 110px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .preferences-header h1 {
+        font-size: 25px;
+    }
+
+    .settings-card {
+        padding: 19px;
+    }
+
+    .settings-heading {
+        flex-direction: column;
+    }
+
+    .settings-heading > p {
+        text-align: left;
+    }
+
+    .settings-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-field {
+        grid-column: auto;
+    }
+
+    .appearance-setting {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .settings-save {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .settings-save .add-meal-btn {
+        width: 100%;
+    }
+}
+/* ========================================
+   EXTRA APPEARANCE THEMES
+======================================== */
+
+.theme-picker {
+    min-width: 330px;
+}
+
+.theme-group-label {
+    margin-bottom: 9px;
+
+    color: #929a94;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+.gradient-label {
+    margin-top: 17px;
+}
+
+
+/* Extra solid colors */
+
+.red-theme {
+    background: #a94c4c;
+    color: #a94c4c;
+}
+
+.pink-theme {
+    background: #b75f83;
+    color: #b75f83;
+}
+
+.teal-theme {
+    background: #367b78;
+    color: #367b78;
+}
+
+.black-theme {
+    background: #242826;
+    color: #242826;
+}
+
+
+/* ========================================
+   GRADIENT OPTIONS
+======================================== */
+
+.gradient-options {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 7px;
+}
+
+.gradient-theme {
+    padding: 6px;
+
+    border: 1px solid #dfe5e1;
+    border-radius: 8px;
+
+    background: white;
+
+    color: #626b64;
+
+    font-family: inherit;
+    font-size: 7px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.gradient-theme:hover {
+    border-color: #aab5ad;
+
+    transform: translateY(-1px);
+}
+
+.gradient-theme.selected {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.gradient-theme span {
+    display: block;
+
+    width: 100%;
+    height: 24px;
+
+    margin-bottom: 6px;
+
+    border-radius: 5px;
+}
+
+
+/* Forest */
+
+.forest-gradient span {
+    background: linear-gradient(
+        135deg,
+        #18392a,
+        #477c59,
+        #8db49a
+    );
+}
+
+
+/* Ocean */
+
+.ocean-gradient span {
+    background: linear-gradient(
+        135deg,
+        #183b56,
+        #357ca0,
+        #6ab7bd
+    );
+}
+
+
+/* Sunset */
+
+.sunset-gradient span {
+    background: linear-gradient(
+        135deg,
+        #9e4b45,
+        #d87a55,
+        #e7ad65
+    );
+}
+
+
+/* Berry */
+
+.berry-gradient span {
+    background: linear-gradient(
+        135deg,
+        #442a67,
+        #76549a,
+        #ba668d
+    );
+}
+
+
+@media (max-width: 600px) {
+
+    .theme-picker {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .gradient-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+/* ========================================
+   ACTIVE GRADIENT THEMES
+======================================== */
+
+.gradient-active .sidebar-logo,
+.gradient-active .add-meal-btn,
+.gradient-active .profile-avatar,
+.gradient-active .progress-fill,
+.gradient-active .today-column .day-heading strong {
+    background: var(--selected-gradient);
+}
+
+.gradient-active .nav-item.active {
+    background: var(--primary-light);
+}
+
+
+/* ========================================
+   COMPACT LAYOUT
+======================================== */
+
+.compact-layout .main-content {
+    padding-top: 28px;
+    padding-bottom: 35px;
+}
+
+.compact-layout .summary-card {
+    min-height: 140px;
+    padding: 16px;
+}
+
+.compact-layout .dashboard-card,
+.compact-layout .settings-card {
+    padding: 18px;
+}
+
+.compact-layout .inventory-row {
+    min-height: 58px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.compact-layout .calendar-grid {
+    min-height: 440px;
+}
+
+.compact-layout .calendar-meal {
+    padding: 9px;
+    margin-bottom: 7px;
+}
+
+.compact-layout .settings-content {
+    gap: 10px;
+}
+
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+.dark-mode {
+    --text-dark: #f1f4f2;
+    --text-gray: #aab3ad;
+    --border: #343b36;
+
+    background: #111512;
+    color: #f1f4f2;
+}
+
+.dark-mode.app-body {
+    background: #111512;
+}
+
+
+/* Sidebar */
+
+.dark-mode .sidebar {
+    background: #171c18;
+    border-color: #293029;
+}
+
+.dark-mode .sidebar-brand {
+    color: #f3f5f3;
+}
+
+.dark-mode .nav-label {
+    color: #707a72;
+}
+
+.dark-mode .nav-item {
+    color: #aab2ac;
+}
+
+.dark-mode .nav-item:hover {
+    background: #202721;
+    color: white;
+}
+
+.dark-mode .nav-item.active {
+    background: color-mix(
+        in srgb,
+        var(--primary) 28%,
+        #171c18
+    );
+
+    color: #ffffff;
+}
+
+.dark-mode .sidebar-bottom {
+    border-color: #293029;
+}
+
+.dark-mode .user-info strong {
+    color: #f0f3f1;
+}
+
+.dark-mode .user-info span {
+    color: #858f88;
+}
+
+.dark-mode .user-avatar {
+    background: var(--primary);
+    color: white;
+}
+
+.dark-mode .logout-btn {
+    color: #969f98;
+}
+
+.dark-mode .logout-btn:hover {
+    background: #302020;
+    color: #e89595;
+}
+
+
+/* Main headings */
+
+.dark-mode .main-content h1,
+.dark-mode .main-content h2,
+.dark-mode .main-content h3 {
+    color: #f2f5f3;
+}
+
+.dark-mode .topbar-subtitle,
+.dark-mode .inventory-subtitle,
+.dark-mode .preferences-header > div > p:last-child,
+.dark-mode .calendar-header > div > p:last-child {
+    color: #929c95 !important;
+}
+
+
+/* ========================================
+   DARK CARDS
+======================================== */
+
+.dark-mode .summary-card,
+.dark-mode .dashboard-card,
+.dark-mode .week-toolbar,
+.dark-mode .calendar-grid,
+.dark-mode .inventory-stat,
+.dark-mode .inventory-toolbar,
+.dark-mode .inventory-card,
+.dark-mode .settings-card,
+.dark-mode .settings-menu {
+    background: #181d19;
+
+    border-color: #2b322c;
+
+    box-shadow: none;
+}
+
+
+/* Dashboard */
+
+.dark-mode .card-title,
+.dark-mode .summary-card > p,
+.dark-mode .meal-details p,
+.dark-mode .meal-time span,
+.dark-mode .meal-calories span,
+.dark-mode .macro-row span {
+    color: #89938c;
+}
+
+.dark-mode .summary-card h2,
+.dark-mode .meal-details h3,
+.dark-mode .meal-time strong,
+.dark-mode .meal-calories strong,
+.dark-mode .macro-row strong {
+    color: #eef2ef;
+}
+
+.dark-mode .progress-bar {
+    background: #303731;
+}
+
+.dark-mode .meal-item,
+.dark-mode .macro-row {
+    border-color: #2c332d;
+}
+
+.dark-mode .nutrition-circle {
+    background:
+        radial-gradient(
+            closest-side,
+            #181d19 77%,
+            transparent 78% 99%
+        ),
+        conic-gradient(
+            var(--primary) 71%,
+            #303731 0
+        );
+}
+
+
+/* ========================================
+   DARK CALENDAR
+======================================== */
+
+.dark-mode .calendar-grid {
+    background: #181d19;
+}
+
+.dark-mode .day-column {
+    background: #181d19;
+    border-color: #2c332d;
+}
+
+.dark-mode .today-column {
+    background: #1d251f;
+}
+
+.dark-mode .day-heading {
+    border-color: #2c332d;
+}
+
+.dark-mode .day-heading span {
+    color: #89938c;
+}
+
+.dark-mode .day-heading strong {
+    color: #eef2ef;
+}
+
+.dark-mode .breakfast-meal {
+    background: #302b1c;
+}
+
+.dark-mode .lunch-meal {
+    background: #1d2e21;
+}
+
+.dark-mode .dinner-meal {
+    background: #302221;
+}
+
+.dark-mode .calendar-meal h3 {
+    color: #eef2ef;
+}
+
+.dark-mode .calendar-meal p {
+    color: #9aa39c;
+}
+
+.dark-mode .add-small-meal {
+    border-color: #3a423b;
+    color: #909991;
+}
+
+.dark-mode .add-small-meal:hover {
+    background: #202a22;
+}
+
+.dark-mode .week-summary {
+    background: #181d19;
+    border-color: #2b322c;
+}
+
+.dark-mode .week-summary > div {
+    border-color: #2c332d;
+}
+
+.dark-mode .week-summary strong {
+    color: #eef2ef;
+}
+
+
+/* ========================================
+   DARK INVENTORY
+======================================== */
+
+.dark-mode .inventory-stat p,
+.dark-mode .inventory-stat small {
+    color: #929c95;
+}
+
+.dark-mode .inventory-stat strong {
+    color: #f1f4f2;
+}
+
+.dark-mode .inventory-search {
+    background: #202521;
+    border-color: #343b35;
+}
+
+.dark-mode .inventory-search input {
+    color: white;
+}
+
+.dark-mode .inventory-search input::placeholder {
+    color: #737d75;
+}
+
+.dark-mode .inventory-table-header {
+    background: #202521;
+
+    border-color: #303731;
+
+    color: #858f87;
+}
+
+.dark-mode .inventory-row {
+    border-color: #2c332d;
+    color: #e7ebe8;
+}
+
+.dark-mode .inventory-row:hover {
+    background: #1d231e;
+}
+
+.dark-mode .food-name strong,
+.dark-mode .quantity strong,
+.dark-mode .expiration strong {
+    color: #eef2ef;
+}
+
+.dark-mode .food-name span,
+.dark-mode .quantity span {
+    color: #89938c;
+}
+
+.dark-mode .category-tag {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dark-mode .inventory-tip {
+    background: #18261d;
+    border-color: #2b4332;
+}
+
+.dark-mode .inventory-tip strong {
+    color: #eaf0ec;
+}
+
+.dark-mode .inventory-tip p {
+    color: #94a098;
+}
+
+
+/* ========================================
+   DARK PREFERENCES
+======================================== */
+
+.dark-mode .settings-heading {
+    border-color: #2c332d;
+}
+
+.dark-mode .settings-heading h2 {
+    color: #f1f4f2;
+}
+
+.dark-mode .settings-heading > p {
+    color: #89938c;
+}
+
+.dark-mode .profile-preview {
+    background: #202521;
+}
+
+.dark-mode .profile-preview strong {
+    color: white;
+}
+
+.dark-mode .settings-field label {
+    color: #cbd1cd;
+}
+
+.dark-mode .settings-field input,
+.dark-mode .settings-field select {
+    background: #202521;
+
+    border-color: #343b35;
+
+    color: #f0f3f1;
+}
+
+.dark-mode .settings-field input:focus,
+.dark-mode .settings-field select:focus {
+    background: #242a25;
+}
+
+.dark-mode .input-with-unit {
+    background: #202521;
+    border-color: #343b35;
+}
+
+.dark-mode .preference-chip {
+    background: #202521;
+
+    border-color: #343b35;
+
+    color: #b8c0ba;
+}
+
+.dark-mode .preference-chip.selected {
+    background: var(--primary);
+    border-color: var(--primary);
+
+    color: white;
+}
+
+.dark-mode .appearance-setting {
+    border-color: #2c332d;
+}
+
+.dark-mode .appearance-info strong {
+    color: #eef2ef;
+}
+
+.dark-mode .appearance-info span {
+    color: #89938c;
+}
+
+.dark-mode .layout-option {
+    background: #202521;
+
+    border-color: #343b35;
+}
+
+.dark-mode .layout-option.selected {
+    border-color: var(--primary);
+
+    background: #242d26;
+}
+
+.dark-mode .layout-option strong {
+    color: #eef2ef;
+}
+
+.dark-mode .layout-preview {
+    background: #171c18;
+
+    border-color: #343b35;
+}
+
+.dark-mode .gradient-theme {
+    background: #202521;
+
+    border-color: #343b35;
+
+    color: #c1c8c3;
+}
+
+
+/* ========================================
+   GRADIENT + DARK MODE
+======================================== */
+
+.dark-mode.gradient-active .sidebar-logo,
+.dark-mode.gradient-active .add-meal-btn,
+.dark-mode.gradient-active .profile-avatar,
+.dark-mode.gradient-active .progress-fill,
+.dark-mode.gradient-active
+.today-column .day-heading strong {
+    background: var(--selected-gradient);
+}
+
+
+/* ========================================
+   SMOOTH THEME TRANSITIONS
+======================================== */
+
+body,
+.sidebar,
+.main-content,
+.summary-card,
+.dashboard-card,
+.inventory-card,
+.inventory-stat,
+.inventory-toolbar,
+.settings-card,
+.settings-menu,
+.calendar-grid,
+.day-column {
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+}
+/* ========================================
+   RECIPES PAGE
+======================================== */
+
+.recipes-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.recipes-header h1 {
+    margin-bottom: 6px;
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+
+.recipes-subtitle {
+    color: #68736b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   FEATURED RECIPE
+======================================== */
+
+.featured-recipe {
+    position: relative;
+    min-height: 285px;
+
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+
+    margin-bottom: 22px;
+
+    overflow: hidden;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary-dark),
+            var(--primary)
+        );
+
+    color: white;
+
+    box-shadow: 0 12px 30px rgba(30, 55, 40, 0.10);
+}
+
+.gradient-active .featured-recipe {
+    background: var(--selected-gradient);
+}
+
+.featured-content {
+    position: relative;
+    z-index: 2;
+
+    padding: 34px;
+}
+
+.featured-label {
+    display: inline-block;
+
+    margin-bottom: 15px;
+
+    color: rgba(255, 255, 255, 0.68);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1.3px;
+}
+
+.featured-content h2 {
+    margin-bottom: 12px;
+
+    color: white;
+
+    font-size: 29px;
+    line-height: 1.05;
+
+    letter-spacing: -1px;
+}
+
+.featured-content > p {
+    max-width: 470px;
+
+    color: rgba(255, 255, 255, 0.72);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.featured-stats {
+    display: flex;
+    gap: 27px;
+
+    margin-top: 22px;
+    margin-bottom: 22px;
+}
+
+.featured-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.featured-stats strong {
+    color: white;
+    font-size: 13px;
+}
+
+.featured-stats span {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 7px;
+}
+
+.featured-button {
+    padding: 10px 15px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: white;
+    color: var(--primary-dark);
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.featured-button:hover {
+    transform: translateY(-1px);
+    background: #f3f5f3;
+}
+
+
+/* Featured visual */
+
+.featured-visual {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.featured-visual::before {
+    content: "";
+
+    position: absolute;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.featured-visual::after {
+    content: "";
+
+    position: absolute;
+
+    width: 205px;
+    height: 205px;
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 50%;
+}
+
+.featured-food-circle {
+    position: relative;
+    z-index: 2;
+
+    width: 150px;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 7px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    font-size: 66px;
+
+    backdrop-filter: blur(8px);
+}
+
+.featured-badge {
+    position: absolute;
+    z-index: 3;
+
+    right: 28px;
+    bottom: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 9px;
+
+    background: rgba(255, 255, 255, 0.12);
+
+    color: rgba(255, 255, 255, 0.65);
+
+    font-size: 7px;
+
+    backdrop-filter: blur(8px);
+}
+
+.featured-badge span {
+    color: white;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+
+/* ========================================
+   RECIPE SEARCH
+======================================== */
+
+.recipe-toolbar {
+    display: flex;
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.recipe-search {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 0 14px;
+
+    border: 1px solid #e0e5e1;
+    border-radius: 9px;
+
+    background: white;
+}
+
+.recipe-search > span {
+    color: #89938b;
+    font-size: 14px;
+}
+
+.recipe-search input {
+    width: 100%;
+
+    padding: 12px 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: #263029;
+
+    font-family: inherit;
+    font-size: 10px;
+}
+
+.recipe-search input::placeholder {
+    color: #a1aaa3;
+}
+
+.recipe-filter-button {
+    min-width: 90px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 0 15px;
+
+    border: 1px solid #e0e5e1;
+    border-radius: 9px;
+
+    background: white;
+    color: #525c54;
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+.recipe-filter-button:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+
+/* ========================================
+   RECIPE CATEGORIES
+======================================== */
+
+.recipe-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-bottom: 28px;
+}
+
+.recipe-category {
+    padding: 7px 12px;
+
+    border: 1px solid #e0e5e1;
+    border-radius: 20px;
+
+    background: white;
+    color: #687169;
+
+    font-family: inherit;
+    font-size: 8px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.recipe-category:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.recipe-category.active {
+    border-color: var(--primary);
+
+    background: var(--primary);
+    color: white;
+}
+
+
+/* ========================================
+   RECIPE SECTION HEADING
+======================================== */
+
+.recipe-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.recipe-section-heading h2 {
+    margin-bottom: 3px;
+
+    color: #17201a;
+
+    font-size: 16px;
+}
+
+.recipe-section-heading p {
+    color: #8a938c;
+    font-size: 9px;
+}
+
+.recipe-section-heading > span {
+    color: #929a94;
+    font-size: 8px;
+}
+
+
+/* ========================================
+   RECIPE GRID
+======================================== */
+
+.recipe-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+.recipe-card {
+    overflow: hidden;
+
+    border: 1px solid #e5eae6;
+    border-radius: 13px;
+
+    background: white;
+
+    box-shadow: 0 4px 15px rgba(30, 50, 37, 0.025);
+
+    transition: 0.2s ease;
+}
+
+.recipe-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #d6ddd7;
+
+    box-shadow: 0 10px 25px rgba(30, 50, 37, 0.07);
+}
+
+
+/* ========================================
+   RECIPE IMAGE AREAS
+======================================== */
+
+.recipe-image {
+    position: relative;
+
+    height: 145px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.recipe-image::before {
+    content: "";
+
+    position: absolute;
+
+    width: 125px;
+    height: 125px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.32);
+}
+
+.recipe-emoji {
+    position: relative;
+    z-index: 2;
+
+    font-size: 55px;
+
+    filter: drop-shadow(
+        0 7px 8px rgba(0, 0, 0, 0.08)
+    );
+}
+
+.berry-recipe {
+    background:
+        linear-gradient(
+            135deg,
+            #eee5f3,
+            #d8e5ef
+        );
+}
+
+.chicken-recipe {
+    background:
+        linear-gradient(
+            135deg,
+            #e4efe4,
+            #f1eadb
+        );
+}
+
+.pasta-recipe {
+    background:
+        linear-gradient(
+            135deg,
+            #f4ead6,
+            #eed7c8
+        );
+}
+
+.avocado-recipe {
+    background:
+        linear-gradient(
+            135deg,
+            #dcebd7,
+            #edf1d6
+        );
+}
+
+.salmon-recipe {
+    background:
+        linear-gradient(
+            135deg,
+            #f2ded8,
+            #ead7cf
+        );
+}
+
+.wrap-recipe {
+    background:
+        linear-gradient(
+            135deg,
+            #e8ead5,
+            #e1eee1
+        );
+}
+
+
+/* Favorite */
+
+.favorite-button {
+    position: absolute;
+
+    z-index: 4;
+
+    top: 10px;
+    right: 10px;
+
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.90);
+    color: #58625a;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+
+    transition: 0.2s ease;
+}
+
+.favorite-button:hover {
+    transform: scale(1.08);
+}
+
+.favorite-button.saved {
+    background: #fff0f0;
+    color: #b94c55;
+}
+
+
+/* Recipe time */
+
+.recipe-time {
+    position: absolute;
+
+    z-index: 4;
+
+    left: 10px;
+    bottom: 10px;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    background: rgba(255, 255, 255, 0.91);
+    color: #525c54;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    backdrop-filter: blur(6px);
+}
+
+
+/* ========================================
+   RECIPE CARD CONTENT
+======================================== */
+
+.recipe-card-content {
+    padding: 15px;
+}
+
+.recipe-type {
+    margin-bottom: 6px;
+
+    color: var(--primary);
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+.recipe-card-content h3 {
+    margin-bottom: 7px;
+
+    color: #17201a;
+
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.recipe-card-content > p {
+    min-height: 35px;
+
+    color: #7b857d;
+
+    font-size: 8px;
+    line-height: 1.55;
+}
+
+.recipe-macros {
+    display: flex;
+    gap: 17px;
+
+    padding: 12px 0;
+
+    margin-top: 8px;
+
+    border-top: 1px solid #edf0ed;
+}
+
+.recipe-macros span {
+    color: #89928b;
+    font-size: 7px;
+}
+
+.recipe-macros strong {
+    color: #3d4740;
+    font-size: 9px;
+}
+
+
+/* Add to plan */
+
+.add-plan-button {
+    width: 100%;
+
+    padding: 9px;
+
+    border: 1px solid var(--primary);
+    border-radius: 7px;
+
+    background: transparent;
+    color: var(--primary);
+
+    font-family: inherit;
+    font-size: 8px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.add-plan-button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+
+/* ========================================
+   EMPTY SEARCH STATE
+======================================== */
+
+.recipe-empty-state {
+    display: none;
+
+    padding: 55px 20px;
+
+    text-align: center;
+}
+
+.recipe-empty-state > span {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #9aa39c;
+    font-size: 25px;
+}
+
+.recipe-empty-state h3 {
+    margin-bottom: 5px;
+
+    color: #263029;
+    font-size: 13px;
+}
+
+.recipe-empty-state p {
+    color: #8a938c;
+    font-size: 9px;
+}
+
+
+/* ========================================
+   RECIPES - DARK MODE
+======================================== */
+
+.dark-mode .recipes-subtitle {
+    color: #929c95;
+}
+
+.dark-mode .recipe-search,
+.dark-mode .recipe-filter-button,
+.dark-mode .recipe-category,
+.dark-mode .recipe-card {
+    background: #181d19;
+    border-color: #2b322c;
+}
+
+.dark-mode .recipe-search input {
+    color: #eef2ef;
+}
+
+.dark-mode .recipe-search input::placeholder {
+    color: #737d75;
+}
+
+.dark-mode .recipe-filter-button,
+.dark-mode .recipe-category {
+    color: #aeb7b0;
+}
+
+.dark-mode .recipe-category.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.dark-mode .recipe-section-heading h2,
+.dark-mode .recipe-card-content h3,
+.dark-mode .recipe-empty-state h3 {
+    color: #eef2ef;
+}
+
+.dark-mode .recipe-section-heading p,
+.dark-mode .recipe-card-content > p,
+.dark-mode .recipe-empty-state p {
+    color: #929c95;
+}
+
+.dark-mode .recipe-macros {
+    border-color: #2c332d;
+}
+
+.dark-mode .recipe-macros strong {
+    color: #e5eae6;
+}
+
+.dark-mode .recipe-macros span {
+    color: #929c95;
+}
+
+.dark-mode .add-plan-button:hover {
+    color: white;
+}
+
+
+/* ========================================
+   RECIPES - COMPACT MODE
+======================================== */
+
+.compact-layout .featured-recipe {
+    min-height: 240px;
+}
+
+.compact-layout .featured-content {
+    padding: 25px;
+}
+
+.compact-layout .recipe-grid {
+    gap: 10px;
+}
+
+.compact-layout .recipe-card-content {
+    padding: 12px;
+}
+
+.compact-layout .recipe-image {
+    height: 120px;
+}
+
+
+/* ========================================
+   RECIPES RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .recipe-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 750px) {
+
+    .featured-recipe {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-visual {
+        display: none;
+    }
+
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .recipes-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+/* ========================================
+   NUTRITION PAGE
+======================================== */
+
+.nutrition-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.nutrition-header h1 {
+    margin-bottom: 6px;
+    font-size: 30px;
+    letter-spacing: -1px;
+}
+
+.nutrition-subtitle {
+    color: #68736b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* DATE SELECTOR */
+
+.nutrition-date {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 7px;
+
+    background: white;
+    border: 1px solid #e2e7e3;
+    border-radius: 10px;
+}
+
+.nutrition-date button {
+    width: 29px;
+    height: 29px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #f3f6f3;
+    color: #59635b;
+
+    cursor: pointer;
+}
+
+.nutrition-date > div {
+    min-width: 115px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.nutrition-date span {
+    color: var(--primary);
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.nutrition-date strong {
+    color: #29322b;
+    font-size: 9px;
+}
+
+
+/* ========================================
+   NUTRITION SUMMARY
+======================================== */
+
+.nutrition-summary {
+    display: grid;
+    grid-template-columns: 1.7fr repeat(3, 1fr);
+    gap: 13px;
+
+    margin-bottom: 15px;
+}
+
+.nutrition-main-card,
+.macro-card {
+    background: white;
+
+    border: 1px solid #e5eae6;
+    border-radius: 13px;
+
+    box-shadow: 0 4px 15px rgba(30, 50, 37, 0.025);
+}
+
+.nutrition-main-card {
+    padding: 20px;
+}
+
+.nutrition-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nutrition-card-top p {
+    margin-bottom: 5px;
+
+    color: #89928b;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.nutrition-card-top h2 {
+    color: #17201a;
+    font-size: 27px;
+    letter-spacing: -1px;
+}
+
+.nutrition-card-top > div:first-child > span {
+    color: #929a94;
+    font-size: 8px;
+}
+
+
+/* Calorie circle */
+
+.calorie-ring {
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            closest-side,
+            white 76%,
+            transparent 77% 99%
+        ),
+        conic-gradient(
+            var(--primary) 71%,
+            #edf1ee 0
+        );
+}
+
+.calorie-ring > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calorie-ring strong {
+    color: #17201a;
+    font-size: 14px;
+}
+
+.calorie-ring span {
+    color: #919991;
+    font-size: 6px;
+}
+
+
+/* Calories progress */
+
+.nutrition-progress {
+    margin-top: 17px;
+}
+
+.nutrition-progress-bar {
+    height: 5px;
+
+    overflow: hidden;
+
+    background: #edf1ee;
+    border-radius: 10px;
+}
+
+.nutrition-progress-bar span {
+    display: block;
+
+    height: 100%;
+
+    background: var(--primary);
+    border-radius: inherit;
+}
+
+.gradient-active .nutrition-progress-bar span {
+    background: var(--selected-gradient);
+}
+
+.nutrition-progress-labels {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    font-size: 7px;
+}
+
+.nutrition-progress-labels span {
+    color: #909991;
+}
+
+.nutrition-progress-labels strong {
+    color: #606a62;
+}
+
+
+/* ========================================
+   MACRO CARDS
+======================================== */
+
+.macro-card {
+    padding: 17px;
+}
+
+.macro-icon {
+    width: 29px;
+    height: 29px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 8px;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.protein-macro {
+    background: #e5f1e8;
+    color: #477453;
+}
+
+.carbs-macro {
+    background: #fff0d8;
+    color: #9b6c27;
+}
+
+.fat-macro {
+    background: #e8edf6;
+    color: #55729b;
+}
+
+.macro-card-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.macro-card-heading p {
+    color: #727c74;
+    font-size: 8px;
+}
+
+.macro-card-heading h3 {
+    margin-top: 2px;
+
+    color: #17201a;
+    font-size: 18px;
+}
+
+.macro-card-heading > span {
+    color: #89928b;
+    font-size: 8px;
+}
+
+.macro-progress {
+    height: 4px;
+
+    margin: 12px 0 7px;
+
+    overflow: hidden;
+
+    background: #edf1ee;
+    border-radius: 10px;
+}
+
+.macro-progress span {
+    display: block;
+
+    height: 100%;
+
+    background: var(--primary);
+    border-radius: inherit;
+}
+
+.gradient-active .macro-progress span {
+    background: var(--selected-gradient);
+}
+
+.macro-card small {
+    color: #9aa29c;
+    font-size: 7px;
+}
+
+
+/* ========================================
+   NUTRITION MAIN GRID
+======================================== */
+
+.nutrition-grid {
+    display: grid;
+    grid-template-columns: 1.65fr 0.85fr;
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+.nutrition-panel {
+    padding: 20px;
+
+    background: white;
+
+    border: 1px solid #e5eae6;
+    border-radius: 13px;
+
+    box-shadow: 0 4px 15px rgba(30, 50, 37, 0.025);
+}
+
+.nutrition-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 17px;
+}
+
+.nutrition-panel-header h2 {
+    margin-bottom: 3px;
+
+    color: #17201a;
+    font-size: 13px;
+}
+
+.nutrition-panel-header p {
+    color: #929a94;
+    font-size: 8px;
+}
+
+.nutrition-panel-header a {
+    color: var(--primary);
+
+    font-size: 8px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+/* ========================================
+   TODAY'S MEALS
+======================================== */
+
+.nutrition-meal-row {
+    display: grid;
+    grid-template-columns: 35px 1fr auto;
+    align-items: center;
+    gap: 11px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #edf0ed;
+}
+
+.nutrition-meal-icon {
+    width: 33px;
+    height: 33px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+.breakfast-icon {
+    background: #fff1d7;
+    color: #aa7528;
+}
+
+.lunch-icon {
+    background: #e5f1e8;
+    color: #477453;
+}
+
+.dinner-icon {
+    background: #ebe8f4;
+    color: #69578a;
+}
+
+.nutrition-meal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.nutrition-meal-info span {
+    color: #929b94;
+
+    font-size: 6px;
+    font-weight: 800;
+
+    letter-spacing: 0.7px;
+}
+
+.nutrition-meal-info strong {
+    color: #303a32;
+    font-size: 9px;
+}
+
+.nutrition-meal-macros {
+    display: flex;
+    gap: 22px;
+}
+
+.nutrition-meal-macros div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.nutrition-meal-macros strong {
+    color: #374139;
+    font-size: 9px;
+}
+
+.nutrition-meal-macros span {
+    color: #969f98;
+    font-size: 6px;
+}
+
+.nutrition-add-food {
+    width: 100%;
+
+    margin-top: 13px;
+    padding: 9px;
+
+    border: 1px dashed #cfd7d1;
+    border-radius: 7px;
+
+    background: transparent;
+    color: var(--primary);
+
+    font-family: inherit;
+    font-size: 8px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.nutrition-add-food:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+}
+
+
+/* ========================================
+   HYDRATION
+======================================== */
+
+.water-icon {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #e5f1f7;
+
+    font-size: 13px;
+}
+
+.water-total {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 17px;
+}
+
+.water-total > strong {
+    color: #17201a;
+
+    font-size: 34px;
+    line-height: 1;
+}
+
+.water-total > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.water-total span {
+    color: #626c64;
+    font-size: 9px;
+    font-weight: 650;
+}
+
+.water-total small {
+    color: #929b94;
+    font-size: 7px;
+}
+
+.water-glasses {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+
+    margin-bottom: 13px;
+}
+
+.water-glass {
+    height: 35px;
+
+    border: 1px solid #e0e6e1;
+    border-radius: 7px;
+
+    background: #f7f9f7;
+    color: #a1aaa3;
+
+    cursor: pointer;
+}
+
+.water-glass.filled {
+    background: #e7f3f8;
+    border-color: #d5e7ef;
+    color: #4d88a3;
+}
+
+.add-water-button {
+    width: 100%;
+
+    padding: 9px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #e7f3f8;
+    color: #477e98;
+
+    font-family: inherit;
+    font-size: 8px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.add-water-button:hover {
+    background: #dcecf3;
+}
+
+
+/* ========================================
+   BOTTOM GRID
+======================================== */
+
+.nutrition-bottom-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ========================================
+   WEEKLY CHART
+======================================== */
+
+.goal-badge {
+    padding: 5px 8px;
+
+    border-radius: 20px;
+
+    background: var(--primary-light);
+    color: var(--primary);
+
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.weekly-chart {
+    height: 160px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 11px;
+
+    padding-top: 10px;
+}
+
+.chart-column {
+    flex: 1;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
+
+.chart-track {
+    width: 100%;
+    height: 125px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    background: #f1f4f1;
+    border-radius: 6px;
+}
+
+.chart-track span {
+    display: block;
+
+    width: 100%;
+
+    background: #a7c5af;
+
+    border-radius: 6px;
+}
+
+.today-chart .chart-track span {
+    background: var(--primary);
+}
+
+.gradient-active .today-chart .chart-track span {
+    background: var(--selected-gradient);
+}
+
+.chart-column small {
+    color: #8f9891;
+    font-size: 7px;
+}
+
+.today-chart small {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+
+/* ========================================
+   NUTRIENTS
+======================================== */
+
+.nutrient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+.nutrient-name {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 7px;
+}
+
+.nutrient-name span {
+    color: #535e55;
+    font-size: 8px;
+    font-weight: 650;
+}
+
+.nutrient-name strong {
+    color: #818b83;
+    font-size: 7px;
+}
+
+.nutrient-bar {
+    height: 5px;
+
+    overflow: hidden;
+
+    background: #edf1ee;
+    border-radius: 10px;
+}
+
+.nutrient-bar span {
+    display: block;
+
+    height: 100%;
+
+    background: var(--primary);
+    border-radius: inherit;
+}
+
+.gradient-active .nutrient-bar span {
+    background: var(--selected-gradient);
+}
+
+
+/* ========================================
+   NUTRITION INSIGHT
+======================================== */
+
+.nutrition-insight {
+    display: grid;
+    grid-template-columns: 35px 1fr auto;
+    align-items: center;
+    gap: 13px;
+
+    padding: 16px 18px;
+
+    background: var(--primary-light);
+
+    border: 1px solid rgba(49, 95, 69, 0.10);
+    border-radius: 11px;
+}
+
+.nutrition-insight-icon {
+    width: 33px;
+    height: 33px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: var(--primary);
+    color: white;
+}
+
+.gradient-active .nutrition-insight-icon {
+    background: var(--selected-gradient);
+}
+
+.nutrition-insight > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.nutrition-insight span {
+    color: var(--primary);
+
+    font-size: 6px;
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+.nutrition-insight strong {
+    color: #263029;
+    font-size: 9px;
+}
+
+.nutrition-insight p {
+    color: #6f7971;
+    font-size: 7px;
+}
+
+.nutrition-insight a {
+    color: var(--primary);
+
+    font-size: 8px;
+    font-weight: 750;
+
+    text-decoration: none;
+}
+
+
+/* ========================================
+   NUTRITION DARK MODE
+======================================== */
+
+.dark-mode .nutrition-subtitle {
+    color: #929c95;
+}
+
+.dark-mode .nutrition-date,
+.dark-mode .nutrition-main-card,
+.dark-mode .macro-card,
+.dark-mode .nutrition-panel {
+    background: #181d19;
+    border-color: #2b322c;
+    box-shadow: none;
+}
+
+.dark-mode .nutrition-date button {
+    background: #242b25;
+    color: #d5dbd7;
+}
+
+.dark-mode .nutrition-date strong,
+.dark-mode .nutrition-card-top h2,
+.dark-mode .macro-card-heading h3,
+.dark-mode .nutrition-panel-header h2,
+.dark-mode .water-total > strong,
+.dark-mode .nutrition-meal-info strong,
+.dark-mode .nutrition-meal-macros strong,
+.dark-mode .nutrient-name span {
+    color: #eef2ef;
+}
+
+.dark-mode .calorie-ring {
+    background:
+        radial-gradient(
+            closest-side,
+            #181d19 76%,
+            transparent 77% 99%
+        ),
+        conic-gradient(
+            var(--primary) 71%,
+            #303731 0
+        );
+}
+
+.dark-mode .nutrition-progress-bar,
+.dark-mode .macro-progress,
+.dark-mode .nutrient-bar,
+.dark-mode .chart-track {
+    background: #303731;
+}
+
+.dark-mode .nutrition-progress-labels strong,
+.dark-mode .macro-card-heading > span,
+.dark-mode .nutrient-name strong {
+    color: #a2aba4;
+}
+
+.dark-mode .nutrition-meal-row {
+    border-color: #2c332d;
+}
+
+.dark-mode .nutrition-add-food {
+    border-color: #3b443d;
+}
+
+.dark-mode .nutrition-add-food:hover {
+    background: #202a22;
+}
+
+.dark-mode .water-glass {
+    background: #202521;
+    border-color: #343b35;
+}
+
+.dark-mode .water-glass.filled {
+    background: #20333b;
+    border-color: #294550;
+}
+
+.dark-mode .nutrition-insight {
+    background: #19251d;
+    border-color: #2b3e30;
+}
+
+.dark-mode .nutrition-insight strong {
+    color: #eef2ef;
+}
+
+.dark-mode .nutrition-insight p {
+    color: #929c95;
+}
+
+
+/* ========================================
+   FIX DARK MODE CONTRAST
+======================================== */
+
+/* Fix the Calendar "Today" badge you noticed */
+
+.dark-mode .today-column .day-heading strong {
+    color: #111512 !important;
+}
+
+.dark-mode.gradient-active
+.today-column .day-heading strong {
+    color: #111512 !important;
+}
+
+
+/* White/light buttons should use dark text */
+
+.dark-mode .featured-button {
+    color: #17201a;
+}
+
+.dark-mode .settings-save .add-meal-btn {
+    color: #17201a;
+}
+
+
+/* ========================================
+   NUTRITION COMPACT MODE
+======================================== */
+
+.compact-layout .nutrition-main-card,
+.compact-layout .macro-card,
+.compact-layout .nutrition-panel {
+    padding: 15px;
+}
+
+.compact-layout .nutrition-grid,
+.compact-layout .nutrition-bottom-grid {
+    gap: 10px;
+}
+
+
+/* ========================================
+   NUTRITION RESPONSIVE
+======================================== */
+
+@media (max-width: 1050px) {
+
+    .nutrition-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nutrition-main-card {
+        grid-column: 1 / -1;
+    }
+}
+
+
+@media (max-width: 800px) {
+
+    .nutrition-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .nutrition-grid,
+    .nutrition-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .nutrition-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrition-main-card {
+        grid-column: auto;
+    }
+}
+/* ========================================
+   ADD MEAL MODAL
+======================================== */
+
+.meal-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(10, 15, 11, 0.45);
+    backdrop-filter: blur(5px);
+}
+
+.meal-modal.show {
+    display: flex;
+}
+
+.meal-modal-box {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 25px;
+
+    background: white;
+
+    border: 1px solid #e2e7e3;
+    border-radius: 16px;
+
+    box-shadow: 0 20px 60px rgba(20, 35, 25, 0.18);
+
+    animation: mealModalOpen 0.2s ease;
+}
+
+@keyframes mealModalOpen {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* HEADER */
+
+.meal-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-bottom: 23px;
+}
+
+.meal-modal-header h2 {
+    margin: 3px 0 5px;
+
+    color: #17201a;
+
+    font-size: 22px;
+    letter-spacing: -0.6px;
+}
+
+.meal-modal-header > div > span {
+    color: #7c867e;
+    font-size: 9px;
+}
+
+.meal-modal-close {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #f1f4f1;
+    color: #667068;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+.meal-modal-close:hover {
+    background: #e7ece8;
+    color: #263029;
+}
+
+
+/* FORM */
+
+.meal-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+.meal-form-group label {
+    color: #535d55;
+
+    font-size: 8px;
+    font-weight: 750;
+}
+
+.meal-form-group select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid #dfe5e0;
+    border-radius: 8px;
+
+    outline: none;
+
+    background: #fafbfa;
+    color: #303a32;
+
+    font-family: inherit;
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.meal-form-group select:focus {
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px var(--primary-light);
+}
+
+
+/* NOTE */
+
+.meal-modal-note {
+    margin: 2px 0 17px;
+
+    color: #8a938c;
+
+    font-size: 8px;
+    line-height: 1.5;
+}
+
+
+/* SUBMIT BUTTON */
+
+.meal-modal-submit {
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: var(--primary);
+    color: white;
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.meal-modal-submit:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.gradient-active .meal-modal-submit {
+    background: var(--selected-gradient);
+}
+
+
+/* ========================================
+   ADD MEAL MODAL - DARK MODE
+======================================== */
+
+.dark-mode .meal-modal {
+    background: rgba(0, 0, 0, 0.62);
+}
+
+.dark-mode .meal-modal-box {
+    background: #181d19;
+    border-color: #303731;
+}
+
+.dark-mode .meal-modal-header h2 {
+    color: #eef2ef;
+}
+
+.dark-mode .meal-modal-header > div > span,
+.dark-mode .meal-modal-note {
+    color: #929c95;
+}
+
+.dark-mode .meal-modal-close {
+    background: #252b26;
+    color: #b6beb8;
+}
+
+.dark-mode .meal-modal-close:hover {
+    background: #303731;
+    color: white;
+}
+
+.dark-mode .meal-form-group label {
+    color: #c7cec9;
+}
+
+.dark-mode .meal-form-group select {
+    background: #202521;
+    border-color: #343b35;
+    color: #eef2ef;
+}
+/* Calendar remove meal button */
+
+.saved-calendar-meal {
+    position: relative;
+}
+
+.remove-calendar-meal {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    width: 24px;
+    height: 24px;
+
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+
+    opacity: 0.45;
+    transition: 0.2s ease;
+}
+
+.remove-calendar-meal:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.08);
+}
+/* Calendar Today label - dark mode */
+.dark-mode .today-column .day-heading small {
+    color: #8fd3a7 !important;
+}
+
+.dark-mode.gradient-active .today-column .day-heading small {
+    color: #8fd3a7 !important;
+}
+/* Calendar top Today button */
+.dark-mode .today-btn {
+    background: #ffffff !important;
+    color: #111512 !important;
+}
+
+.dark-mode .today-btn:hover {
+    background: #e9f3ec !important;
+    color: #111512 !important;
+}
+/* ========================================
+   INVENTORY ADD ITEM MODAL
+======================================== */
+
+.inventory-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(5px);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    z-index: 9999;
+}
+
+.inventory-modal.show {
+    display: flex;
+}
+
+.inventory-modal-box {
+    width: 100%;
+    max-width: 500px;
+
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 28px;
+
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.inventory-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 24px;
+}
+
+.inventory-modal-header h2 {
+    margin: 4px 0 5px;
+}
+
+.inventory-modal-header span {
+    font-size: 14px;
+    color: #777;
+}
+
+.inventory-modal-close {
+    border: none;
+    background: transparent;
+
+    font-size: 25px;
+    cursor: pointer;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+}
+
+.inventory-modal-close:hover {
+    background: #f1f1f1;
+}
+
+.inventory-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    margin-bottom: 17px;
+}
+
+.inventory-form-group label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.inventory-form-group input,
+.inventory-form-group select {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    font: inherit;
+    background: #ffffff;
+}
+
+.inventory-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.inventory-modal-submit {
+    width: 100%;
+
+    border: none;
+    border-radius: 11px;
+
+    padding: 13px;
+
+    background: #62c778;
+    color: white;
+
+    font-weight: 700;
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.inventory-modal-submit:hover {
+    opacity: 0.9;
+}
+
+/* Dark mode */
+
+.dark-mode .inventory-modal-box {
+    background: #171b18;
+    color: white;
+}
+
+.dark-mode .inventory-form-group input,
+.dark-mode .inventory-form-group select {
+    background: #202622;
+    border-color: #343b36;
+    color: white;
+}
+
+.dark-mode .inventory-modal-header span {
+    color: #aaa;
+}
+
+.dark-mode .inventory-modal-close {
+    color: white;
+}
+
+.dark-mode .inventory-modal-close:hover {
+    background: #252b27;
+}
+/* ========================================
+   INVENTORY ADD ITEM BUTTON
+======================================== */
+
+.add-item-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #62c778;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.add-item-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.12);
+}
+
+.add-item-btn:active {
+    transform: translateY(0);
+}
+
+/* Keep it nice in dark mode */
+.dark-mode .add-item-btn {
+    color: #ffffff;
+}
+/* ========================================
+   AUTH PAGE VISIBILITY FIX
+======================================== */
+
+.auth-panel,
+.auth-panel h1,
+.auth-panel h2,
+.auth-panel h3,
+.login-panel,
+.login-panel h1,
+.login-panel h2,
+.register-panel,
+.register-panel h1,
+.register-panel h2 {
+    color: #17201a;
+}
+
+.auth-panel h1,
+.login-panel h1,
+.register-panel h1 {
+    color: #17201a !important;
+    opacity: 1 !important;
+}
+
+.auth-panel label,
+.login-panel label,
+.register-panel label {
+    color: #4d5750 !important;
+    opacity: 1 !important;
+}
+
+.auth-panel p,
+.login-panel p,
+.register-panel p {
+    color: #7a827d;
+}
+
+.auth-panel input,
+.login-panel input,
+.register-panel input {
+    color: #17201a !important;
+    background: #ffffff !important;
+}
+
+.auth-panel input::placeholder,
+.login-panel input::placeholder,
+.register-panel input::placeholder {
+    color: #9ba29d !important;
+    opacity: 1;
+}
+
+/* Create account / secondary button */
+.auth-secondary-btn,
+.create-account-btn {
+    color: #263029 !important;
+    border-color: #777f79 !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+}
+
+.auth-secondary-btn:hover,
+.create-account-btn:hover {
+    background: #f2f6f3 !important;
+}
+
+/* Small bottom text */
+.auth-footer,
+.auth-footer a {
+    color: #6d756f !important;
+}
+
+/* Keep accent text readable */
+.auth-eyebrow,
+.auth-panel .page-label {
+    color: var(--primary, #315f45) !important;
+    opacity: 1 !important;
+}
+/* ========================================
+   LOGIN + REGISTER READABILITY FIX
+======================================== */
+
+.login-section {
+    background: #ffffff;
+}
+
+.welcome-text h2 {
+    color: #17201a !important;
+    opacity: 1 !important;
+}
+
+.welcome-text > p:not(.small-heading) {
+    color: #6d766f !important;
+    opacity: 1 !important;
+}
+
+.small-heading {
+    color: var(--primary, #315f45) !important;
+    opacity: 1 !important;
+}
+
+.form-group label {
+    color: #4c554f !important;
+    opacity: 1 !important;
+}
+
+.form-group input {
+    background: #ffffff !important;
+    color: #17201a !important;
+    opacity: 1 !important;
+}
+
+.form-group input::placeholder {
+    color: #949c96 !important;
+    opacity: 1 !important;
+}
+
+.remember-me,
+.forgot-password {
+    opacity: 1 !important;
+}
+
+.remember-me {
+    color: #707872 !important;
+}
+
+.forgot-password {
+    color: var(--primary, #315f45) !important;
+}
+
+.create-account-btn {
+    color: #263029 !important;
+    border-color: #707872 !important;
+    background: #ffffff !important;
+    opacity: 1 !important;
+}
+
+.create-account-btn:hover {
+    background: #f3f6f4 !important;
+}
+
+.divider p {
+    color: #8a928c !important;
+    opacity: 1 !important;
+}
+
+.divider span {
+    background: #b8beb9 !important;
+}
+
+.terms {
+    color: #777f79 !important;
+    opacity: 1 !important;
+}
+
+.terms a {
+    color: #4d5750 !important;
+}
+
+.error-message {
+    color: #c43d3d !important;
+    font-weight: 600;
+}
+/* =========================================
+   GLOBAL DARK MODE READABILITY FIX
+========================================= */
+
+body.dark-mode {
+    color: #f5f7f5;
+}
+
+
+/* MAIN PAGE TEXT */
+body.dark-mode .main-content,
+body.dark-mode .main-content h1,
+body.dark-mode .main-content h2,
+body.dark-mode .main-content h3,
+body.dark-mode .main-content h4,
+body.dark-mode .main-content strong,
+body.dark-mode .main-content label {
+    color: #f5f7f5;
+}
+
+
+/* SECONDARY TEXT */
+body.dark-mode .main-content p,
+body.dark-mode .main-content small,
+body.dark-mode .main-content .card-title,
+body.dark-mode .main-content .section-label,
+body.dark-mode .main-content .page-label {
+    color: #b9c1bb;
+}
+
+
+/* CARDS / PANELS */
+body.dark-mode .summary-card,
+body.dark-mode .dashboard-card,
+body.dark-mode .nutrition-panel,
+body.dark-mode .nutrition-main-card,
+body.dark-mode .macro-card,
+body.dark-mode .inventory-card,
+body.dark-mode .recipe-card {
+    color: #f5f7f5;
+}
+
+
+/* INPUTS */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    color: #f5f7f5;
+    background-color: #1d231f;
+    border-color: #3b453e;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #929b95;
+}
+
+
+/* LINKS */
+body.dark-mode .main-content a {
+    color: #d7e8dc;
+}
+
+
+/* TABLES */
+body.dark-mode table,
+body.dark-mode th,
+body.dark-mode td {
+    color: #f5f7f5;
+}
+
+
+/* BUTTONS / ICONS THAT DON'T HAVE
+   THEIR OWN THEME COLOR */
+body.dark-mode button {
+    color: #f5f7f5;
+}
+
+
+/* =========================================
+   CALENDAR DARK MODE
+========================================= */
+
+body.dark-mode .calendar-page,
+body.dark-mode .calendar-page h1,
+body.dark-mode .calendar-page h2,
+body.dark-mode .calendar-page h3,
+body.dark-mode .calendar-page strong,
+body.dark-mode .calendar-page span {
+    color: #f5f7f5;
+}
+
+
+/* THE X ON CALENDAR MEALS */
+body.dark-mode .remove-meal,
+body.dark-mode .delete-meal,
+body.dark-mode .meal-remove,
+body.dark-mode .meal-delete,
+body.dark-mode .remove-meal-btn {
+    color: #ffffff !important;
+}
+
+
+/* Any X button generated inside a calendar meal */
+body.dark-mode [class*="meal"] button {
+    color: #ffffff;
+}
+
+
+/* Calendar navigation */
+body.dark-mode .calendar-nav button,
+body.dark-mode .calendar-header button {
+    color: #ffffff;
+}
+
+
+/* =========================================
+   MODALS
+========================================= */
+
+body.dark-mode .modal,
+body.dark-mode .modal-content {
+    color: #f5f7f5;
+}
+
+body.dark-mode .modal h2,
+body.dark-mode .modal h3,
+body.dark-mode .modal label {
+    color: #f5f7f5;
+}
+
+
+/* Modal close X */
+body.dark-mode .close-modal,
+body.dark-mode .modal-close,
+body.dark-mode [class*="close"] {
+    color: #ffffff !important;
+}
+
+
+/* =========================================
+   INVENTORY
+========================================= */
+
+body.dark-mode .inventory-page,
+body.dark-mode .inventory-page td,
+body.dark-mode .inventory-page th {
+    color: #f5f7f5;
+}
+
+
+/* =========================================
+   RECIPES
+========================================= */
+
+body.dark-mode .recipes-page,
+body.dark-mode .recipes-page h2,
+body.dark-mode .recipes-page h3 {
+    color: #f5f7f5;
+}
+
+
+/* =========================================
+   NUTRITION
+========================================= */
+
+body.dark-mode .nutrition-page,
+body.dark-mode .nutrition-page h1,
+body.dark-mode .nutrition-page h2,
+body.dark-mode .nutrition-page h3,
+body.dark-mode .nutrition-page strong {
+    color: #f5f7f5;
+}
+
+
+/* =========================================
+   PREFERENCES
+========================================= */
+
+body.dark-mode .preferences-page,
+body.dark-mode .preferences-page h1,
+body.dark-mode .preferences-page h2,
+body.dark-mode .preferences-page h3,
+body.dark-mode .preferences-page label {
+    color: #f5f7f5;
+}
+/* Dark mode delete / close buttons */
+body.dark-mode .remove-calendar-meal,
+body.dark-mode .remove-inventory-item {
+    color: #ffffff !important;
+}
+/* =========================================
+   DARK MODE - BUTTON VISIBILITY FIX
+========================================= */
+
+/* White utility/navigation buttons */
+body.dark-mode .dashboard-header button:not(.add-meal-btn),
+body.dark-mode .calendar-week-header button:not(.add-meal-btn),
+body.dark-mode .week-navigation button,
+body.dark-mode .calendar-nav button {
+    background: #ffffff !important;
+    color: #151a16 !important;
+    border-color: #e2e6e3 !important;
+}
+
+/* Make symbols/arrows inside white buttons visible */
+body.dark-mode .dashboard-header button:not(.add-meal-btn) *,
+body.dark-mode .calendar-week-header button:not(.add-meal-btn) *,
+body.dark-mode .week-navigation button *,
+body.dark-mode .calendar-nav button * {
+    color: #151a16 !important;
+    fill: #151a16 !important;
+    stroke: #151a16 !important;
+}
+
+/* Calendar previous / next buttons */
+body.dark-mode .calendar-controls button,
+body.dark-mode .week-arrow {
+    background: #ffffff !important;
+    color: #151a16 !important;
+}
+
+/* Today button */
+body.dark-mode .today-btn {
+    background: #ffffff !important;
+    color: #151a16 !important;
+}
+
+/* Keep actual primary Add Meal buttons themed */
+body.dark-mode .add-meal-btn,
+body.dark-mode #topAddMealBtn {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+}
+
+/* Calendar meal delete X stays white */
+body.dark-mode .remove-calendar-meal {
+    color: #ffffff !important;
+    background: transparent !important;
+}
+
+/* Inventory delete X */
+body.dark-mode .remove-inventory-item {
+    color: #ffffff !important;
+}

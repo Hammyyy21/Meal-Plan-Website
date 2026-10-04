@@ -1,9 +1,4 @@
 """Connect to PostgreSQL and create all Meal Plan Tracker tables from schema.sql.
-
-Usage (from the project root, next to schema.sql):
-    python setup_db.py
-Optional environment variables: DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT
-WARNING: schema.sql drops and recreates every table, so this wipes existing data.
 """
 import getpass
 import os
@@ -11,7 +6,7 @@ import sys
 
 import psycopg2
 
-DB_NAME = os.getenv("DB_NAME", "mealplan")       # change if you kept "meal plan tracker"
+DB_NAME = os.getenv("DB_NAME", "mealplan")       
 DB_USER = os.getenv("DB_USER", "postgres")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = os.getenv("DB_PORT", "5432")

@@ -1,159 +1,136 @@
 // ========================================
-// LOGIN - FRONTEND DEMO
+// AUTH - CONNECTED TO FASTAPI BACKEND
+// (register, login, logout, session check)
 // ========================================
 
-const loginForm =
-    document.getElementById("loginForm");
+async function apiRequest(path, method, body) {
+    const response = await fetch(path, {
+        method: method || "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: body ? JSON.stringify(body) : undefined
+    });
+
+    let data = {};
+    try { data = await response.json(); } catch (e) {}
+
+    if (!response.ok) {
+        let message = "Something went wrong. Please try again.";
+        if (typeof data.detail === "string") {
+            message = data.detail;
+        } else if (Array.isArray(data.detail) && data.detail.length) {
+            message = data.detail[0].msg.replace("Value error, ", "");
+        }
+        const error = new Error(message);
+        error.status = response.status;
+        throw error;
+    }
+    return data;
+}
+
+// ---------- LOGIN ----------
+const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-
-    loginForm.addEventListener("submit", function (event) {
-
+    loginForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const email =
-            document.getElementById("email").value.trim();
-
-        const password =
-            document.getElementById("password").value;
-
-        const errorMessage =
-            document.getElementById("loginError");
-
-        const account =
-            JSON.parse(
-                localStorage.getItem("mealPlanAccount")
-            );
-
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const errorMessage = document.getElementById("loginError");
+        errorMessage.textContent = "";
 
         if (!email || !password) {
-
-            errorMessage.textContent =
-                "Please enter your email and password.";
-
+            errorMessage.textContent = "Please enter your email and password.";
             return;
         }
 
+        try {
+            await apiRequest("/api/login", "POST", { email: email, password: password });
+            const user = await apiRequest("/api/me");
 
-        if (!account) {
+            // keep the rest of the UI (dashboard greeting, etc.) working
+            localStorage.setItem("mealPlanLoggedIn", "true");
+            localStorage.setItem("mealPlanCurrentUser", JSON.stringify({
+                name: (user.first_name + " " + (user.last_name || "")).trim(),
+                email: user.email,
+                role: user.role_name
+            }));
 
-            errorMessage.textContent =
-                "No account found. Please create an account first.";
-
-            return;
+            window.location.href = "dashboard.html";
+        } catch (error) {
+            errorMessage.textContent = error.message;
         }
-
-
-        if (
-            email !== account.email ||
-            password !== account.password
-        ) {
-
-            errorMessage.textContent =
-                "Incorrect email or password.";
-
-            return;
-        }
-
-
-        localStorage.setItem(
-            "mealPlanLoggedIn",
-            "true"
-        );
-
-
-        localStorage.setItem(
-            "mealPlanCurrentUser",
-            JSON.stringify({
-                name: account.name,
-                email: account.email
-            })
-        );
-
-
-        window.location.href =
-            "dashboard.html";
     });
 }
-// ========================================
-// REGISTER - FRONTEND DEMO
-// ========================================
 
+// ---------- REGISTER ----------
 const registerForm = document.getElementById("registerForm");
 
 if (registerForm) {
-
-    registerForm.addEventListener("submit", function (event) {
-
+    registerForm.addEventListener("submit", async function (event) {
         event.preventDefault();
 
-        const name =
-            document.getElementById("fullName").value.trim();
-
-        const email =
-            document.getElementById("registerEmail").value.trim();
-
-        const password =
-            document.getElementById("registerPassword").value;
-
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
-
-        const errorMessage =
-            document.getElementById("registerError");
-
+        const name = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("registerEmail").value.trim();
+        const password = document.getElementById("registerPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const errorMessage = document.getElementById("registerError");
         errorMessage.textContent = "";
 
         if (!name || !email || !password || !confirmPassword) {
-            errorMessage.textContent =
-                "Please fill out all fields.";
+            errorMessage.textContent = "Please fill out all fields.";
             return;
         }
-
         if (password !== confirmPassword) {
-            errorMessage.textContent =
-                "Passwords do not match.";
+            errorMessage.textContent = "Passwords do not match.";
+            return;
+        }
+        if (password.length < 8) {
+            errorMessage.textContent = "Password must be at least 8 characters.";
             return;
         }
 
-        if (password.length < 6) {
-            errorMessage.textContent =
-                "Password must be at least 6 characters.";
-            return;
+        const parts = name.split(/\s+/);
+        const firstName = parts.shift();
+        const lastName = parts.join(" ");
+
+        try {
+            await apiRequest("/api/register", "POST", {
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                password: password
+            });
+            window.location.href = "index.html";
+        } catch (error) {
+            errorMessage.textContent = error.message;
         }
-
-        const account = {
-            name: name,
-            email: email,
-            password: password
-        };
-
-        localStorage.setItem(
-            "mealPlanAccount",
-            JSON.stringify(account)
-        );
-
-        window.location.href = "index.html";
     });
 }
 
-// ========================================
-// LOGOUT
-// ========================================
-
+// ---------- LOGOUT ----------
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
-
-    logoutBtn.addEventListener("click", function () {
-
+    logoutBtn.addEventListener("click", async function () {
+        try { await apiRequest("/api/logout", "POST"); } catch (e) {}
         localStorage.removeItem("mealPlanLoggedIn");
         localStorage.removeItem("mealPlanCurrentUser");
-
         window.location.href = "index.html";
-
     });
 }
+
+// ---------- SESSION GUARD (protected pages) ----------
+// Any page using <body class="app-body"> requires a valid server session.
+if (document.body.classList.contains("app-body")) {
+    apiRequest("/api/me").catch(function () {
+        localStorage.removeItem("mealPlanLoggedIn");
+        localStorage.removeItem("mealPlanCurrentUser");
+        window.location.href = "index.html";
+    });
+}
+
 // ========================================
 // APPEARANCE SETTINGS
 // ========================================

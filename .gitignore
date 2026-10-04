@@ -1,1 +1,8 @@
 .DS_Store
+
+# Python / Django
+__pycache__/
+*.py[cod]
+django_backend/.venv/
+django_backend/django.sqlite3
+django_backend/.env

@@ -126,4 +126,4 @@ def set_status(user_id: int, status: str, _=Depends(admin_only), conn=Depends(db
     return {"user_id": user_id, "account_status": status}
 
 
-app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static"), html=True))
+app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "frontend"), html=True))

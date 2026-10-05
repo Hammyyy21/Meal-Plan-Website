@@ -1729,81 +1729,107 @@ if (document.getElementById("firstName")) {
    USER SESSION + DASHBOARD
 ======================================== */
 
-const currentUser =
-    JSON.parse(localStorage.getItem("mealPlanCurrentUser"));
-
-const isLoggedIn =
-    localStorage.getItem("mealPlanLoggedIn") === "true";
-
 const isDashboard =
     document.getElementById("dashboardGreeting");
 
+async function loadDashboardUser() {
 
-// Protect Dashboard
-if (isDashboard && (!isLoggedIn || !currentUser)) {
+    if (!isDashboard) return;
 
-    window.location.href = "index.html";
+    try {
 
-}
+        // Get the REAL logged-in user from FastAPI/PostgreSQL
+        const user = await apiRequest("/api/me");
+
+        const fullName =
+            (user.first_name + " " + (user.last_name || "")).trim();
+
+        const firstName = user.first_name;
+
+        // Keep current UI features compatible
+        localStorage.setItem(
+            "mealPlanCurrentUser",
+            JSON.stringify({
+                name: fullName,
+                email: user.email,
+                role: user.role_name
+            })
+        );
+
+        localStorage.setItem(
+            "mealPlanLoggedIn",
+            "true"
+        );
+
+        const dashboardUserName =
+            document.getElementById("dashboardUserName");
+
+        const dashboardGreeting =
+            document.getElementById("dashboardGreeting");
+
+        const dashboardAvatar =
+            document.getElementById("dashboardAvatar");
 
 
-// Display logged-in user's information
-if (isDashboard && currentUser) {
-
-    const dashboardUserName =
-        document.getElementById("dashboardUserName");
-
-    const dashboardGreeting =
-        document.getElementById("dashboardGreeting");
-
-    const dashboardAvatar =
-        document.getElementById("dashboardAvatar");
-
-
-    // First name
-    const firstName =
-        currentUser.name.split(" ")[0];
-
-
-    if (dashboardUserName) {
-        dashboardUserName.textContent = currentUser.name;
-    }
-
-
-    if (dashboardGreeting) {
-
-        const currentHour =
-            new Date().getHours();
-
-        let greeting = "Good evening";
-
-        if (currentHour < 12) {
-            greeting = "Good morning";
-        } else if (currentHour < 17) {
-            greeting = "Good afternoon";
+        // Full name
+        if (dashboardUserName) {
+            dashboardUserName.textContent = fullName;
         }
 
-        dashboardGreeting.textContent =
-            greeting + ", " + firstName + ".";
-    }
+
+        // Greeting
+        if (dashboardGreeting) {
+
+            const currentHour =
+                new Date().getHours();
+
+            let greeting = "Good evening";
+
+            if (currentHour < 12) {
+                greeting = "Good morning";
+            }
+            else if (currentHour < 17) {
+                greeting = "Good afternoon";
+            }
+
+            dashboardGreeting.textContent =
+                greeting + ", " + firstName + ".";
+        }
 
 
-    // Create initials automatically
-    if (dashboardAvatar) {
+        // User initials
+        if (dashboardAvatar) {
 
-        const initials =
-            currentUser.name
-                .split(" ")
-                .map(function (name) {
-                    return name.charAt(0);
-                })
-                .slice(0, 2)
-                .join("")
-                .toUpperCase();
+            const initials =
+                fullName
+                    .split(" ")
+                    .filter(Boolean)
+                    .map(function (name) {
+                        return name.charAt(0);
+                    })
+                    .slice(0, 2)
+                    .join("")
+                    .toUpperCase();
 
-        dashboardAvatar.textContent = initials;
+            dashboardAvatar.textContent = initials;
+        }
+
+        // Update sidebar after real user loads
+        if (typeof updateSidebarUser === "function") {
+            updateSidebarUser();
+        }
+
+    } catch (error) {
+
+        // No valid backend session
+        localStorage.removeItem("mealPlanLoggedIn");
+        localStorage.removeItem("mealPlanCurrentUser");
+
+        window.location.href = "index.html";
     }
 }
+
+loadDashboardUser();
 /* ========================================
    DASHBOARD - LIVE MEAL DATA
 ======================================== */

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MealPlan | Grocery List</title><link rel="stylesheet" href="styles.css">
+<style>
+.grocery-wrap{max-width:1100px}.grocery-sub{color:#6c746f;margin:10px 0 28px}.grocery-card{background:#fff;border:1px solid #dfe5e1;border-radius:14px;padding:24px;margin-bottom:20px}.grocery-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;align-items:end}.grocery-grid label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}.grocery-grid input{width:100%;padding:12px;border:1px solid #dfe5e1;border-radius:8px}.grocery-btn{border:0;background:#315f45;color:white;border-radius:8px;padding:13px 16px;cursor:pointer}.grocery-remove{background:none;color:#a33232;border:0;cursor:pointer}.grocery-list{list-style:none;padding:0}.grocery-list li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid #e8ece9}.grocery-list li:last-child{border-bottom:0}.grocery-list label{display:flex;align-items:center;gap:12px}.grocery-list .done{text-decoration:line-through;color:#858e87}.grocery-meta{color:#6c746f;font-size:13px}.grocery-total{font-size:20px;font-weight:700;color:#315f45}.grocery-error{color:#a33232;margin-top:12px;min-height:20px}@media(max-width:1000px){.grocery-grid{grid-template-columns:1fr 1fr}.grocery-grid button{grid-column:1/-1}}@media(max-width:650px){.grocery-grid{grid-template-columns:1fr}.grocery-grid button{grid-column:auto}}
+</style></head>
+<body class="app-body"><div class="app-layout">
+<aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item">
+                <span class="nav-icon">⌕</span>
+                Recipes
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+            <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <a href="budget.html" class="nav-item"><span class="nav-icon">$</span> Budget Planning</a>
+<a href="goals.html" class="nav-item"><span class="nav-icon">◎</span> Goal Tracking</a>
+<a href="grocery.html" class="nav-item active"><span class="nav-icon">☷</span> Grocery List</a>
+            <p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar" id="nutritionAvatar">
+                    U
+                </div>
+
+                <div class="user-info">
+                    <strong id="nutritionUserName">User</strong>
+                    <span>User</span>
+                </div>
+
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+<main class="main-content"><div class="grocery-wrap"><p class="page-label">MEAL PLANNING</p><h1>Grocery List</h1><p class="grocery-sub">Plan your shopping, track purchased items, and estimate your grocery costs.</p>
+<section class="grocery-card"><h2 style="margin-bottom:18px">Add Grocery Item</h2><form id="groceryForm" class="grocery-grid"><div><label for="itemName">Item</label><input id="itemName" maxlength="120" placeholder="e.g. Tomatoes" required></div><div><label for="itemQty">Quantity</label><input id="itemQty" type="number" min="0.01" step="0.01" value="1" required></div><div><label for="itemUnit">Unit</label><input id="itemUnit" maxlength="30" value="pcs" required></div><div><label for="itemPrice">Est. price ($)</label><input id="itemPrice" type="number" min="0" step="0.01" value="0" required></div><button class="grocery-btn" type="submit">+ Add</button></form><p class="grocery-error" id="groceryError" role="alert"></p></section>
+<section class="grocery-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:14px"><h2>Shopping Items</h2><span class="grocery-total" id="groceryTotal">Estimated total: $0.00</span></div><ul id="groceryItems" class="grocery-list"><li>Loading...</li></ul></section>
+</div></main></div><script src="script.js"></script><script src="grocery.js"></script></body></html>

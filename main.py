@@ -203,4 +203,48 @@ def delete_goal(goal_id:int, user=Depends(current_user), conn=Depends(db)):
     conn.commit()
     return {'message':'Deleted'}
 
+
+# SPRINT3 GROCERY LIST API
+class GroceryItemIn(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    quantity: float = Field(gt=0, le=100000)
+    unit: str = Field(min_length=1, max_length=30)
+    estimated_price: float = Field(ge=0, le=1000000)
+
+class GroceryCheckedIn(BaseModel):
+    purchased: bool
+
+@app.get("/api/grocery-items")
+def grocery_list(user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("SELECT item_id, name, quantity::float AS quantity, unit, estimated_price::float AS estimated_price, purchased FROM grocery_list_items WHERE user_id=%s ORDER BY item_id DESC", (user["user_id"],))
+        return cur.fetchall()
+
+@app.post("/api/grocery-items", status_code=201)
+def grocery_add(body: GroceryItemIn, user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("INSERT INTO grocery_list_items (user_id,name,quantity,unit,estimated_price) VALUES (%s,%s,%s,%s,%s) RETURNING item_id", (user["user_id"], body.name.strip(), body.quantity, body.unit.strip(), body.estimated_price))
+        item_id = cur.fetchone()["item_id"]
+    conn.commit()
+    return {"item_id":item_id}
+
+@app.patch("/api/grocery-items/{item_id}")
+def grocery_check(item_id: int, body: GroceryCheckedIn, user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("UPDATE grocery_list_items SET purchased=%s WHERE item_id=%s AND user_id=%s RETURNING item_id", (body.purchased, item_id, user["user_id"]))
+        if not cur.fetchone():
+            raise HTTPException(404, "Item not found")
+    conn.commit()
+    return {"ok":True}
+
+@app.delete("/api/grocery-items/{item_id}")
+def grocery_delete(item_id: int, user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM grocery_list_items WHERE item_id=%s AND user_id=%s RETURNING item_id", (item_id, user["user_id"]))
+        if not cur.fetchone():
+            raise HTTPException(404, "Item not found")
+    conn.commit()
+    return {"ok":True}
+# END SPRINT3 GROCERY LIST API
+
 app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "frontend"), html=True))

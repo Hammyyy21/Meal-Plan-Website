@@ -6522,3 +6522,23 @@ body.dark-mode .remove-inventory-item {
         z-index: 10001;
     }
 }
+
+/* Fix iPhone portrait navigation */
+@media (max-width: 900px) {
+    body.mobile-nav-open .sidebar {
+        transform: translateX(0) !important;
+        left: 0 !important;
+        z-index: 10002 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    body.mobile-nav-open .mobile-menu-overlay {
+        display: block !important;
+        z-index: 10000 !important;
+    }
+
+    .mobile-menu-toggle {
+        z-index: 10001 !important;
+    }
+}

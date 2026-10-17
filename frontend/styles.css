@@ -6452,3 +6452,47 @@ body.dark-mode .remove-inventory-item {
 }
 @media(prefers-reduced-motion:reduce){.sidebar{transition:none!important}}
 /* END MEALPLAN MOBILE SUPPORT v1 */
+
+/* FIX MOBILE SIDEBAR */
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: min(290px, 85vw) !important;
+        height: 100dvh !important;
+        z-index: 10001 !important;
+        background: #ffffff !important;
+        transform: translateX(-110%);
+        transition: transform 0.25s ease !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        overflow-y: auto !important;
+    }
+
+    .sidebar.open,
+    .sidebar.active,
+    .sidebar.mobile-open,
+    body.menu-open .sidebar {
+        transform: translateX(0) !important;
+        left: 0 !important;
+    }
+
+    .sidebar-nav {
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-y: auto;
+    }
+
+    .sidebar .nav-item {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .mobile-overlay,
+    .sidebar-overlay,
+    .menu-overlay {
+        z-index: 10000 !important;
+    }
+}

@@ -126,4 +126,5 @@ async function ensureLogin(){try{await request('/api/me')}catch{location.href='i
 async function load(){try{let rows=await request('/api/budgets');document.getElementById('records').innerHTML=rows.length?rows.map(x=>`<div class="sprint3-record"><div><strong>$${Number(x.spent_amount).toFixed(2)} / $${Number(x.limit_amount).toFixed(2)}</strong><small>${safe(x.period_start)} to ${safe(x.period_end)}</small><small>$${Math.max(0,Number(x.limit_amount)-Number(x.spent_amount)).toFixed(2)} remaining</small></div><button data-id="${Number(x.budget_id)}">Delete</button></div>`).join(''):'No budgets yet.'}catch(e){error(e.message)}}
 document.getElementById('form').addEventListener('submit',async e=>{e.preventDefault();error('');try{await request('/api/budgets','POST',{period_start:start.value,period_end:end.value,limit_amount:Number(limit.value),spent_amount:Number(spent.value)});e.target.reset();await load()}catch(ex){error(ex.message)}});
 document.getElementById('records').addEventListener('click',async e=>{if(e.target.matches('button[data-id]')&&confirm('Delete this budget?')){try{await request('/api/budgets/'+e.target.dataset.id,'DELETE');await load()}catch(ex){error(ex.message)}}});ensureLogin().then(load);
-</script><script src="script.js"></script></body></html>
+</script><script src="script.js"></script><script src="mobile.js" defer></script>
+</body></html>

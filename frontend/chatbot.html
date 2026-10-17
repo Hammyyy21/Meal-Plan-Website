@@ -87,4 +87,5 @@ $('newChat').onclick=()=>{if(busy)return;current=null;empty();$('chatError').tex
 $('chatForm').onsubmit=async e=>{e.preventDefault();if(busy)return;const message=$('chatInput').value.trim();if(!message)return;busy=true;$('sendBtn').disabled=true;$('chatError').textContent='';if($('messages').querySelector('.chat-empty'))$('messages').replaceChildren();bubble(message,'user');$('chatInput').value='';const pending=bubble('Thinking...','bot');try{const result=await api('/api/chat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,chat_session_id:current})});current=result.chat_session_id;pending.textContent=result.reply;await threads()}catch(err){pending.remove();$('chatError').textContent=err.message;$('chatInput').value=message}finally{busy=false;$('sendBtn').disabled=false}};
 (async()=>{try{const u=await api('/api/me');$('chatUserName').textContent=u.first_name||'User';$('chatAvatar').textContent=(u.first_name||'U').charAt(0).toUpperCase();await threads()}catch(e){$('chatError').textContent=e.message}})();
 $('logoutBtn').onclick=async()=>{await fetch('/api/logout',{method:'POST'});location.href='login.html'};
-</script></body></html>
+</script><script src="mobile.js" defer></script>
+</body></html>

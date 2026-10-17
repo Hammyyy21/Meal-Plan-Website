@@ -36,3 +36,29 @@
     if (role) role.textContent='MealPlan member';
   }).catch(()=>{});
 })();
+
+
+// MEALPLAN APPEARANCE SYNC V2: apply Preferences even when script.js is not loaded.
+(function () {
+  function applySavedAppearance() {
+    const palettes = {
+      green:['#315f45','#244b35','#e9f2ec'], blue:['#35698c','#28536f','#e8f1f7'],
+      purple:['#69528c','#51406d','#f0ebf6'], orange:['#b4673d','#92502f','#f8eee8'],
+      red:['#a94c4c','#873b3b','#f8eaea'], pink:['#b75f83','#944968','#f8eaf0'],
+      teal:['#367b78','#285f5d','#e7f3f2'], black:['#292d2a','#171a18','#eceeec'],
+      'forest-gradient':['#315f45','#18392a','#e9f2ec'],
+      'ocean-gradient':['#357ca0','#183b56','#e7f3f8'],
+      'sunset-gradient':['#9e4b45','#813c36','#faede6'],
+      'berry-gradient':['#76549a','#442a67','#f1eaf6']
+    };
+    const palette = palettes[localStorage.getItem('mealPlanTheme')] || palettes.green;
+    document.documentElement.style.setProperty('--primary', palette[0]);
+    document.documentElement.style.setProperty('--primary-dark', palette[1]);
+    document.documentElement.style.setProperty('--primary-light', palette[2]);
+    if (!document.getElementById('loginForm') && !document.getElementById('registerForm')) {
+      document.body.classList.toggle('dark-mode', localStorage.getItem('mealPlanDarkMode') === 'true');
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applySavedAppearance);
+  else applySavedAppearance();
+})();

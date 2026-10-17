@@ -6659,3 +6659,81 @@ body.dark-mode .rec-button { background:#315f45 !important; color:#fff !importan
  .main-content .sprint3-panel { padding:14px !important; }
 }
 /* END MEALPLAN MOBILE POLISH v2 */
+
+
+/* MEALPLAN APPEARANCE SYNC V2 — consistent themes and accessible dark surfaces */
+/* Theme palette is set by script.js or mobile.js using Preferences' saved selection. */
+.mobile-menu-toggle, .sidebar-logo, .add-meal-btn,
+.sprint3-panel button:not(.sprint3-record button), .sprint3-button,
+.grocery-btn, .chat-new, .chat-send, .rec-button {
+  background: var(--primary, #315f45) !important;
+  color: #fff !important;
+}
+.mobile-menu-toggle:hover, .sprint3-panel button:not(.sprint3-record button):hover,
+.grocery-btn:hover, .chat-new:hover, .chat-send:not(:disabled):hover,
+.rec-button:hover { background: var(--primary-dark, #244b35) !important; }
+.rec-pill, .chat-thread.selected, .chat-thread:hover {
+  background: var(--primary-light, #e9f2ec) !important;
+  color: var(--primary-dark, #244b35) !important;
+}
+.rec-metrics, .grocery-total { color: var(--primary, #315f45) !important; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--primary, #315f45); }
+body.dark-mode .main-content .sprint3-page,
+body.dark-mode .main-content .grocery-wrap,
+body.dark-mode .main-content .chat-shell,
+body.dark-mode .main-content .rec-wrap { color: #f1f4f2 !important; }
+body.dark-mode .sprint3-panel,
+body.dark-mode .grocery-card,
+body.dark-mode .chat-panel,
+body.dark-mode .rec-panel,
+body.dark-mode .rec-meal {
+  background: #1c2420 !important;
+  color: #f1f4f2 !important;
+  border-color: #39463e !important;
+  box-shadow: none !important;
+}
+body.dark-mode :is(.sprint3-panel,.grocery-card,.chat-panel,.rec-panel,.rec-meal) :is(h1,h2,h3,h4,strong,label),
+body.dark-mode .chat-thread { color: #f1f4f2 !important; }
+body.dark-mode :is(.sprint3-page,.grocery-wrap,.chat-shell,.rec-wrap) :is(p,small,.grocery-meta,.rec-sub,.rec-note,.chat-sub,.chat-empty),
+body.dark-mode .rec-meal p,
+body.dark-mode .sprint3-record small { color: #c1ccc5 !important; }
+body.dark-mode :is(.sprint3-panel,.grocery-card,.chat-panel,.rec-panel,.rec-meal) :is(input:not([type="checkbox"]),select,textarea) {
+  background: #111915 !important;
+  color: #f4f7f5 !important;
+  border-color: #526357 !important;
+  color-scheme: dark;
+}
+body.dark-mode :is(.sprint3-panel,.grocery-card,.chat-panel,.rec-panel,.rec-meal) :is(input,textarea)::placeholder { color: #aebbb1 !important; }
+body.dark-mode .chat-bubble.bot { background: #303b33 !important; color: #f4f7f5 !important; }
+body.dark-mode .chat-bubble.user { background: var(--primary-dark, #442a67) !important; color: white !important; }
+body.dark-mode .chat-thread.selected, body.dark-mode .chat-thread:hover {
+  background: #354339 !important; color: #fff !important;
+}
+body.dark-mode .rec-pill { background: #364439 !important; color: #e4f3e8 !important; }
+body.dark-mode .rec-metrics, body.dark-mode .grocery-total { color: #d8b5f4 !important; }
+body.dark-mode .grocery-list li, body.dark-mode .sprint3-record, body.dark-mode .chat-composer { border-color: #39463e !important; }
+body.dark-mode .grocery-list .done { color: #b4bdb6 !important; }
+body.dark-mode .rec-error, body.dark-mode .grocery-error, body.dark-mode .chat-error, body.dark-mode .sprint3-error { color: #ffb4a8 !important; }
+body.dark-mode .sidebar { background: #171c18 !important; color: #f1f4f2 !important; }
+body.dark-mode .sidebar .sidebar-brand, body.dark-mode .sidebar .user-info { color: #f1f4f2 !important; }
+body.dark-mode .mobile-menu-toggle { background: var(--primary, #315f45) !important; color: #fff !important; }
+/* Prevent page-local desktop overrides from squeezing Budget and Goals on phones. */
+@media (max-width: 900px) {
+  body.app-body .app-layout > main.main-content.sprint3-page {
+    width: 100% !important; max-width: 100% !important;
+    margin: 0 !important; padding: 76px 18px 32px !important;
+    min-width: 0 !important;
+  }
+  body.app-body .app-layout > main.main-content.sprint3-page .sprint3-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+  }
+  body.app-body .app-layout > main.main-content.sprint3-page .sprint3-panel { min-width: 0 !important; }
+}
+@media (max-width: 600px) {
+  body.app-body .app-layout > main.main-content.sprint3-page { padding: 76px 14px 28px !important; }
+  .sprint3-record { flex-wrap: wrap; }
+  .chat-composer { flex-wrap: wrap; }
+  .chat-composer textarea { flex-basis: 100%; }
+}
+/* END MEALPLAN APPEARANCE SYNC V2 */

@@ -311,4 +311,53 @@ def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)
     return {'chat_session_id':session_id,'reply':reply}
 # END SPRINT3_AI_CHATBOT_API
 
+
+# SPRINT3_RECOMMENDATIONS_API
+from typing import Literal
+
+# Curated, approximate examples. Allergens are explicit and exclusions are conservative.
+MEAL_CATALOG = [
+    {"id":1,"name":"Chicken & Brown Rice Bowl","description":"Grilled chicken, brown rice, broccoli and olive oil.","tags":["high-protein","gluten-free"],"allergens":[],"ingredients":["chicken","brown rice","broccoli","olive oil"],"minutes":30,"cost":4.50,"protein":42,"calories":520},
+    {"id":2,"name":"Black Bean Burrito Bowl","description":"Rice, black beans, peppers, salsa and avocado.","tags":["vegan","vegetarian","gluten-free"],"allergens":[],"ingredients":["rice","black beans","bell peppers","salsa","avocado"],"minutes":20,"cost":3.20,"protein":17,"calories":480},
+    {"id":3,"name":"Salmon & Sweet Potato","description":"Baked salmon, roasted sweet potato and spinach.","tags":["high-protein","gluten-free"],"allergens":["fish"],"ingredients":["salmon","sweet potato","spinach"],"minutes":35,"cost":7.50,"protein":36,"calories":540},
+    {"id":4,"name":"Lentil Vegetable Soup","description":"Lentils, carrots, celery and tomatoes simmered together.","tags":["vegan","vegetarian","gluten-free"],"allergens":[],"ingredients":["lentils","carrots","celery","tomatoes"],"minutes":40,"cost":2.80,"protein":19,"calories":350},
+    {"id":5,"name":"Turkey Lettuce Wraps","description":"Seasoned ground turkey in crisp lettuce with vegetables.","tags":["high-protein","gluten-free"],"allergens":[],"ingredients":["ground turkey","lettuce","carrots","cucumber"],"minutes":25,"cost":4.80,"protein":34,"calories":390},
+    {"id":6,"name":"Greek Yogurt Berry Bowl","description":"Greek yogurt, berries and oats.","tags":["vegetarian","high-protein"],"allergens":["dairy"],"ingredients":["greek yogurt","berries","oats"],"minutes":5,"cost":2.90,"protein":24,"calories":320},
+    {"id":7,"name":"Chickpea Spinach Curry","description":"Chickpeas, spinach and tomatoes with curry spices, served over rice.","tags":["vegan","vegetarian","gluten-free"],"allergens":[],"ingredients":["chickpeas","spinach","tomatoes","rice"],"minutes":30,"cost":3.60,"protein":16,"calories":450},
+    {"id":8,"name":"Egg & Potato Breakfast Skillet","description":"Eggs, potatoes, bell peppers and onions.","tags":["vegetarian","gluten-free"],"allergens":["eggs"],"ingredients":["eggs","potatoes","bell peppers","onions"],"minutes":20,"cost":2.70,"protein":21,"calories":430},
+]
+
+class RecommendationSettingsIn(BaseModel):
+    diet: Literal['any','vegetarian','vegan','high-protein','gluten-free'] = 'any'
+    allergies: list[Literal['peanuts','tree-nuts','dairy','eggs','fish','shellfish','soy','wheat','sesame']] = Field(default_factory=list)
+    max_cost: float = Field(default=8, gt=0, le=1000)
+
+@app.get('/api/recommendations/settings')
+def recommendation_settings(user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute('SELECT diet,allergies,max_cost FROM recommendation_settings WHERE user_id=%s',(user['user_id'],))
+        item=cur.fetchone()
+    if not item: return {'diet':'any','allergies':[],'max_cost':8.0}
+    return {'diet':item['diet'],'allergies':item['allergies'],'max_cost':float(item['max_cost'])}
+
+@app.put('/api/recommendations/settings')
+def save_recommendation_settings(body:RecommendationSettingsIn,user=Depends(current_user),conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("""INSERT INTO recommendation_settings(user_id,diet,allergies,max_cost) VALUES (%s,%s,%s,%s)
+            ON CONFLICT(user_id) DO UPDATE SET diet=EXCLUDED.diet,allergies=EXCLUDED.allergies,max_cost=EXCLUDED.max_cost""",
+            (user['user_id'],body.diet,list(set(body.allergies)),body.max_cost))
+    conn.commit()
+    return {'ok':True}
+
+@app.get('/api/recommendations/meals')
+def recommended_meals(user=Depends(current_user),conn=Depends(db)):
+    settings=recommendation_settings(user,conn)
+    diet=settings['diet']; allergies=set(settings['allergies']); budget=settings['max_cost']
+    # Explicit allergy labels; curated meals only. Not a guarantee against cross-contact.
+    meals=[m for m in MEAL_CATALOG if (diet=='any' or diet in m['tags'])
+           and not (allergies & set(m['allergens'])) and m['cost']<=budget]
+    meals=sorted(meals,key=lambda m:(0 if diet!='any' and diet in m['tags'] else 1,m['cost']))
+    return {'meals':meals,'count':len(meals),'settings':settings,'note':'Costs and nutrition are estimates per serving. Check ingredient labels and cross-contact risks for allergies.'}
+# END SPRINT3_RECOMMENDATIONS_API
+
 app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "frontend"), html=True))

@@ -6570,3 +6570,92 @@ body.dark-mode .remove-inventory-item {
         z-index: 999998 !important;
     }
 }
+
+/* MEALPLAN MOBILE POLISH v2 */
+/* Consistent readable text on the new Sprint 3 pages */
+.sprint3-page, .grocery-wrap, .chat-shell, .rec-wrap { color:#17201a; }
+.sprint3-page p, .grocery-sub, .chat-sub, .rec-sub,
+.grocery-meta, .rec-note, .chat-empty, .sprint3-record small { color:#46574c !important; }
+.sprint3-panel, .grocery-card, .chat-panel, .rec-panel, .rec-meal { background:#fff; color:#17201a; }
+.sprint3-panel h2, .grocery-card h2, .chat-shell h2, .rec-panel h2,
+.rec-meal h3, .sprint3-record strong { color:#17201a; }
+.sprint3-panel label, .grocery-grid label, .rec-controls label { color:#233d2d; }
+.sprint3-panel input, .sprint3-panel select, .grocery-grid input,
+.rec-controls input, .rec-controls select, .chat-composer textarea {
+ background:#fff; color:#17201a; border-color:#899d8e;
+}
+.sprint3-panel input::placeholder, .grocery-grid input::placeholder,
+.chat-composer textarea::placeholder { color:#58685d; }
+.sprint3-panel button, .sprint3-button, .grocery-btn, .chat-new, .chat-send,
+.rec-button { background:#315f45; color:#fff; }
+.rec-pill { color:#234d34; background:#e2eee5; }
+.chat-thread { color:#17201a; }
+.chat-bubble.bot { color:#17201a; background:#eef4ef; }
+.chat-bubble.user { color:#fff; }
+/* Preserve readable contrast when appearance is set to dark mode */
+body.dark-mode .sprint3-panel, body.dark-mode .grocery-card,
+body.dark-mode .chat-panel, body.dark-mode .rec-panel,
+body.dark-mode .rec-meal { background:#1e2b23 !important; color:#f2f7f3 !important; border-color:#53695a !important; }
+body.dark-mode .sprint3-page, body.dark-mode .grocery-wrap,
+body.dark-mode .chat-shell, body.dark-mode .rec-wrap,
+body.dark-mode .sprint3-panel h2, body.dark-mode .grocery-card h2,
+body.dark-mode .rec-panel h2, body.dark-mode .rec-meal h3,
+body.dark-mode .sprint3-record strong, body.dark-mode .sprint3-panel label,
+body.dark-mode .grocery-grid label, body.dark-mode .rec-controls label,
+body.dark-mode .chat-thread, body.dark-mode .chat-bubble.bot { color:#f2f7f3 !important; }
+body.dark-mode .sprint3-page p, body.dark-mode .grocery-sub,
+body.dark-mode .chat-sub, body.dark-mode .rec-sub,
+body.dark-mode .rec-meal p, body.dark-mode .rec-note,
+body.dark-mode .grocery-meta, body.dark-mode .chat-empty,
+body.dark-mode .sprint3-record small { color:#cfdbd1 !important; }
+body.dark-mode .sprint3-panel input, body.dark-mode .sprint3-panel select,
+body.dark-mode .grocery-grid input, body.dark-mode .rec-controls input,
+body.dark-mode .rec-controls select, body.dark-mode .chat-composer textarea {
+ background:#26392c !important; color:#fff !important; border-color:#819889 !important;
+ color-scheme:dark;
+}
+body.dark-mode .chat-bubble.bot { background:#314538 !important; }
+body.dark-mode .chat-bubble.user { background:#315f45 !important; color:#fff !important; }
+body.dark-mode .chat-thread.selected { background:#385440 !important; }
+body.dark-mode .rec-pill { background:#385440 !important; color:#fff !important; }
+body.dark-mode .sprint3-panel button, body.dark-mode .grocery-btn,
+body.dark-mode .chat-new, body.dark-mode .chat-send,
+body.dark-mode .rec-button { background:#315f45 !important; color:#fff !important; }
+/* Mobile brand and account info */
+.mobile-brand-name { display:none; }
+.sidebar-brand, .sidebar-user { min-width:0; }
+.sidebar-brand span, .sidebar-user .user-info { overflow-wrap:anywhere; }
+@media(max-width:900px) {
+ body.app-body .app-layout { display:block !important; min-width:0 !important; }
+ /* Override inline desktop-only styles in Budget and Goals */
+ body.app-body .app-layout > main.main-content.sprint3-page {
+   display:block !important; width:100% !important; max-width:100% !important;
+   min-width:0 !important; margin:0 !important;
+   padding:80px 16px 30px !important; box-sizing:border-box !important;
+ }
+ .main-content .sprint3-grid { display:grid !important; grid-template-columns:minmax(0,1fr) !important; gap:14px !important; margin:20px 0 !important; }
+ .main-content .sprint3-panel { min-width:0 !important; width:100% !important; padding:18px !important; }
+ .main-content .sprint3-record { flex-wrap:wrap; min-width:0; overflow-wrap:anywhere; }
+ .main-content .sprint3-record > div { min-width:0; }
+ .main-content .grocery-wrap, .main-content .chat-shell,
+ .main-content .rec-wrap { width:100%; min-width:0; max-width:100%; }
+ .main-content .grocery-grid, .main-content .rec-grid,
+ .main-content .rec-controls { grid-template-columns:minmax(0,1fr) !important; }
+ .main-content .chat-layout { display:flex !important; flex-direction:column !important; height:auto !important; min-height:0 !important; }
+ .main-content .chat-main { min-height:420px; height:55dvh; }
+ .main-content .chat-composer { padding:10px; }
+ .main-content .chat-messages { padding:14px; }
+ .main-content .chat-bubble { max-width:95%; }
+ .mobile-brand-name { display:block; position:fixed; top:21px; right:16px;
+  font-size:17px; font-weight:800; color:#315f45; z-index:999;
+  background:transparent; pointer-events:none; }
+ body.dark-mode .mobile-brand-name { color:#b8e2c3; }
+ .sidebar .sidebar-brand { color:#17201a !important; }
+ .sidebar .sidebar-user .user-info { color:#17201a !important; }
+}
+@media(max-width:390px) {
+ body.app-body .app-layout > main.main-content.sprint3-page { padding-left:12px !important; padding-right:12px !important; }
+ .mobile-brand-name { font-size:15px; }
+ .main-content .sprint3-panel { padding:14px !important; }
+}
+/* END MEALPLAN MOBILE POLISH v2 */

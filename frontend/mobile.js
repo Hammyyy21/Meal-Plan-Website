@@ -14,3 +14,25 @@
   sidebar.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));
   document.body.append(btn,overlay);
 })();
+
+
+// MEALPLAN PROFILE + BRAND v2
+(function(){
+  if (!document.querySelector('.sidebar')) return;
+  if (!document.querySelector('.mobile-brand-name')) {
+    const brand=document.createElement('span');
+    brand.className='mobile-brand-name';brand.textContent='MealPlan';
+    document.body.appendChild(brand);
+  }
+  fetch('/api/me',{credentials:'same-origin'}).then(r=>r.ok?r.json():null).then(user=>{
+    if (!user) return;
+    const name=[user.first_name,user.last_name].filter(Boolean).join(' ').trim();
+    if (!name) return;
+    const label=document.querySelector('.sidebar .sidebar-user .user-info strong');
+    const avatar=document.querySelector('.sidebar .sidebar-user .user-avatar');
+    if (label) label.textContent=name;
+    if (avatar) avatar.textContent=name[0].toUpperCase();
+    const role=document.querySelector('.sidebar .sidebar-user .user-info span');
+    if (role) role.textContent='MealPlan member';
+  }).catch(()=>{});
+})();

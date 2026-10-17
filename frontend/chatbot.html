@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MealPlan | AI Chatbot</title><link rel="stylesheet" href="styles.css"><style>
+.chat-shell{max-width:1100px}.chat-sub{color:#6c746f;margin:10px 0 24px}.chat-layout{display:grid;grid-template-columns:245px minmax(0,1fr);gap:18px;height:min(70vh,700px);min-height:480px}.chat-panel{background:white;border:1px solid #dfe5e1;border-radius:14px;overflow:hidden}.chat-history{padding:18px;overflow:auto}.chat-new,.chat-send{background:#315f45;color:white;border:0;border-radius:9px;padding:12px 15px;cursor:pointer;font-weight:600}.chat-new{width:100%;margin-bottom:15px}.chat-thread{width:100%;display:block;text-align:left;padding:12px 10px;border:0;border-radius:8px;background:transparent;color:#17201a;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chat-thread:hover,.chat-thread.selected{background:#e9f2ec}.chat-main{display:flex;flex-direction:column;min-width:0}.chat-messages{flex:1;overflow:auto;padding:24px;display:flex;flex-direction:column;gap:15px}.chat-bubble{max-width:85%;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55;padding:13px 16px;border-radius:13px;background:#f1f5f2}.chat-bubble.user{align-self:flex-end;background:#315f45;color:white}.chat-bubble.bot{align-self:flex-start}.chat-composer{border-top:1px solid #dfe5e1;padding:16px;display:flex;gap:10px}.chat-composer textarea{flex:1;min-width:0;resize:vertical;max-height:130px;min-height:46px;padding:12px;border:1px solid #dfe5e1;border-radius:9px;font:inherit}.chat-send:disabled{opacity:.5;cursor:wait}.chat-error{color:#a33232;padding:0 16px 12px;min-height:18px;font-size:13px}.chat-empty{color:#6c746f;text-align:center;margin:auto;max-width:420px;line-height:1.6}@media(max-width:800px){.chat-layout{grid-template-columns:1fr;height:auto}.chat-history{max-height:145px}.chat-main{height:520px}}
+</style></head><body class="app-body"><div class="app-layout">
+<aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo">M</div>
+            <span>MealPlan</span>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <p class="nav-label">MENU</p>
+
+            <a href="dashboard.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="calendar.html" class="nav-item">
+                <span class="nav-icon">□</span>
+                Meal Calendar
+            </a>
+
+            <a href="recipes.html" class="nav-item">
+                <span class="nav-icon">⌕</span>
+                Recipes
+            </a>
+
+            <a href="inventory.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                Inventory
+            </a>
+
+            <a href="nutrition.html" class="nav-item">
+                <span class="nav-icon">◒</span>
+                Nutrition
+            </a>
+
+            <a href="budget.html" class="nav-item"><span class="nav-icon">$</span> Budget Planning</a>
+<a href="goals.html" class="nav-item"><span class="nav-icon">◎</span> Goal Tracking</a>
+<a href="grocery.html" class="nav-item"><span class="nav-icon">☷</span> Grocery List</a>
+            <a href="chatbot.html" class="nav-item active"><span class="nav-icon">✦</span> AI Chatbot</a>
+<p class="nav-label nav-section">ACCOUNT</p>
+
+            <a href="preferences.html" class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Preferences
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-user">
+
+                <div class="user-avatar" id="chatAvatar">
+                    U
+                </div>
+
+                <div class="user-info">
+                    <strong id="chatUserName">User</strong>
+                    <span>User</span>
+                </div>
+
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+<main class="main-content"><div class="chat-shell"><p class="page-label">MEAL PLANNING</p><h1>AI Chatbot</h1><p class="chat-sub">Ask for recipes, meal ideas, grocery tips, or general nutrition guidance.</p><div class="chat-layout"><aside class="chat-panel chat-history"><button class="chat-new" id="newChat">+ New chat</button><div id="threads"></div></aside><section class="chat-panel chat-main"><div class="chat-messages" id="messages"><div class="chat-empty">Hi! What would you like to cook today? Try asking for an affordable high-protein dinner or a recipe using ingredients you have.</div></div><form class="chat-composer" id="chatForm"><textarea id="chatInput" maxlength="1500" placeholder="Ask your meal-planning question..." aria-label="Message" required></textarea><button class="chat-send" id="sendBtn">Send</button></form><div class="chat-error" id="chatError" role="alert"></div></section></div></div></main></div>
+<script>
+let current=null, busy=false;
+const $=id=>document.getElementById(id);
+function bubble(text,kind){const e=document.createElement('div');e.className='chat-bubble '+kind;e.textContent=text;$('messages').append(e);$('messages').scrollTop=$('messages').scrollHeight;return e}
+function empty(){ $('messages').replaceChildren();const e=document.createElement('div');e.className='chat-empty';e.textContent='Hi! Ask me about meal ideas, recipes, grocery shopping, or nutrition.';$('messages').append(e)}
+async function api(url,options){const r=await fetch(url,{credentials:'same-origin',...options});if(r.status===401){location.href='login.html';throw Error('Please log in')}const data=await r.json().catch(()=>({}));if(!r.ok)throw Error(data.detail||'Request failed');return data}
+async function threads(){const items=await api('/api/chat/sessions');$('threads').replaceChildren();items.forEach(item=>{const b=document.createElement('button');b.className='chat-thread'+(current===item.chat_session_id?' selected':'');b.textContent=item.preview||'New conversation';b.title=b.textContent;b.onclick=()=>load(item.chat_session_id);$('threads').append(b)})}
+async function load(id){if(busy)return;current=id;$('chatError').textContent='';const items=await api('/api/chat/sessions/'+id+'/messages');$('messages').replaceChildren();items.forEach(x=>bubble(x.message_text,x.sender==='user'?'user':'bot'));if(!items.length)empty();await threads()}
+$('newChat').onclick=()=>{if(busy)return;current=null;empty();$('chatError').textContent='';threads().catch(e=>$('chatError').textContent=e.message)};
+$('chatForm').onsubmit=async e=>{e.preventDefault();if(busy)return;const message=$('chatInput').value.trim();if(!message)return;busy=true;$('sendBtn').disabled=true;$('chatError').textContent='';if($('messages').querySelector('.chat-empty'))$('messages').replaceChildren();bubble(message,'user');$('chatInput').value='';const pending=bubble('Thinking...','bot');try{const result=await api('/api/chat/message',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,chat_session_id:current})});current=result.chat_session_id;pending.textContent=result.reply;await threads()}catch(err){pending.remove();$('chatError').textContent=err.message;$('chatInput').value=message}finally{busy=false;$('sendBtn').disabled=false}};
+(async()=>{try{const u=await api('/api/me');$('chatUserName').textContent=u.first_name||'User';$('chatAvatar').textContent=(u.first_name||'U').charAt(0).toUpperCase();await threads()}catch(e){$('chatError').textContent=e.message}})();
+$('logoutBtn').onclick=async()=>{await fetch('/api/logout',{method:'POST'});location.href='login.html'};
+</script></body></html>

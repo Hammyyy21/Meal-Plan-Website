@@ -247,4 +247,68 @@ def grocery_delete(item_id: int, user=Depends(current_user), conn=Depends(db)):
     return {"ok":True}
 # END SPRINT3 GROCERY LIST API
 
+
+# SPRINT3_AI_CHATBOT_API
+import json
+import urllib.request
+import urllib.error
+
+class ChatPromptIn(BaseModel):
+    message: str = Field(min_length=1, max_length=1500)
+    chat_session_id: int | None = None
+
+@app.get('/api/chat/sessions')
+def chat_sessions(user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("""SELECT s.chat_session_id, s.started_at,
+                (SELECT message_text FROM chat_messages m WHERE m.chat_session_id=s.chat_session_id ORDER BY message_id ASC LIMIT 1) AS preview
+                FROM chat_sessions s WHERE s.user_id=%s ORDER BY s.started_at DESC LIMIT 30""", (user['user_id'],))
+        return cur.fetchall()
+
+@app.get('/api/chat/sessions/{chat_session_id}/messages')
+def chat_history(chat_session_id:int, user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute('SELECT 1 FROM chat_sessions WHERE chat_session_id=%s AND user_id=%s', (chat_session_id,user['user_id']))
+        if not cur.fetchone(): raise HTTPException(404,'Chat not found')
+        cur.execute('SELECT sender,message_text,sent_at FROM chat_messages WHERE chat_session_id=%s ORDER BY message_id ASC LIMIT 100', (chat_session_id,))
+        return cur.fetchall()
+
+@app.post('/api/chat/message')
+def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)):
+    key=os.getenv('OPENAI_API_KEY','').strip()
+    if not key:
+        raise HTTPException(503,'AI chatbot is not configured yet. Add OPENAI_API_KEY in Render Environment.')
+    message=body.message.strip()
+    if not message: raise HTTPException(400,'Enter a message')
+    with conn.cursor() as cur:
+        if body.chat_session_id is not None:
+            cur.execute('SELECT 1 FROM chat_sessions WHERE chat_session_id=%s AND user_id=%s', (body.chat_session_id,user['user_id']))
+            if not cur.fetchone(): raise HTTPException(404,'Chat not found')
+            session_id=body.chat_session_id
+        else:
+            cur.execute('INSERT INTO chat_sessions(user_id) VALUES (%s) RETURNING chat_session_id',(user['user_id'],))
+            session_id=cur.fetchone()['chat_session_id']
+        cur.execute('SELECT sender,message_text FROM chat_messages WHERE chat_session_id=%s ORDER BY message_id DESC LIMIT 12',(session_id,))
+        history=list(reversed(cur.fetchall()))
+    messages=[{'role':'system','content': 'You are MealPlan Assistant, a friendly practical meal-planning helper. Help with recipes, grocery lists, budget-conscious meals and general nutrition. Be clear and concise. Do not claim access to the user’s actual pantry, budget, or health records. Do not diagnose medical conditions or prescribe diets. Ask about allergies before recommending risky ingredients. Never claim nutritional estimates are exact.'}]
+    for item in history:
+        messages.append({'role':'assistant' if item['sender']=='bot' else 'user','content':item['message_text']})
+    messages.append({'role':'user','content':message})
+    payload=json.dumps({'model':os.getenv('OPENAI_MODEL','gpt-4o-mini'),'messages':messages,'max_tokens':500}).encode('utf-8')
+    req=urllib.request.Request('https://api.openai.com/v1/chat/completions',data=payload,headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'},method='POST')
+    try:
+        with urllib.request.urlopen(req,timeout=35) as response:
+            result=json.load(response)
+        reply=result['choices'][0]['message']['content'].strip()
+        if not reply: raise ValueError('Empty AI response')
+    except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError,ValueError,KeyError,IndexError) as exc:
+        # Do not return API error bodies, which may expose provider/account details.
+        raise HTTPException(502,'AI service unavailable. Check API key, billing, and Render logs, then retry.') from exc
+    with conn.cursor() as cur:
+        cur.execute('INSERT INTO chat_messages(chat_session_id,sender,message_text) VALUES (%s,%s,%s)',(session_id,'user',message))
+        cur.execute('INSERT INTO chat_messages(chat_session_id,sender,message_text) VALUES (%s,%s,%s)',(session_id,'bot',reply))
+    conn.commit()
+    return {'chat_session_id':session_id,'reply':reply}
+# END SPRINT3_AI_CHATBOT_API
+
 app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "frontend"), html=True))

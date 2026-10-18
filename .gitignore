@@ -6,3 +6,6 @@ __pycache__/
 django_backend/.venv/
 django_backend/django.sqlite3
 django_backend/.env
+.venv/
+__pycache__/
+.env

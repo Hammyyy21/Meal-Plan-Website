@@ -1,4 +1,11 @@
-"""Connect to PostgreSQL and create all Meal Plan Tracker tables from schema.sql.
+"""Create / update every Meal Plan Tracker table from schema_v3.sql.
+
+Safe by default: schema_v3.sql only uses CREATE ... IF NOT EXISTS, so running this
+again never deletes data and is fine against the live Neon database.
+
+  Local:   DB_PASSWORD=... python setup_db.py
+  Neon:    DATABASE_URL="postgresql://user:pass@host/db?sslmode=require" python setup_db.py
+  Wipe a LOCAL dev DB first:   python setup_db.py --reset   (asks you to type RESET)
 """
 import getpass
 import os
@@ -6,40 +13,54 @@ import sys
 
 import psycopg2
 
-DB_NAME = os.getenv("DB_NAME", "mealplan")       
-DB_USER = os.getenv("DB_USER", "postgres")
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
-DB_PASSWORD = os.getenv("DB_PASSWORD") or getpass.getpass(f"Password for {DB_USER}: ")
+HERE = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_TABLES = 22
+reset = "--reset" in sys.argv
 
-SCHEMA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "schema.sql")
+url = os.getenv("DATABASE_URL")
+if url:
+    target = "DATABASE_URL"
+    connect = lambda: psycopg2.connect(url)
+    is_local = ("localhost" in url) or ("127.0.0.1" in url)
+else:
+    host = os.getenv("DB_HOST", "localhost")
+    target = f"{os.getenv('DB_USER', 'postgres')}@{host}/{os.getenv('DB_NAME', 'mealplan')}"
+    pw = os.getenv("DB_PASSWORD") or getpass.getpass("Database password: ")
+    connect = lambda: psycopg2.connect(
+        dbname=os.getenv("DB_NAME", "mealplan"), user=os.getenv("DB_USER", "postgres"),
+        password=pw, host=host, port=os.getenv("DB_PORT", "5432"))
+    is_local = host in ("localhost", "127.0.0.1")
+
+if reset:
+    if not is_local:
+        sys.exit("Refusing --reset on a non-local database (it would delete every user).")
+    if input("This deletes ALL data in the local database. Type RESET to continue: ") != "RESET":
+        sys.exit("Cancelled.")
 
 try:
-    conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASSWORD,
-                            host=DB_HOST, port=DB_PORT)
+    conn = connect()
 except psycopg2.OperationalError as e:
-    sys.exit(f"Could not connect:\n{e}")
-
-print(f"Connected to '{DB_NAME}' on {DB_HOST}:{DB_PORT} as {DB_USER}")
-
-with open(SCHEMA_FILE, encoding="utf-8") as f:
-    sql = f.read()
+    sys.exit(f"Could not connect to {target}:\n{e}")
+print(f"Connected to {target}")
 
 try:
     with conn.cursor() as cur:
-        cur.execute(sql)          # runs the whole script
+        if reset:
+            cur.execute(open(os.path.join(HERE, "reset_dev.sql"), encoding="utf-8").read())
+            print("Old tables dropped.")
+        cur.execute(open(os.path.join(HERE, "schema_v3.sql"), encoding="utf-8").read())
     conn.commit()
-    print("schema.sql executed successfully.")
-
     with conn.cursor() as cur:
-        cur.execute("""SELECT table_name FROM information_schema.tables
-                       WHERE table_schema = 'public' ORDER BY table_name""")
+        cur.execute("SELECT table_name FROM information_schema.tables "
+                    "WHERE table_schema='public' ORDER BY table_name")
         tables = [r[0] for r in cur.fetchall()]
-    print(f"\n{len(tables)} tables created:")
+    print(f"schema_v3.sql applied. {len(tables)} tables:")
     for t in tables:
         print("  -", t)
+    if len(tables) < EXPECTED_TABLES:
+        print(f"WARNING: expected {EXPECTED_TABLES} tables.")
 except Exception as e:
     conn.rollback()
-    sys.exit(f"Error running schema.sql (nothing was changed):\n{e}")
+    sys.exit(f"Error (nothing was changed):\n{e}")
 finally:
     conn.close()

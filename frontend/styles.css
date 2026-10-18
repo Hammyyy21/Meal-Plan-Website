@@ -6737,3 +6737,35 @@ body.dark-mode .mobile-menu-toggle { background: var(--primary, #315f45) !import
   .chat-composer textarea { flex-basis: 100%; }
 }
 /* END MEALPLAN APPEARANCE SYNC V2 */
+
+/* ===== Sprint 3: keep "Log out" visible on short laptop screens ===== */
+@media (min-width: 901px) {
+    .sidebar {
+        overflow-y: auto;
+    }
+    .sidebar-brand {
+        margin-bottom: 22px;
+    }
+    .sidebar-nav {
+        gap: 2px;
+    }
+    .sidebar .nav-item {
+        padding: 8px 12px;
+    }
+    .nav-section {
+        margin-top: 14px;
+    }
+    /* Log out stays pinned to the bottom edge even if the menu has to scroll */
+    .sidebar-bottom {
+        position: sticky;
+        bottom: 0;
+        background: inherit;
+        z-index: 2;
+    }
+}
+.logout-btn {
+    border: 1px solid #dfe5e1;
+    color: #5f6862;
+    font-size: 12px;
+    font-weight: 600;
+}

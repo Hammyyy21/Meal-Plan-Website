@@ -123,7 +123,7 @@
 
                 <div>
                     <p>Total items</p>
-                    <strong>24</strong>
+                    <strong id="invTotal">0</strong>
                     <small>In your pantry</small>
                 </div>
 
@@ -138,7 +138,7 @@
 
                 <div>
                     <p>Expiring soon</p>
-                    <strong>3</strong>
+                    <strong id="invExpiring">0</strong>
                     <small>Use these first</small>
                 </div>
 
@@ -153,7 +153,7 @@
 
                 <div>
                     <p>Low stock</p>
-                    <strong>4</strong>
+                    <strong id="invLow">0</strong>
                     <small>May need restocking</small>
                 </div>
 
@@ -168,7 +168,7 @@
 
                 <div>
                     <p>Categories</p>
-                    <strong>5</strong>
+                    <strong id="invCategories">0</strong>
                     <small>Food groups</small>
                 </div>
 
@@ -227,232 +227,7 @@
     </div>
 
 
-    <!-- AVOCADOS -->
-    <div class="inventory-row">
-
-        <div class="food-name">
-            <div class="food-icon produce-bg">🥑</div>
-
-            <div>
-                <strong>Avocados</strong>
-                <span>Fresh produce</span>
-            </div>
-        </div>
-
-        <div>
-            <span class="category-tag produce-tag">
-                Produce
-            </span>
-        </div>
-
-        <div class="quantity">
-            <strong>3</strong>
-            <span>items</span>
-        </div>
-
-        <div class="expiration">
-            <strong>Oct 6</strong>
-        </div>
-
-        <div>
-            <span class="status-tag expiring">
-                ● Expiring soon
-            </span>
-        </div>
-
-        <button class="more-btn"></button>
-
-    </div>
-
-
-    <!-- CHICKEN -->
-    <div class="inventory-row">
-
-        <div class="food-name">
-            <div class="food-icon protein-bg">🍗</div>
-
-            <div>
-                <strong>Chicken Breast</strong>
-                <span>Refrigerated</span>
-            </div>
-        </div>
-
-        <div>
-            <span class="category-tag protein-tag">
-                Protein
-            </span>
-        </div>
-
-        <div class="quantity">
-            <strong>2</strong>
-            <span>lbs</span>
-        </div>
-
-        <div class="expiration">
-            <strong>Oct 7</strong>
-        </div>
-
-        <div>
-            <span class="status-tag expiring">
-                ● Expiring soon
-            </span>
-        </div>
-
-        <button class="more-btn"></button>
-
-    </div>
-
-
-    <!-- YOGURT -->
-    <div class="inventory-row">
-
-        <div class="food-name">
-            <div class="food-icon dairy-bg">🥛</div>
-
-            <div>
-                <strong>Greek Yogurt</strong>
-                <span>Refrigerated</span>
-            </div>
-        </div>
-
-        <div>
-            <span class="category-tag dairy-tag">
-                Dairy
-            </span>
-        </div>
-
-        <div class="quantity">
-            <strong>1</strong>
-            <span>container</span>
-        </div>
-
-        <div class="expiration">
-            <strong>Oct 8</strong>
-        </div>
-
-        <div>
-            <span class="status-tag expiring">
-                ● Expiring soon
-            </span>
-        </div>
-
-        <button class="more-btn"></button>
-
-    </div>
-
-
-    <!-- RICE -->
-    <div class="inventory-row">
-
-        <div class="food-name">
-            <div class="food-icon grain-bg">🍚</div>
-
-            <div>
-                <strong>Brown Rice</strong>
-                <span>Pantry</span>
-            </div>
-        </div>
-
-        <div>
-            <span class="category-tag grain-tag">
-                Grains
-            </span>
-        </div>
-
-        <div class="quantity">
-            <strong>1</strong>
-            <span>bag</span>
-        </div>
-
-        <div class="expiration">
-            <strong>Dec 18</strong>
-        </div>
-
-        <div>
-            <span class="status-tag good">
-                ● Good
-            </span>
-        </div>
-
-        <button class="more-btn"></button>
-
-    </div>
-
-
-    <!-- SPINACH -->
-    <div class="inventory-row">
-
-        <div class="food-name">
-            <div class="food-icon produce-bg">🥬</div>
-
-            <div>
-                <strong>Spinach</strong>
-                <span>Fresh produce</span>
-            </div>
-        </div>
-
-        <div>
-            <span class="category-tag produce-tag">
-                Produce
-            </span>
-        </div>
-
-        <div class="quantity">
-            <strong>1</strong>
-            <span>bag</span>
-        </div>
-
-        <div class="expiration">
-            <strong>Oct 12</strong>
-        </div>
-
-        <div>
-            <span class="status-tag low-stock">
-                ● Low stock
-            </span>
-        </div>
-
-        <button class="more-btn"></button>
-
-    </div>
-
-
-    <!-- EGGS -->
-    <div class="inventory-row">
-
-        <div class="food-name">
-            <div class="food-icon protein-bg">🥚</div>
-
-            <div>
-                <strong>Eggs</strong>
-                <span>Refrigerated</span>
-            </div>
-        </div>
-
-        <div>
-            <span class="category-tag protein-tag">
-                Protein
-            </span>
-        </div>
-
-        <div class="quantity">
-            <strong>4</strong>
-            <span>eggs</span>
-        </div>
-
-        <div class="expiration">
-            <strong>Oct 15</strong>
-        </div>
-
-        <div>
-            <span class="status-tag low-stock">
-                ● Low stock
-            </span>
-        </div>
-
-        <button class="more-btn"></button>
-
-    </div>
+    <div id="inventoryRows"></div>
 
 </section>
 
@@ -468,9 +243,7 @@
         <strong>Smart pantry tip</strong>
 
         <p>
-            You have 3 ingredients expiring soon.
-            Add them to this week's meal plan so they
-            don't go to waste.
+            <span id="invTip">Add your first pantry item to get started.</span>
         </p>
     </div>
 
@@ -618,6 +391,7 @@
 
 
 <script src="script.js"></script>
+<script src="inventory.js"></script>
 
 <script src="mobile.js" defer></script>
 </body>

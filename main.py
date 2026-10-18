@@ -1,9 +1,10 @@
 """Meal Plan Tracker - Sprint 2 user management backend (FastAPI + PostgreSQL)."""
 import os, uuid
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 
 import bcrypt
 import psycopg2
+import psycopg2.errors
 import psycopg2.extras
 from fastapi import Cookie, Depends, FastAPI, HTTPException, Response
 from fastapi.staticfiles import StaticFiles
@@ -11,6 +12,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 DB_DSN = os.getenv("DATABASE_URL", "dbname=mealplan user=postgres password=postgres host=localhost")
 SESSION_HOURS = 8
+COOKIE_SECURE = os.getenv("COOKIE_SECURE", "0") == "1"   # set COOKIE_SECURE=1 on Render (HTTPS)
 app = FastAPI(title="Meal Plan Tracker API")
 
 
@@ -59,16 +61,22 @@ def admin_only(user=Depends(current_user)):
 
 @app.post("/api/register", status_code=201)
 def register(body: RegisterIn, conn=Depends(db)):
+    if len(body.password.encode()) > 72:      # bcrypt limit is 72 BYTES, not characters
+        raise HTTPException(422, "Password must be 72 bytes or fewer")
     pw = bcrypt.hashpw(body.password.encode(), bcrypt.gensalt()).decode()
     with conn.cursor() as cur:
         cur.execute("SELECT 1 FROM users WHERE email = %s", (body.email.lower(),))
         if cur.fetchone():
             raise HTTPException(409, "Email already registered")
-        cur.execute(
-            """INSERT INTO users (role_id, first_name, last_name, email, password_hash)
-               VALUES ((SELECT role_id FROM roles WHERE role_name='user'), %s,%s,%s,%s)
-               RETURNING user_id""",
-            (body.first_name, body.last_name, body.email.lower(), pw))
+        try:
+            cur.execute(
+                """INSERT INTO users (role_id, first_name, last_name, email, password_hash)
+                   VALUES ((SELECT role_id FROM roles WHERE role_name='user'), %s,%s,%s,%s)
+                   RETURNING user_id""",
+                (body.first_name, body.last_name, body.email.lower(), pw))
+        except psycopg2.errors.UniqueViolation:
+            conn.rollback()
+            raise HTTPException(409, "Email already registered")
         uid = cur.fetchone()["user_id"]
     conn.commit()
     return {"user_id": uid, "message": "Account created"}
@@ -85,11 +93,13 @@ def login(body: LoginIn, response: Response, conn=Depends(db)):
         if u["account_status"] != "active":
             raise HTTPException(403, "Account is not active")
         sid = str(uuid.uuid4())
-        cur.execute("INSERT INTO user_sessions (session_id, user_id, expires_at) VALUES (%s,%s,%s)",
-                    (sid, u["user_id"], datetime.utcnow() + timedelta(hours=SESSION_HOURS)))
+        cur.execute("INSERT INTO user_sessions (session_id, user_id, expires_at) "
+                    "VALUES (%s,%s, NOW() + make_interval(hours => %s))",
+                    (sid, u["user_id"], SESSION_HOURS))
         cur.execute("UPDATE users SET last_login_at = NOW() WHERE user_id=%s", (u["user_id"],))
     conn.commit()
-    response.set_cookie("session_id", sid, httponly=True, samesite="lax", max_age=SESSION_HOURS * 3600)
+    response.set_cookie("session_id", sid, httponly=True, samesite="lax", secure=COOKIE_SECURE,
+                        max_age=SESSION_HOURS * 3600)
     return {"message": "Logged in"}
 
 
@@ -109,21 +119,56 @@ def me(user=Depends(current_user)):
 
 
 @app.get("/api/admin/users")
-def list_users(_=Depends(admin_only), conn=Depends(db)):
+def list_users(q: str | None = None, status: str | None = None, role: str | None = None,
+               _=Depends(admin_only), conn=Depends(db)):
+    """UC-10: list users; optional ?q=<email text>, ?status=active|suspended|deleted, ?role=user|admin."""
+    conds, params = [], []
+    if q and q.strip():
+        esc = q.strip().replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+        conds.append("u.email ILIKE %s"); params.append("%" + esc + "%")
+    if status:
+        if status not in ("active", "suspended", "deleted"):
+            raise HTTPException(400, "status must be active, suspended or deleted")
+        conds.append("u.account_status = %s"); params.append(status)
+    if role:
+        if role not in ("user", "admin"):
+            raise HTTPException(400, "role must be user or admin")
+        conds.append("r.role_name = %s"); params.append(role)
+    where = ("WHERE " + " AND ".join(conds)) if conds else ""
     with conn.cursor() as cur:
-        cur.execute("""SELECT u.user_id, u.email, r.role_name, u.account_status, u.created_at
-                       FROM users u JOIN roles r ON r.role_id=u.role_id ORDER BY u.user_id""")
+        cur.execute(f"""SELECT u.user_id, u.email, r.role_name, u.account_status, u.created_at
+                        FROM users u JOIN roles r ON r.role_id=u.role_id {where}
+                        ORDER BY u.user_id""", params)
         return cur.fetchall()
 
 
 @app.patch("/api/admin/users/{user_id}/status")
-def set_status(user_id: int, status: str, _=Depends(admin_only), conn=Depends(db)):
+def set_status(user_id: int, status: str, admin=Depends(admin_only), conn=Depends(db)):
     if status not in ("active", "suspended"):
         raise HTTPException(400, "status must be 'active' or 'suspended'")
+    if user_id == admin["user_id"]:
+        raise HTTPException(400, "Admins cannot change their own account status")
     with conn.cursor() as cur:
-        cur.execute("UPDATE users SET account_status=%s WHERE user_id=%s", (status, user_id))
+        cur.execute("UPDATE users SET account_status=%s WHERE user_id=%s RETURNING user_id", (status, user_id))
+        if not cur.fetchone():
+            raise HTTPException(404, "User not found")
     conn.commit()
     return {"user_id": user_id, "account_status": status}
+
+
+@app.patch("/api/admin/users/{user_id}/role")
+def set_role(user_id: int, role: str, admin=Depends(admin_only), conn=Depends(db)):
+    if role not in ("user", "admin"):
+        raise HTTPException(400, "role must be 'user' or 'admin'")
+    if user_id == admin["user_id"]:
+        raise HTTPException(400, "Admins cannot change their own role")
+    with conn.cursor() as cur:
+        cur.execute("""UPDATE users SET role_id=(SELECT role_id FROM roles WHERE role_name=%s)
+                       WHERE user_id=%s RETURNING user_id""", (role, user_id))
+        if not cur.fetchone():
+            raise HTTPException(404, "User not found")
+    conn.commit()
+    return {"user_id": user_id, "role_name": role}
 
 
 # SPRINT3_BUDGET_GOALS_API
@@ -359,5 +404,61 @@ def recommended_meals(user=Depends(current_user),conn=Depends(db)):
     meals=sorted(meals,key=lambda m:(0 if diet!='any' and diet in m['tags'] else 1,m['cost']))
     return {'meals':meals,'count':len(meals),'settings':settings,'note':'Costs and nutrition are estimates per serving. Check ingredient labels and cross-contact risks for allergies.'}
 # END SPRINT3_RECOMMENDATIONS_API
+
+# SPRINT3_INVENTORY_API  (uses tables: ingredients, inventory_items)
+class InventoryIn(BaseModel):
+    name: str = Field(min_length=1, max_length=100)
+    category: str = Field(default="other", pattern="^(produce|protein|dairy|grains|other)$")
+    quantity: Decimal = Field(gt=0, le=100000)
+    unit: str = Field(min_length=1, max_length=20)
+    expiration_date: date | None = None
+
+@app.get("/api/inventory")
+def inventory_list(user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("""SELECT i.item_id, g.name, g.category, i.quantity::float AS quantity, i.unit,
+                              i.expiration_date
+                       FROM inventory_items i JOIN ingredients g ON g.ingredient_id = i.ingredient_id
+                       WHERE i.user_id=%s ORDER BY i.expiration_date NULLS LAST, g.name""", (user["user_id"],))
+        return cur.fetchall()
+
+@app.post("/api/inventory", status_code=201)
+def inventory_add(body: InventoryIn, user=Depends(current_user), conn=Depends(db)):
+    name = body.name.strip()
+    if not name:
+        raise HTTPException(422, "Item name is required")
+    with conn.cursor() as cur:
+        cur.execute("SELECT ingredient_id FROM ingredients WHERE lower(name)=lower(%s)", (name,))
+        row = cur.fetchone()
+        if row:
+            ingredient_id = row["ingredient_id"]
+        else:
+            cur.execute("""INSERT INTO ingredients (name, default_unit, category) VALUES (%s,%s,%s)
+                           ON CONFLICT (name) DO UPDATE SET name = EXCLUDED.name
+                           RETURNING ingredient_id""", (name, body.unit.strip(), body.category))
+            ingredient_id = cur.fetchone()["ingredient_id"]
+        # same food added twice -> quantities add up instead of erroring on the UNIQUE(user, ingredient) rule
+        cur.execute("""INSERT INTO inventory_items (user_id, ingredient_id, quantity, unit, expiration_date)
+                       VALUES (%s,%s,%s,%s,%s)
+                       ON CONFLICT (user_id, ingredient_id) DO UPDATE
+                       SET quantity = inventory_items.quantity + EXCLUDED.quantity,
+                           unit = EXCLUDED.unit,
+                           expiration_date = COALESCE(EXCLUDED.expiration_date, inventory_items.expiration_date),
+                           updated_at = NOW()
+                       RETURNING item_id""",
+                    (user["user_id"], ingredient_id, body.quantity, body.unit.strip(), body.expiration_date))
+        item_id = cur.fetchone()["item_id"]
+    conn.commit()
+    return {"item_id": item_id}
+
+@app.delete("/api/inventory/{item_id}")
+def inventory_delete(item_id: int, user=Depends(current_user), conn=Depends(db)):
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM inventory_items WHERE item_id=%s AND user_id=%s RETURNING item_id", (item_id, user["user_id"]))
+        if not cur.fetchone():
+            raise HTTPException(404, "Item not found")
+    conn.commit()
+    return {"ok": True}
+# END SPRINT3_INVENTORY_API
 
 app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "frontend"), html=True))

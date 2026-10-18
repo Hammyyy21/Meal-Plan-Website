@@ -1197,303 +1197,6 @@ inventoryFilterButtons.forEach(function (button) {
 
 });
 /* ========================================
-   INVENTORY - ADD ITEM
-======================================== */
-
-const addInventoryBtn =
-    document.getElementById("addInventoryBtn");
-
-const inventoryModal =
-    document.getElementById("inventoryModal");
-
-const closeInventoryModal =
-    document.getElementById("closeInventoryModal");
-
-const saveInventoryItem =
-    document.getElementById("saveInventoryItem");
-
-const inventoryItemName =
-    document.getElementById("inventoryItemName");
-
-const inventoryCategory =
-    document.getElementById("inventoryCategory");
-
-const inventoryQuantity =
-    document.getElementById("inventoryQuantity");
-
-const inventoryUnit =
-    document.getElementById("inventoryUnit");
-
-const inventoryExpiration =
-    document.getElementById("inventoryExpiration");
-
-
-/* OPEN MODAL */
-
-if (addInventoryBtn) {
-
-    addInventoryBtn.addEventListener("click", function () {
-
-        inventoryModal.classList.add("show");
-
-        inventoryItemName.focus();
-
-    });
-
-}
-
-
-/* CLOSE MODAL */
-
-if (closeInventoryModal) {
-
-    closeInventoryModal.addEventListener("click", function () {
-
-        inventoryModal.classList.remove("show");
-
-    });
-
-}
-
-
-/* CLOSE WHEN CLICKING BACKGROUND */
-
-if (inventoryModal) {
-
-    inventoryModal.addEventListener("click", function (event) {
-
-        if (event.target === inventoryModal) {
-            inventoryModal.classList.remove("show");
-        }
-
-    });
-
-}
-
-
-/* CATEGORY ICONS */
-
-function getInventoryIcon(category) {
-
-    if (category === "produce") return "🥬";
-    if (category === "protein") return "🍗";
-    if (category === "dairy") return "🥛";
-    if (category === "grains") return "🌾";
-
-    return "🍽️";
-}
-
-
-/* CREATE INVENTORY ROW */
-
-function createInventoryRow(item) {
-
-    const inventoryList =
-        document.querySelector(".inventory-list");
-
-    if (!inventoryList) return;
-
-
-    const row =
-        document.createElement("div");
-
-    row.className = "inventory-row saved-inventory-item";
-
-
-    const categoryName =
-        item.category.charAt(0).toUpperCase() +
-        item.category.slice(1);
-
-
-    row.innerHTML = `
-        <div class="food-name">
-
-            <div class="food-icon ${item.category}-bg">
-                ${getInventoryIcon(item.category)}
-            </div>
-
-            <div>
-                <strong>${item.name}</strong>
-                <span>Added manually</span>
-            </div>
-
-        </div>
-
-
-        <div>
-            <span class="category-tag ${item.category}-tag">
-                ${categoryName}
-            </span>
-        </div>
-
-
-        <div class="quantity">
-            <strong>${item.quantity}</strong>
-            <span>${item.unit}</span>
-        </div>
-
-
-        <div class="expiration">
-            <strong>${item.expiration || "—"}</strong>
-        </div>
-
-
-        <div>
-            <span class="status-tag">
-                ● In stock
-            </span>
-        </div>
-
-
-        <button
-            type="button"
-            class="more-btn remove-inventory-item">
-            ×
-        </button>
-    `;
-
-
-    inventoryList.appendChild(row);
-
-
-    /* REMOVE ITEM */
-
-    const removeButton =
-        row.querySelector(".remove-inventory-item");
-
-    removeButton.addEventListener("click", function () {
-
-        let savedItems =
-            JSON.parse(
-                localStorage.getItem("inventoryItems")
-            ) || [];
-
-
-        const index =
-            savedItems.findIndex(function (savedItem) {
-
-                return savedItem.id === item.id;
-
-            });
-
-
-        if (index !== -1) {
-
-            savedItems.splice(index, 1);
-
-            localStorage.setItem(
-                "inventoryItems",
-                JSON.stringify(savedItems)
-            );
-
-        }
-
-
-        row.remove();
-
-    });
-
-}
-
-
-/* SAVE NEW ITEM */
-
-if (saveInventoryItem) {
-
-    saveInventoryItem.addEventListener("click", function () {
-
-        const name =
-            inventoryItemName.value.trim();
-
-
-        if (!name) {
-
-            inventoryItemName.focus();
-            return;
-
-        }
-
-
-        const newItem = {
-
-            id: Date.now(),
-
-            name: name,
-
-            category:
-                inventoryCategory.value,
-
-            quantity:
-                inventoryQuantity.value,
-
-            unit:
-                inventoryUnit.value,
-
-            expiration:
-                inventoryExpiration.value
-
-        };
-
-
-        let savedItems =
-            JSON.parse(
-                localStorage.getItem("inventoryItems")
-            ) || [];
-
-
-        savedItems.push(newItem);
-
-
-        localStorage.setItem(
-            "inventoryItems",
-            JSON.stringify(savedItems)
-        );
-
-
-        createInventoryRow(newItem);
-
-
-        /* RESET */
-
-        inventoryItemName.value = "";
-
-        inventoryQuantity.value = "1";
-
-        inventoryExpiration.value = "";
-
-
-        inventoryModal.classList.remove("show");
-
-    });
-
-}
-
-
-/* RESTORE ITEMS AFTER REFRESH */
-
-function restoreInventoryItems() {
-
-    const savedItems =
-        JSON.parse(
-            localStorage.getItem("inventoryItems")
-        ) || [];
-
-
-    savedItems.forEach(function (item) {
-
-        createInventoryRow(item);
-
-    });
-
-}
-
-
-if (document.querySelector(".inventory-list")) {
-
-    restoreInventoryItems();
-
-}
-/* ========================================
    NUTRITION - WATER TRACKER
 ======================================== */
 
@@ -1961,7 +1664,7 @@ updateDashboardMealData();
    DASHBOARD - LIVE INVENTORY DATA
 ======================================== */
 
-function updateDashboardInventory() {
+async function updateDashboardInventory() {
 
     const pantryCount =
         document.getElementById("dashboardPantryCount");
@@ -1971,36 +1674,20 @@ function updateDashboardInventory() {
 
     if (!pantryCount) return;
 
+    try {
+        // Inventory now lives in the PostgreSQL database (GET /api/inventory)
+        const items = await apiRequest("/api/inventory");
 
-    const inventoryItems =
-        JSON.parse(
-            localStorage.getItem("inventoryItems")
-        ) || [];
+        pantryCount.textContent = items.length;
 
-
-    pantryCount.textContent =
-        inventoryItems.length;
-
-
-    if (pantryStatus) {
-
-        if (inventoryItems.length === 0) {
-
+        if (pantryStatus) {
             pantryStatus.textContent =
-                "No added items";
-
-        } else if (inventoryItems.length === 1) {
-
-            pantryStatus.textContent =
-                "1 item in inventory";
-
-        } else {
-
-            pantryStatus.textContent =
-                inventoryItems.length +
-                " items in inventory";
-
+                items.length === 0 ? "No added items"
+                : items.length === 1 ? "1 item in inventory"
+                : items.length + " items in inventory";
         }
+    } catch (e) {
+        pantryCount.textContent = "0";
     }
 }
 

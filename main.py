@@ -356,8 +356,7 @@ def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)
         messages.append({'role':'assistant' if item['sender']=='bot' else 'user','content':item['message_text']})
     messages.append({'role':'user','content':message})
     payload = json.dumps({
-        "model": "gemini-flash-latest",
-        "messages": messages,
+        "model": "gemini-3.5-flash-lite",        "messages": messages,
     }).encode("utf-8")
     req = urllib.request.Request(
         "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",

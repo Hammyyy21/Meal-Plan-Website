@@ -375,8 +375,8 @@ def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)
         if not reply: raise ValueError('Empty AI response')
     except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError,ValueError,KeyError,IndexError) as exc:
         # Do not return API error bodies, which may expose provider/account details.
-                print(f"Gemini request failed: {type(exc).__name__}, HTTP status={getattr(exc, 'code', None)}", flush=True)
-    raise HTTPException(502,'AI service unavailable. Check API key, billing, and Render logs, then retry.') from exc
+        print(f"Gemini request failed: {type(exc).__name__}, HTTP status={getattr(exc, 'code', None)}", flush=True)
+        raise HTTPException(502, 'AI service unavailable. Check API key, billing, and Render logs, then retry.') from exc
     with conn.cursor() as cur:
         cur.execute('INSERT INTO chat_messages(chat_session_id,sender,message_text) VALUES (%s,%s,%s)',(session_id,'user',message))
         cur.execute('INSERT INTO chat_messages(chat_session_id,sender,message_text) VALUES (%s,%s,%s)',(session_id,'bot',reply))

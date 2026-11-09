@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MealPlan | Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sprint4.css">
 </head>
 
 <body class="app-body">
@@ -89,286 +90,35 @@
 
     <!-- MAIN -->
     <main class="main-content">
-
-        <!-- TOP BAR -->
         <header class="topbar">
-
             <div>
                 <p class="page-label">DASHBOARD</p>
-
-                <h1 id="dashboardGreeting">
-                    Good morning.
-                </h1>
-
-                <p class="topbar-subtitle">
-                    Here's what's happening with your meals today.
-                </p>
+                <h1 id="dashHello">Hello.</h1>
+                <p class="topbar-subtitle" id="dashDate"></p>
             </div>
-
             <div class="topbar-actions">
-
-    <button
-        class="add-meal-btn"
-        onclick="window.location.href='calendar.html'">
-
-        + Add meal
-
-    </button>
-
-</div>
-
+                <button class="s4-bell" id="bell" aria-label="Notifications" title="Notifications">🔔<b id="bellCount" class="s4-hidden">0</b></button>
+                <button class="add-meal-btn" onclick="window.location.href='calendar.html'">+ Add meal</button>
+            </div>
         </header>
 
+        <div id="dashMsg"></div>
+        <section class="s4-stats" id="dashStats"></section>
 
-        <!-- SUMMARY CARDS -->
-        <section class="summary-grid">
+        <div class="s4-card"><h3>Today's meals</h3><div id="dashToday">Loading…</div></div>
 
-            <!-- CALORIES -->
-            <div class="summary-card">
+        <div class="s4-card"><h3>Calories this week</h3><div class="s4-week" id="dashWeek"></div><p class="s4-sub" style="color:#6b7280;margin:0">Green bars show calories planned for each day.</p></div>
 
-                <div class="card-top">
-                    <span class="card-title">
-                        Today's Calories
-                    </span>
+        <div class="s4-card"><h3>Weekly grocery budget</h3><div class="s4-bar" id="dashBudgetBar"><i style="width:0"></i></div><p id="dashBudgetText"></p></div>
 
-                    <span class="card-icon">
-                        ◒
-                    </span>
-                </div>
-
-                <h2 id="dashboardCalories">
-                    0
-                </h2>
-
-                <p>
-                    of
-                    <span id="dashboardCalorieGoal">
-                        2,000
-                    </span>
-                    kcal
-                </p>
-
-                <div class="progress-bar">
-                    <div
-                        class="progress-fill"
-                        id="dashboardCalorieProgress"
-                        style="width: 0%;">
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- MEALS -->
-            <div class="summary-card">
-
-                <div class="card-top">
-                    <span class="card-title">
-                        Meals Planned
-                    </span>
-
-                    <span class="card-icon">
-                        ✓
-                    </span>
-                </div>
-
-                <h2 id="dashboardMealsPlanned">
-                    0
-                </h2>
-
-                <p>
-                    meals planned today
-                </p>
-
-                <span
-                    class="positive-text"
-                    id="dashboardMealStatus">
-                    No meals planned yet
-                </span>
-
-            </div>
-
-
-            <!-- PANTRY -->
-            <div class="summary-card">
-
-                <div class="card-top">
-                    <span class="card-title">
-                        Pantry
-                    </span>
-
-                    <span class="card-icon">
-                        ▦
-                    </span>
-                </div>
-
-                <h2 id="dashboardPantryCount">
-                    0
-                </h2>
-
-                <p>
-                    items in inventory
-                </p>
-
-                <span
-                    class="warning-text"
-                    id="dashboardPantryStatus">
-                    No added items
-                </span>
-
-            </div>
-
-
-            <!-- BUDGET -->
-            <div class="summary-card">
-
-                <div class="card-top">
-                    <span class="card-title">
-                        Weekly Budget
-                    </span>
-
-                    <span class="card-icon">
-                        $
-                    </span>
-                </div>
-
-                <h2 id="dashboardBudget">
-                    $0
-                </h2>
-
-                <p>
-                    of $
-                    <span id="dashboardBudgetGoal">
-                        100
-                    </span>
-                    budget
-                </p>
-
-                <div class="progress-bar">
-                    <div
-                        class="progress-fill"
-                        id="dashboardBudgetProgress"
-                        style="width: 0%;">
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- LOWER DASHBOARD -->
-        <section class="dashboard-grid">
-
-            <!-- TODAY'S MEALS -->
-            <div class="dashboard-card meals-card">
-
-                <div class="section-heading">
-
-                    <div>
-                        <p class="section-label">
-                            TODAY
-                        </p>
-
-                        <h2>
-                            Today's meals
-                        </h2>
-                    </div>
-
-                    <a href="calendar.html">
-                        View calendar →
-                    </a>
-
-                </div>
-
-
-                <div id="dashboardMealsList">
-
-                    <div class="dashboard-empty-meals">
-
-                        <div class="meal-picture breakfast">
-                            🍽️
-                        </div>
-
-                        <div class="meal-details">
-                            <h3>
-                                No meals planned yet
-                            </h3>
-
-                            <p>
-                                Add meals to your calendar
-                                to see them here.
-                            </p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- NUTRITION -->
-            <div class="dashboard-card nutrition-card">
-
-                <div class="section-heading">
-
-                    <div>
-                        <p class="section-label">
-                            DAILY GOAL
-                        </p>
-
-                        <h2>
-                            Nutrition
-                        </h2>
-                    </div>
-
-                </div>
-
-
-                <div class="nutrition-circle">
-
-                    <div>
-                        <strong id="dashboardNutritionPercent">
-                            0%
-                        </strong>
-
-                        <span>
-                            Daily goal
-                        </span>
-                    </div>
-
-                </div>
-
-
-                <div class="macro-row">
-
-                    <div>
-                        <span>Protein</span>
-                        <strong>82g</strong>
-                    </div>
-
-                    <div>
-                        <span>Carbs</span>
-                        <strong>165g</strong>
-                    </div>
-
-                    <div>
-                        <span>Fat</span>
-                        <strong>48g</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
+        <div class="s4-card"><h3>Pantry alerts</h3><div id="dashPantry">Loading…</div><p><a href="inventory.html">Open inventory →</a></p></div>
     </main>
 
 </div>
 
 <script src="script.js"></script>
+<script src="common.js"></script>
+<script src="summary.js"></script>
 
 <script src="mobile.js" defer></script>
 </body>

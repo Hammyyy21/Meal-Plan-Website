@@ -8,6 +8,7 @@
     <title>MealPlan | Recipes</title>
 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sprint4.css?v=6">
 </head>
 
 <body class="app-body">
@@ -115,545 +116,50 @@
         </header>
 
 
-        <!-- FEATURED RECIPE -->
-        <section class="featured-recipe">
-
-            <div class="featured-content">
-
-                <span class="featured-label">
-                    ✦ RECOMMENDED FOR YOU
-                </span>
-
-                <h2>
-                    Honey Garlic<br>
-                    Chicken Bowl
-                </h2>
-
-                <p>
-                    A balanced high-protein meal with chicken,
-                    brown rice, fresh vegetables, and a sweet
-                    garlic glaze.
-                </p>
-
-
-                <div class="featured-stats">
-
-                    <div>
-                        <strong>520</strong>
-                        <span>Calories</span>
-                    </div>
-
-                    <div>
-                        <strong>42g</strong>
-                        <span>Protein</span>
-                    </div>
-
-                    <div>
-                        <strong>30 min</strong>
-                        <span>Time</span>
-                    </div>
-
-                </div>
-
-
-                <button class="featured-button">
-                    View recipe →
-                </button>
-
-            </div>
-
-
-            <div class="featured-visual">
-
-                <div class="featured-food-circle">
-                    🍲
-                </div>
-
-                <div class="featured-badge">
-                    <span>92%</span>
-                    Match
-                </div>
-
-            </div>
-
-        </section>
-
-
         <!-- SEARCH -->
         <section class="recipe-toolbar">
-
             <div class="recipe-search">
-
                 <span>⌕</span>
-
-                <input
-                    type="text"
-                    id="recipeSearch"
-                    placeholder="Search recipes, ingredients, or meals..."
-                >
-
+                <input type="text" id="recipeSearch" placeholder="Search recipes or ingredients..." maxlength="100">
             </div>
-
-
-            
-
+            <div class="s4-row">
+                <label class="s4-field" style="max-width:170px">Max time
+                    <select id="recipeTime">
+                        <option value="">Any time</option><option value="15">15 min or less</option>
+                        <option value="30">30 min or less</option><option value="45">45 min or less</option>
+                    </select>
+                </label>
+                <label class="s4-check"><input type="checkbox" id="recipePrefs" checked> Use my diet &amp; allergy preferences</label>
+            </div>
         </section>
 
+        <div id="recipePrefNote"></div>
 
         <!-- CATEGORIES -->
         <section class="recipe-categories">
-
-            <button class="recipe-category active">
-                All recipes
-            </button>
-            <button class="recipe-category" data-category="favorites">
-    ♥ Favorites
-</button>
-
-            <button class="recipe-category">
-                Breakfast
-            </button>
-
-            <button class="recipe-category">
-                Lunch
-            </button>
-
-            <button class="recipe-category">
-                Dinner
-            </button>
-
-            <button class="recipe-category">
-                High Protein
-            </button>
-
-            <button class="recipe-category">
-                Vegetarian
-            </button>
-
-            <button class="recipe-category">
-                Quick Meals
-            </button>
-
+            <button class="recipe-category active" data-category="">All recipes</button>
+            <button class="recipe-category" data-category="favorites">♥ Favorites</button>
+            <button class="recipe-category" data-category="breakfast">Breakfast</button>
+            <button class="recipe-category" data-category="lunch">Lunch</button>
+            <button class="recipe-category" data-category="dinner">Dinner</button>
+            <button class="recipe-category" data-category="high-protein">High Protein</button>
+            <button class="recipe-category" data-category="vegetarian">Vegetarian</button>
+            <button class="recipe-category" data-category="quick">Quick Meals</button>
         </section>
 
-
-        <!-- SECTION TITLE -->
         <div class="recipe-section-heading">
-
-            <div>
-
-                <h2>Explore recipes</h2>
-
-                <p>
-                    Meals selected around your preferences.
-                </p>
-
-            </div>
-
-            <span>6 recipes</span>
-
+            <div><h2>Explore recipes</h2><p>Meals from the recipe database, scaled to your servings.</p></div>
+            <span id="recipeCount"></span>
         </div>
 
+        <section class="recipe-grid" id="recipeGrid"></section>
 
-        <!-- RECIPE GRID -->
-        <section class="recipe-grid">
+        <div class="s4-pager" id="recipePager"></div>
 
-
-            <!-- RECIPE 1 -->
-            <article class="recipe-card"
-    data-category="breakfast high-protein"
-    data-name="Greek Yogurt Berry Bowl"
-    data-calories="380">
-
-                <div class="recipe-image berry-recipe">
-
-                    <span class="recipe-emoji">
-                        🫐
-                    </span>
-
-                    <button class="favorite-button">
-                        ♡
-                    </button>
-
-                    <span class="recipe-time">
-                        10 min
-                    </span>
-
-                </div>
-
-
-                <div class="recipe-card-content">
-
-                    <div class="recipe-type">
-                        BREAKFAST
-                    </div>
-
-                    <h3>
-                        Greek Yogurt Berry Bowl
-                    </h3>
-
-                    <p>
-                        Greek yogurt, fresh berries,
-                        granola, honey, and chia seeds.
-                    </p>
-
-
-                    <div class="recipe-macros">
-
-                        <span>
-                            <strong>380</strong>
-                            kcal
-                        </span>
-
-                        <span>
-                            <strong>28g</strong>
-                            protein
-                        </span>
-
-                    </div>
-
-
-                    <button class="add-plan-button">
-                        + Add to meal plan
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- RECIPE 2 -->
-            <article
-    class="recipe-card"
-    data-category="lunch high-protein"
-    data-name="Grilled Chicken Power Bowl"
-    data-calories="540">
-
-                <div class="recipe-image chicken-recipe">
-
-                    <span class="recipe-emoji">
-                        🥗
-                    </span>
-
-                    <button class="favorite-button">
-                        ♡
-                    </button>
-
-                    <span class="recipe-time">
-                        25 min
-                    </span>
-
-                </div>
-
-
-                <div class="recipe-card-content">
-
-                    <div class="recipe-type">
-                        LUNCH
-                    </div>
-
-                    <h3>
-                        Grilled Chicken Power Bowl
-                    </h3>
-
-                    <p>
-                        Chicken, brown rice, avocado,
-                        greens, corn, and fresh salsa.
-                    </p>
-
-
-                    <div class="recipe-macros">
-
-                        <span>
-                            <strong>540</strong>
-                            kcal
-                        </span>
-
-                        <span>
-                            <strong>46g</strong>
-                            protein
-                        </span>
-
-                    </div>
-
-
-                    <button class="add-plan-button">
-                        + Add to meal plan
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- RECIPE 3 -->
-            <article
-    class="recipe-card"
-    data-category="dinner vegetarian"
-    data-name="Creamy Garlic Pasta"
-    data-calories="610">
-
-                <div class="recipe-image pasta-recipe">
-
-                    <span class="recipe-emoji">
-                        🍝
-                    </span>
-
-                    <button class="favorite-button">
-                        ♡
-                    </button>
-
-                    <span class="recipe-time">
-                        20 min
-                    </span>
-
-                </div>
-
-
-                <div class="recipe-card-content">
-
-                    <div class="recipe-type">
-                        DINNER
-                    </div>
-
-                    <h3>
-                        Creamy Garlic Pasta
-                    </h3>
-
-                    <p>
-                        Pasta tossed with garlic,
-                        spinach, parmesan, and herbs.
-                    </p>
-
-
-                    <div class="recipe-macros">
-
-                        <span>
-                            <strong>610</strong>
-                            kcal
-                        </span>
-
-                        <span>
-                            <strong>22g</strong>
-                            protein
-                        </span>
-
-                    </div>
-
-
-                    <button class="add-plan-button">
-                        + Add to meal plan
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- RECIPE 4 -->
-            <article
-    class="recipe-card"
-    data-category="breakfast quick"
-    data-name="Avocado Egg Toast"
-    data-calories="420">
-
-                <div class="recipe-image avocado-recipe">
-
-                    <span class="recipe-emoji">
-                        🥑
-                    </span>
-
-                    <button class="favorite-button">
-                        ♡
-                    </button>
-
-                    <span class="recipe-time">
-                        12 min
-                    </span>
-
-                </div>
-
-
-                <div class="recipe-card-content">
-
-                    <div class="recipe-type">
-                        BREAKFAST
-                    </div>
-
-                    <h3>
-                        Avocado Egg Toast
-                    </h3>
-
-                    <p>
-                        Whole grain toast topped with
-                        avocado, egg, and chili flakes.
-                    </p>
-
-
-                    <div class="recipe-macros">
-
-                        <span>
-                            <strong>420</strong>
-                            kcal
-                        </span>
-
-                        <span>
-                            <strong>21g</strong>
-                            protein
-                        </span>
-
-                    </div>
-
-
-                    <button class="add-plan-button">
-                        + Add to meal plan
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- RECIPE 5 -->
-            <article
-    class="recipe-card"
-    data-category="dinner high-protein"
-    data-name="Salmon Rice Bowl"
-    data-calories="590">
-                <div class="recipe-image salmon-recipe">
-
-                    <span class="recipe-emoji">
-                        🐟
-                    </span>
-
-                    <button class="favorite-button">
-                        ♡
-                    </button>
-
-                    <span class="recipe-time">
-                        30 min
-                    </span>
-
-                </div>
-
-
-                <div class="recipe-card-content">
-
-                    <div class="recipe-type">
-                        DINNER
-                    </div>
-
-                    <h3>
-                        Salmon Rice Bowl
-                    </h3>
-
-                    <p>
-                        Salmon, jasmine rice,
-                        cucumber, avocado, and sesame.
-                    </p>
-
-
-                    <div class="recipe-macros">
-
-                        <span>
-                            <strong>590</strong>
-                            kcal
-                        </span>
-
-                        <span>
-                            <strong>40g</strong>
-                            protein
-                        </span>
-
-                    </div>
-
-
-                    <button class="add-plan-button">
-                        + Add to meal plan
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- RECIPE 6 -->
-            <article
-    class="recipe-card"
-    data-category="lunch vegetarian quick"
-    data-name="Mediterranean Wrap"
-    data-calories="450">
-
-                <div class="recipe-image wrap-recipe">
-
-                    <span class="recipe-emoji">
-                        🌯
-                    </span>
-
-                    <button class="favorite-button">
-                        ♡
-                    </button>
-
-                    <span class="recipe-time">
-                        15 min
-                    </span>
-
-                </div>
-
-
-                <div class="recipe-card-content">
-
-                    <div class="recipe-type">
-                        LUNCH
-                    </div>
-
-                    <h3>
-                        Mediterranean Wrap
-                    </h3>
-
-                    <p>
-                        Hummus, spinach, tomato,
-                        cucumber, feta, and herbs.
-                    </p>
-
-
-                    <div class="recipe-macros">
-
-                        <span>
-                            <strong>450</strong>
-                            kcal
-                        </span>
-
-                        <span>
-                            <strong>19g</strong>
-                            protein
-                        </span>
-
-                    </div>
-
-
-                    <button class="add-plan-button">
-                        + Add to meal plan
-                    </button>
-
-                </div>
-
-            </article>
-
-        </section>
-
-
-        <!-- EMPTY SEARCH STATE -->
-        <div class="recipe-empty-state" id="recipeEmptyState">
-
+        <div class="recipe-empty-state" id="recipeEmptyState" style="display:none">
             <span>⌕</span>
-
             <h3>No recipes found</h3>
-
-            <p>
-                Try searching for another meal or ingredient.
-            </p>
-
+            <p id="recipeEmptyText">Try searching for another meal or ingredient.</p>
         </div>
 
     </main>
@@ -661,6 +167,8 @@
 </div>
 
 <script src="script.js"></script>
+<script src="common.js?v=6"></script>
+<script src="recipes.js"></script>
 
 <script src="mobile.js" defer></script>
 </body>

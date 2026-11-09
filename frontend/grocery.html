@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MealPlan | Grocery List</title><link rel="stylesheet" href="styles.css">
-<style>
-.grocery-wrap{max-width:1100px}.grocery-sub{color:#6c746f;margin:10px 0 28px}.grocery-card{background:#fff;border:1px solid #dfe5e1;border-radius:14px;padding:24px;margin-bottom:20px}.grocery-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:12px;align-items:end}.grocery-grid label{display:block;font-size:12px;font-weight:700;margin-bottom:8px}.grocery-grid input{width:100%;padding:12px;border:1px solid #dfe5e1;border-radius:8px}.grocery-btn{border:0;background:#315f45;color:white;border-radius:8px;padding:13px 16px;cursor:pointer}.grocery-remove{background:none;color:#a33232;border:0;cursor:pointer}.grocery-list{list-style:none;padding:0}.grocery-list li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid #e8ece9}.grocery-list li:last-child{border-bottom:0}.grocery-list label{display:flex;align-items:center;gap:12px}.grocery-list .done{text-decoration:line-through;color:#858e87}.grocery-meta{color:#6c746f;font-size:13px}.grocery-total{font-size:20px;font-weight:700;color:#315f45}.grocery-error{color:#a33232;margin-top:12px;min-height:20px}@media(max-width:1000px){.grocery-grid{grid-template-columns:1fr 1fr}.grocery-grid button{grid-column:1/-1}}@media(max-width:650px){.grocery-grid{grid-template-columns:1fr}.grocery-grid button{grid-column:auto}}
-</style></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MealPlan | Grocery List</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="sprint4.css?v=6">
+</head>
 <body class="app-body"><div class="app-layout">
 <aside class="sidebar">
 
@@ -78,8 +81,63 @@
         </div>
 
     </aside>
-<main class="main-content"><div class="grocery-wrap"><p class="page-label">MEAL PLANNING</p><h1>Grocery List</h1><p class="grocery-sub">Plan your shopping, track purchased items, and estimate your grocery costs.</p>
-<section class="grocery-card"><h2 style="margin-bottom:18px">Add Grocery Item</h2><form id="groceryForm" class="grocery-grid"><div><label for="itemName">Item</label><input id="itemName" maxlength="120" placeholder="e.g. Tomatoes" required></div><div><label for="itemQty">Quantity</label><input id="itemQty" type="number" min="0.01" step="0.01" value="1" required></div><div><label for="itemUnit">Unit</label><input id="itemUnit" maxlength="30" value="pcs" required></div><div><label for="itemPrice">Est. price ($)</label><input id="itemPrice" type="number" min="0" step="0.01" value="0" required></div><button class="grocery-btn" type="submit">+ Add</button></form><p class="grocery-error" id="groceryError" role="alert"></p></section>
-<section class="grocery-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:14px"><h2>Shopping Items</h2><span class="grocery-total" id="groceryTotal">Estimated total: $0.00</span></div><ul id="groceryItems" class="grocery-list"><li>Loading...</li></ul></section>
-</div></main></div><script src="script.js"></script><script src="grocery.js"></script><script src="mobile.js" defer></script>
-</body></html>
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="page-label">SHOPPING</p>
+                <h1>Grocery list</h1>
+                <p class="topbar-subtitle">Build a shopping list from your meal plan, add it to your list, and order it when you are ready.</p>
+            </div>
+            <div class="topbar-actions"></div>
+        </header>
+
+        <section class="s4-card" id="gBudget"><div class="bud-strip"><div class="big">Budget<small>Checking your budget…</small></div></div></section>
+
+        <section class="s4-card">
+            <div class="s4-bar-head">
+                <div>
+                    <h3 style="margin:0">Build from my meal plan</h3>
+                    <p class="s4-sub" style="margin:4px 0 0">Everything your planned meals need, minus what is already in your pantry.</p>
+                </div>
+                <div class="s4-row" style="margin:0">
+                    <button class="week-arrow" id="gWeekPrev" aria-label="Previous week">←</button>
+                    <strong id="gWeekLabel" style="font-size:12px;min-width:150px;text-align:center"></strong>
+                    <button class="week-arrow" id="gWeekNext" aria-label="Next week">→</button>
+                </div>
+            </div>
+            <div id="gPlan">Loading…</div>
+        </section>
+
+        <div class="s4-split wide">
+            <section class="s4-card">
+                <div class="s4-bar-head"><h3 style="margin:0">My grocery list</h3><span id="groceryTotal" class="s4-chip" style="margin:0"></span></div>
+                <div id="gSum"></div>
+                <form id="groceryForm" class="g-add">
+                    <label class="s4-field">Add an item<input id="itemName" maxlength="120" placeholder="e.g. Tomatoes" required></label>
+                    <label class="s4-field">Qty<input id="itemQty" type="number" min="0.01" step="any" value="1" required></label>
+                    <label class="s4-field">Unit<input id="itemUnit" maxlength="30" value="pcs" required></label>
+                    <label class="s4-field">Price ($)<input id="itemPrice" type="number" min="0" step="0.01" value="0"></label>
+                    <button class="s4-btn" type="submit">+ Add</button>
+                </form>
+                <div class="s4-err" id="groceryError" role="alert"></div>
+                <div id="groceryItems"></div>
+            </section>
+            <section class="s4-card">
+                <h3>Suggestions for this week</h3>
+                <div id="gSuggest">Loading…</div>
+            </section>
+        </div>
+
+        <section class="s4-card">
+            <h3>Order history</h3>
+            <div id="ordHistory">Loading…</div>
+        </section>
+    </main>
+</div>
+<script src="script.js"></script>
+<script src="common.js?v=6"></script>
+<script src="grocery.js?v=6"></script>
+<script src="mobile.js"></script>
+<script>if(!window.__groceryLoaded){var e=document.getElementById("gPlan");if(e)e.innerHTML='<div class="s4-note bad">This page could not start. Make sure grocery.js and common.js are uploaded to your frontend folder, then hard-refresh (Ctrl/Cmd + Shift + R).</div>';}</script>
+</body>
+</html>

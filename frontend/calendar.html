@@ -7,6 +7,7 @@
     <title>MealPlan | Meal Calendar</title>
 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sprint4.css">
 </head>
 
 <body class="app-body">
@@ -113,237 +114,25 @@
         </header>
 
 
-        <!-- WEEK CONTROLS -->
+        <!-- CONTROLS -->
         <section class="week-toolbar">
-
             <div class="week-navigation">
-
-                <button class="week-arrow">
-                    ←
-                </button>
-
-                <div>
-                    <span class="week-label">THIS WEEK</span>
-                    <h2>October 5 – 11, 2026</h2>
-                </div>
-
-                <button class="week-arrow">
-                    →
-                </button>
-
+                <button class="week-arrow" id="calPrev" aria-label="Previous">←</button>
+                <div><span class="week-label" id="calLabel">THIS WEEK</span><h2 id="calTitle"></h2></div>
+                <button class="week-arrow" id="calNext" aria-label="Next">→</button>
             </div>
-
-            <button class="today-btn">
-                Today
-            </button>
-
+            <div class="s4-row">
+                <button class="today-btn" id="calToday">Today</button>
+                <button class="s4-btn ghost" id="viewWeek">Week</button>
+                <button class="s4-btn ghost" id="viewMonth">Month</button>
+            </div>
         </section>
 
-
-        <!-- WEEK DAYS -->
-        <section class="calendar-grid">
-
-            <!-- MONDAY -->
-<div class="day-column" data-day="monday">
-                <div class="day-heading">
-                    <span>MON</span>
-                    <strong>5</strong>
-                </div>
-
-                <div class="calendar-meal breakfast-meal">
-                    <span class="meal-type">BREAKFAST</span>
-                    <h3>Greek Yogurt Bowl</h3>
-                    <p>420 kcal</p>
-                </div>
-
-                <div class="calendar-meal lunch-meal">
-                    <span class="meal-type">LUNCH</span>
-                    <h3>Chicken Power Bowl</h3>
-                    <p>580 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-
-            <!-- TUESDAY -->
-            <div class="day-column" data-day="tuesday">
-
-                <div class="day-heading">
-                    <span>TUE</span>
-                    <strong>6</strong>
-                </div>
-
-                <div class="calendar-meal breakfast-meal">
-                    <span class="meal-type">BREAKFAST</span>
-                    <h3>Avocado Toast</h3>
-                    <p>390 kcal</p>
-                </div>
-
-                <div class="calendar-meal dinner-meal">
-                    <span class="meal-type">DINNER</span>
-                    <h3>Garlic Pasta</h3>
-                    <p>620 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-
-            <!-- WEDNESDAY -->
-<div class="day-column today-column" data-day="wednesday">
-
-                <div class="day-heading">
-                    <span>WED</span>
-                    <strong>7</strong>
-                    <small>Today</small>
-                </div>
-
-                <div class="calendar-meal breakfast-meal">
-                    <span class="meal-type">BREAKFAST</span>
-                    <h3>Oatmeal & Berries</h3>
-                    <p>350 kcal</p>
-                </div>
-
-                <div class="calendar-meal lunch-meal">
-                    <span class="meal-type">LUNCH</span>
-                    <h3>Turkey Wrap</h3>
-                    <p>510 kcal</p>
-                </div>
-
-                <div class="calendar-meal dinner-meal">
-                    <span class="meal-type">DINNER</span>
-                    <h3>Salmon & Rice</h3>
-                    <p>680 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-
-            <!-- THURSDAY -->
-<div class="day-column" data-day="thursday">
-
-                <div class="day-heading">
-                    <span>THU</span>
-                    <strong>8</strong>
-                </div>
-
-                <div class="calendar-meal lunch-meal">
-                    <span class="meal-type">LUNCH</span>
-                    <h3>Caesar Salad</h3>
-                    <p>450 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-
-            <!-- FRIDAY -->
-<div class="day-column" data-day="friday">
-
-                <div class="day-heading">
-                    <span>FRI</span>
-                    <strong>9</strong>
-                </div>
-
-                <div class="calendar-meal breakfast-meal">
-                    <span class="meal-type">BREAKFAST</span>
-                    <h3>Egg & Toast</h3>
-                    <p>410 kcal</p>
-                </div>
-
-                <div class="calendar-meal dinner-meal">
-                    <span class="meal-type">DINNER</span>
-                    <h3>Chicken Tacos</h3>
-                    <p>650 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-
-            <!-- SATURDAY -->
-<div class="day-column" data-day="saturday">
-
-                <div class="day-heading">
-                    <span>SAT</span>
-                    <strong>10</strong>
-                </div>
-
-                <div class="calendar-meal lunch-meal">
-                    <span class="meal-type">LUNCH</span>
-                    <h3>Veggie Bowl</h3>
-                    <p>470 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-
-            <!-- SUNDAY -->
-<div class="day-column" data-day="sunday">
-                <div class="day-heading">
-                    <span>SUN</span>
-                    <strong>11</strong>
-                </div>
-
-                <div class="calendar-meal dinner-meal">
-                    <span class="meal-type">DINNER</span>
-                    <h3>Grilled Chicken</h3>
-                    <p>590 kcal</p>
-                </div>
-
-                <button class="add-small-meal">
-                    + Add meal
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- WEEK SUMMARY -->
-        <section class="week-summary">
-
-            <div>
-                <span>MEALS PLANNED</span>
-<strong id="mealsPlannedCount">13</strong>            </div>
-
-            <div>
-                <span>AVG. DAILY CALORIES</span>
-                <strong>1,840</strong>
-            </div>
-
-            <div>
-                <span>WEEKLY BUDGET</span>
-                <strong>$72 / $100</strong>
-            </div>
-
-            <div>
-                <span>PLAN STATUS</span>
-                <strong class="plan-good">On track</strong>
-            </div>
-
-        </section>
+        <section class="s4-stats" id="calStats"></section>
+        <p class="s4-sub" style="color:#6b7280">Tip: drag a meal onto another day to move it. Tick ✓ when you have eaten it — your nutrition log and pantry update automatically.</p>
+        <div id="calMsg"></div>
+        <section id="calBody"></section>
+        <p><a href="grocery.html">Order groceries for this plan →</a></p>
 
     </main>
 
@@ -408,6 +197,8 @@
 
 </div>
 <script src="script.js"></script>
+<script src="common.js"></script>
+<script src="calendar.js"></script>
 
 <script src="mobile.js" defer></script>
 </body>

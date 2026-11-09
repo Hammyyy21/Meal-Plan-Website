@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MealPlan | Admin</title>
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="sprint4.css">
+</head>
+<body class="app-body">
+<main class="main-content" style="max-width:1000px;margin:0 auto;padding:24px">
+  <header class="s4-cal-bar"><div><p class="page-label">ADMINISTRATION</p><h1>User management</h1><p class="s4-sub">Search accounts, suspend or reactivate them, and change roles.</p></div>
+    <div class="s4-row"><a class="s4-btn ghost" href="dashboard.html" style="text-decoration:none">My dashboard</a><button id="logoutBtn" class="s4-btn danger">Log out</button></div></header>
+  <div id="adMsg"></div>
+  <section class="s4-card">
+    <div class="s4-row">
+      <label class="s4-field" style="flex:2">Search by email<input id="adQ" placeholder="name@example.com"></label>
+      <label class="s4-field">Status<select id="adStatus"><option value="">All</option><option>active</option><option>suspended</option><option>deleted</option></select></label>
+      <label class="s4-field">Role<select id="adRole"><option value="">All</option><option>user</option><option>admin</option></select></label>
+    </div>
+    <div style="overflow:auto"><table class="s4-table" id="adTable"></table></div>
+  </section>
+</main>
+<script src="script.js"></script>
+<script src="common.js"></script>
+<script>
+(function(){
+  let me = null, t;
+  async function load(){
+    const p = new URLSearchParams();
+    ["adQ:q","adStatus:status","adRole:role"].forEach(x => { const [id,k] = x.split(":"), v = document.getElementById(id).value.trim(); if (v) p.set(k,v); });
+    try {
+      const list = await MM.api("/api/admin/users?"+p);
+      document.getElementById("adMsg").innerHTML = "";
+      document.getElementById("adTable").innerHTML = '<tr><th>ID</th><th>Email</th><th>Role</th><th>Status</th><th>Created</th><th>Actions</th></tr>'+
+        list.map(u => '<tr><td>'+u.user_id+'</td><td>'+MM.esc(u.email)+'</td><td>'+MM.esc(u.role_name)+'</td><td>'+MM.esc(u.account_status)+'</td><td>'+MM.esc(String(u.created_at).slice(0,10))+'</td><td>'+
+          (me && u.user_id === me.user_id ? "(you)" :
+            (u.account_status === "suspended" ? '<button class="s4-btn ghost" data-st="active" data-id="'+u.user_id+'">Reactivate</button>' : '<button class="s4-btn danger" data-st="suspended" data-id="'+u.user_id+'">Suspend</button>')+
+            ' <button class="s4-btn ghost" data-role="'+(u.role_name === "admin" ? "user" : "admin")+'" data-id="'+u.user_id+'">Make '+(u.role_name === "admin" ? "user" : "admin")+'</button>')+'</td></tr>').join("");
+    } catch(e){
+      document.getElementById("adMsg").innerHTML = '<div class="s4-note bad">'+MM.esc(e.message)+(e.status === 403 ? ' Only administrators can use this page.' : '')+'</div>';
+    }
+  }
+  document.getElementById("adTable").addEventListener("click", async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    try {
+      if (b.dataset.st) await MM.api("/api/admin/users/"+b.dataset.id+"/status?status="+b.dataset.st, "PATCH");
+      else if (b.dataset.role) await MM.api("/api/admin/users/"+b.dataset.id+"/role?role="+b.dataset.role, "PATCH");
+      load();
+    } catch(err){ MM.toast(err.message, true); }
+  });
+  ["adQ","adStatus","adRole"].forEach(id => document.getElementById(id).addEventListener("input", () => { clearTimeout(t); t = setTimeout(load, 250); }));
+  MM.api("/api/me").then(u => { me = u; load(); });
+})();
+</script>
+</body>
+</html>

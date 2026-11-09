@@ -75,6 +75,12 @@
 
         const statusCell = el("div");
         statusCell.append(el("span", "status-tag " + st.cls, st.label));
+        const edit = el("button", "more-btn", "✎");
+        edit.type = "button";
+        edit.title = "Edit quantity or expiration";
+        edit.setAttribute("aria-label", "Edit " + item.name);
+        edit.addEventListener("click", () => editItem(item));
+        statusCell.append(edit);
 
         const del = el("button", "more-btn remove-inventory-item", "×");
         del.type = "button";
@@ -90,18 +96,44 @@
         return row;
     }
 
+    function editItem(item) {
+        const m = MM.modal('<h2>Edit ' + MM.esc(item.name) + '</h2><div class="s4-sub">Changes are saved to your pantry.</div>' +
+            '<div class="s4-row"><label class="s4-field">Quantity<input id="eiQty" type="number" min="0" step="0.01" value="' + Number(item.quantity) + '"></label>' +
+            '<label class="s4-field">Unit<input id="eiUnit" maxlength="20" value="' + MM.esc(item.unit) + '"></label>' +
+            '<label class="s4-field">Expires<input id="eiExp" type="date" value="' + (item.expiration_date || "") + '"></label></div>' +
+            '<div class="s4-err" id="eiErr"></div><button class="s4-btn" id="eiGo">Save</button>');
+        m.querySelector("#eiGo").onclick = async () => {
+            const body = { quantity: Number(m.querySelector("#eiQty").value), unit: m.querySelector("#eiUnit").value.trim() };
+            const ex = m.querySelector("#eiExp").value; if (ex) body.expiration_date = ex;
+            try {
+                await api("/api/inventory/" + item.item_id, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+                m.close(); await refresh();
+            } catch (e) { m.querySelector("#eiErr").textContent = e.message; }
+        };
+    }
+
+    let activeCategory = "all";
+    let searchText = "";
+
+    function visibleItems() {
+        return items.filter((i) =>
+            (activeCategory === "all" || i.category === activeCategory) &&
+            (!searchText || i.name.toLowerCase().includes(searchText)));
+    }
+
     function render() {
         rowsBox.replaceChildren();
-        if (!items.length) {
+        const shown = visibleItems();
+        if (!shown.length) {
             const empty = el("div", "inventory-row");
-            const msg = el("div", null, "Your pantry is empty. Click “+ Add item” to add your first ingredient.");
+            const msg = el("div", null, items.length ? "No items match this filter. Try another category or clear the search." : "Your pantry is empty. Click “+ Add item” to add your first ingredient.");
             msg.style.fontSize = "13px";
             msg.style.color = "#6c746f";
             msg.style.gridColumn = "1 / -1";
             empty.append(msg);
             rowsBox.append(empty);
         }
-        items.forEach((item) => rowsBox.append(buildRow(item)));
+        shown.forEach((item) => rowsBox.append(buildRow(item)));
 
         const expiring = items.filter((i) => {
             const d = daysUntil(i.expiration_date);
@@ -114,10 +146,19 @@
         $("invCategories").textContent = new Set(items.map((i) => i.category)).size;
         $("invTip").textContent = expiring.length
             ? "You have " + expiring.length + " ingredient" + (expiring.length === 1 ? "" : "s") +
-              " expiring soon. Add them to this week's meal plan so they don't go to waste."
-            : items.length ? "Nothing is expiring soon. Nice work!"
+              " expiring soon. Get meal ideas that use them up before they go to waste."
+            : items.length ? "Get meal ideas based on the " + items.length + " item" + (items.length === 1 ? "" : "s") + " in your pantry."
             : "Add your first pantry item to get started.";
     }
+
+    document.querySelectorAll(".filter-btn").forEach((b) => b.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((x) => x.classList.remove("active"));
+        b.classList.add("active");
+        activeCategory = b.dataset.category;
+        render();
+    }));
+    const searchBox = $("inventorySearch");
+    if (searchBox) searchBox.addEventListener("input", () => { searchText = searchBox.value.trim().toLowerCase(); render(); });
 
     async function refresh() {
         items = await api("/api/inventory");

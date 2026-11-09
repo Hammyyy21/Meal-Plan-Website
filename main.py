@@ -1,4 +1,4 @@
-"""Meal Plan Tracker - Sprint 2 user management backend (FastAPI + PostgreSQL)."""
+"""MealMate AI (Meal Plan Tracker) backend - FastAPI + PostgreSQL. Sprint 4 modules are in api_sprint4.py."""
 import os, uuid
 from datetime import date, datetime, timedelta
 
@@ -185,7 +185,9 @@ class GoalIn(BaseModel):
     goal_type: str
     target_value: Decimal = Field(gt=0)
     current_value: Decimal = Field(default=0, ge=0)
+    start_value: Decimal | None = Field(default=None, gt=0)
     unit: str = Field(min_length=1, max_length=20)
+    label: str | None = Field(default=None, max_length=80)
     target_date: date | None = None
 
 @app.get('/api/budgets')
@@ -215,16 +217,30 @@ def delete_budget(budget_id:int, user=Depends(current_user), conn=Depends(db)):
 
 @app.get('/api/goals')
 def get_goals(user=Depends(current_user), conn=Depends(db)):
+    import mealplan_logic as L
     with conn.cursor() as cur:
-        cur.execute('SELECT goal_id, goal_type, target_value, current_value, unit, start_date, target_date, status FROM goals WHERE user_id=%s ORDER BY goal_id DESC', (user['user_id'],))
-        return cur.fetchall()
+        cur.execute('SELECT goal_id, goal_type, target_value, current_value, start_value, label, unit, start_date, target_date, status FROM goals WHERE user_id=%s ORDER BY goal_id DESC', (user['user_id'],))
+        rows = cur.fetchall()
+    for g in rows:
+        g['progress'] = L.goal_progress(g['goal_type'], g['start_value'], g['current_value'], g['target_value'])
+    return rows
 
 @app.post('/api/goals', status_code=201)
 def add_goal(body: GoalIn, user=Depends(current_user), conn=Depends(db)):
-    if body.goal_type not in ('weight_loss','weight_gain','maintain','calorie','protein','custom'):
-        raise HTTPException(400,'Invalid goal type')
+    import mealplan_logic as L
+    start = body.start_value
+    if body.goal_type in ('weight_loss', 'weight_gain', 'maintain') and start is None:
+        start = body.current_value if body.current_value > 0 else None
+    err = L.validate_goal(body.goal_type, start, body.target_value, body.current_value)
+    if err: raise HTTPException(400, err)
+    if body.goal_type == 'custom' and not (body.label or '').strip():
+        raise HTTPException(400, 'Give your custom goal a name')
+    if body.target_date and body.target_date < date.today():
+        raise HTTPException(400, 'Target date cannot be in the past')
+    unit = L.GOAL_UNITS.get(body.goal_type, body.unit)
+    current = body.current_value if body.current_value > 0 else (start or 0)
     with conn.cursor() as cur:
-        cur.execute('INSERT INTO goals (user_id,goal_type,target_value,current_value,unit,target_date) VALUES (%s,%s,%s,%s,%s,%s) RETURNING goal_id',(user['user_id'],body.goal_type,body.target_value,body.current_value,body.unit,body.target_date))
+        cur.execute('INSERT INTO goals (user_id,goal_type,target_value,current_value,start_value,label,unit,target_date) VALUES (%s,%s,%s,%s,%s,%s,%s,%s) RETURNING goal_id',(user['user_id'],body.goal_type,body.target_value,current,start,(body.label or '').strip() or None,unit,body.target_date))
         result=cur.fetchone()
     conn.commit()
     return result
@@ -394,8 +410,8 @@ def save_recommendation_settings(body:RecommendationSettingsIn,user=Depends(curr
     conn.commit()
     return {'ok':True}
 
-@app.get('/api/recommendations/meals')
-def recommended_meals(user=Depends(current_user),conn=Depends(db)):
+@app.get('/api/recommendations/catalog')
+def recommended_meals_catalog(user=Depends(current_user),conn=Depends(db)):
     settings=recommendation_settings(user,conn)
     diet=settings['diet']; allergies=set(settings['allergies']); budget=settings['max_cost']
     # Explicit allergy labels; curated meals only. Not a guarantee against cross-contact.
@@ -460,5 +476,11 @@ def inventory_delete(item_id: int, user=Depends(current_user), conn=Depends(db))
     conn.commit()
     return {"ok": True}
 # END SPRINT3_INVENTORY_API
+
+# SPRINT4_API  (recipes, calendar, preferences, summary, water, notifications, grocery orders)
+# Lives in api_sprint4.py; it reuses current_user/db from this file, so login/session rules are unchanged.
+from api_sprint4 import build_router
+app.include_router(build_router(current_user, db))
+# END SPRINT4_API
 
 app.mount("/", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "frontend"), html=True))

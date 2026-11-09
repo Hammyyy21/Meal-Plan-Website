@@ -32,12 +32,14 @@ def call(op, method, path, body=None):
             raw = r.read().decode() or "null"
             return r.status, json.loads(raw)
     except urllib.error.HTTPError as e:
+        print(f"Upstream API returned HTTP {e.code}", flush=True)
         raw = e.read().decode()
         try:
             return e.code, json.loads(raw)
         except ValueError:
             return e.code, raw[:200]
-    except Exception as e:                       # server down, DNS, timeout ...
+    except Exception as e:
+        print(f"Upstream request failed: {type(e).__name__}", flush=True)
         return 0, str(e)
 
 

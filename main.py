@@ -336,9 +336,9 @@ def chat_history(chat_session_id:int, user=Depends(current_user), conn=Depends(d
 
 @app.post('/api/chat/message')
 def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)):
-    key=os.getenv('OPENAI_API_KEY','').strip()
+    key = os.getenv("GEMINI_API_KEY", "").strip()
     if not key:
-        raise HTTPException(503,'AI chatbot is not configured yet. Add OPENAI_API_KEY in Render Environment.')
+        raise HTTPException(503, "AI chatbot is not configured yet. Add GEMINI_API_KEY in Render Environment.")
     message=body.message.strip()
     if not message: raise HTTPException(400,'Enter a message')
     with conn.cursor() as cur:
@@ -355,8 +355,19 @@ def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)
     for item in history:
         messages.append({'role':'assistant' if item['sender']=='bot' else 'user','content':item['message_text']})
     messages.append({'role':'user','content':message})
-    payload=json.dumps({'model':os.getenv('OPENAI_MODEL','gpt-4o-mini'),'messages':messages,'max_tokens':500}).encode('utf-8')
-    req=urllib.request.Request('https://api.openai.com/v1/chat/completions',data=payload,headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'},method='POST')
+    payload = json.dumps({
+        "model": "gemini-flash-latest",
+        "messages": messages,
+    }).encode("utf-8")
+    req = urllib.request.Request(
+        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+        data=payload,
+        headers={
+            "Authorization": "Bearer " + key,
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
     try:
         with urllib.request.urlopen(req,timeout=35) as response:
             result=json.load(response)

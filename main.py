@@ -369,7 +369,7 @@ def chat_message(body:ChatPromptIn, user=Depends(current_user), conn=Depends(db)
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req,timeout=35) as response:
+        with urllib.request.urlopen(req,timeout=60) as response:
             result=json.load(response)
         reply=result['choices'][0]['message']['content'].strip()
         if not reply: raise ValueError('Empty AI response')
